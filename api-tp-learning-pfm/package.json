@@ -1,0 +1,26 @@
+{
+  "name": "api-tp-learning-pfm",
+  "version": "1.0.0",
+  "description": "E-learning API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Three Points FS Master",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "http-errors": "^1.7.2",
+    "mongodb-memory-server": "^7.5.1",
+    "mongoose": "^6.0.12",
+    "mongose": "^0.0.2-security",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}

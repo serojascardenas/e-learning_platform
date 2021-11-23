@@ -1,0 +1,27 @@
+{
+	"info": {
+		"_postman_id": "fea1829e-50c4-4a71-8a9a-bd2a249befd1",
+		"name": "PFM elearning portal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API-Root",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
