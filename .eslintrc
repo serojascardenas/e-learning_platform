@@ -47,7 +47,7 @@
 			"as-needed"
 		],
 		"comma-dangle": [
-			"error", 
+			"warn", 
 			"always-multiline"
 		],
 		"no-unused-vars": 1

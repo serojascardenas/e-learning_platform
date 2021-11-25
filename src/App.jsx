@@ -1,11 +1,29 @@
 import React from 'react';
-import Navbar from './components/Navbar';
+import {
+	Route,
+	Switch,
+	useLocation,
+} from 'react-router-dom';
 
-const App = () => (
-	<>
-		<Navbar />
-		hey!
-	</>
-);
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+
+
+
+const App = () => {
+	const location = useLocation();
+	return (
+		<>
+			<Navbar 
+				location={location}
+				key={location.pathname}
+			/>
+			<Switch>
+				<Route path="/home" component={Home} />
+				<Route path="/" component={Home} />
+			</Switch>
+		</>
+	);
+};
 
 export default App;

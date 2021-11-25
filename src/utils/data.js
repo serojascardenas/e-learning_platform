@@ -1,18 +1,15 @@
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
-axios.interceptors.response.use(null, error => {
-	const authError = error.response && error.response.status === 401;
+import {
+	identity, get,
+} from './core';
 
-	// remove user from local storage if there is a unnauthorized response and the user exists
-	if (authError) {
-		if (localStorage.getItem('user')) {
-			localStorage.removeItem('user');
-		}
-		return Promise.reject(error);
-	}
-});
+const LOCAL_HOST_ADDRESS = '127.0.0.1';
 
-const errorHandler = (error, { req, res, ...props }) => {
+const getServerOrigin = req => req && `${req.protocol}://${req.localhost || req.get('host') || LOCAL_HOST_ADDRESS}`;
+
+const defaultErrorHandler = (error, { req, res, ...props }) => {
 	const {
 		response: {
 			data: {
@@ -21,59 +18,84 @@ const errorHandler = (error, { req, res, ...props }) => {
 		} = {},
 	} = error;
 
+	let errorString = get(error, 'response.data', get(error, 'response', error));
+
+	// errorString could be an HTML error. To avoid spreading a very long string,
+	//    validate first if it's an actual HTML string.
+	if (typeof errorString === 'string' && errorString.indexOf('<!DOCTYPE html>') === 0) {
+		errorString = { errorString };
+	}
+
 	return {
 		error: error.toString(),
 		statusCode,
 		props,
+		...errorString,
 	};
 };
 
-
-const getComponentData = ({
+const fetchComponentData = ({
 	endpoint = '',
 	settings = {},
 	method = 'get',
+	mapper = identity,
+	errorHandler = defaultErrorHandler,
 }) => {
-
 	const makeRequest = async ({
-		url,
-		req,
-		res,
-		...parsedSettings
+		url, requestId, req, res, ...parsedSettings
 	}) => {
 		const request = await axios({
 			url,
 			method,
-			withCredentials: true,
+			timeout: 10000,
 			headers: {
 				'Content-Type': 'application/json',
+				'X-Request-Id': requestId,
 				...(req ? req.headers : undefined),
 			},
 			...parsedSettings,
 		});
 
 		return {
-			data: request.data,
-			statusCode: request.status,
+			...mapper({
+				...request.data, parsedSettings, req, res,
+			}, request),
+			state: request.data.state,
 		};
 	};
 
 	const fetcherFunction = async ({ req, res, ...props } = {}) => {
-		const baseUrl = process.env.REACT_APP_BASE_URL;
-		const url = `${baseUrl}/${endpoint}`;
+		const requestId = uuidv4();
+		let url;
 
 		try {
+			if (res) res.set('X-Request-Id', requestId);
+
+			const absUrl = getServerOrigin(req);
+
+			let parsedEndpoint = endpoint;
 			let parsedSettings = settings;
+
+			if (typeof parsedEndpoint === 'function') {
+				parsedEndpoint = endpoint({ req, ...props });
+			}
+
 			if (typeof parsedSettings === 'function') {
 				parsedSettings = settings({ req, ...props });
 			} else {
 				parsedSettings = { ...parsedSettings, ...props };
 			}
 
-			return await makeRequest({ url, req, res, ...parsedSettings });
+			url = `${absUrl || ''}/${parsedEndpoint.replace(/^\//, '')}`;
+
+			const requestInTransit = makeRequest({
+				url, requestId, req, res, ...parsedSettings,
+			});
+
+			return await requestInTransit;
 		} catch (err) {
-			console.log(err);
 			const processedError = errorHandler(err, { req, res, ...props });
+			// eslint-disable-next-line no-console
 			console.error('Error on request', processedError);
 			return processedError;
 		}
@@ -83,5 +105,5 @@ const getComponentData = ({
 };
 
 export {
-	getComponentData,
+	fetchComponentData,
 };
