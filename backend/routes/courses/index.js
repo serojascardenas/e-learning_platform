@@ -4,16 +4,61 @@ module.exports = function coursesRoutes(routes, {
 }) {
 	routes.get('/',
 		middlewares.validator(),
-		(_, res) => {
+		async (_, res) => {
 			const {
-				courses: {
-					getCourses,
+				course: {
+					getAllCourses,
 				},
 			} = controllers;
 
 			try {
-				const courses = getCourses();
+				const courses = await getAllCourses()
+				return res
+					.status(200)
+					.validJsonResponse(courses);
 
+			} catch (err) {
+				return res
+					.status(400)
+					.validJsonError(err);
+			}
+		},
+	);
+
+	routes.get('/users/:id',
+		middlewares.validator(),
+		async (req, res) => {
+			const {
+				course: {
+					getUserCourses,
+				},
+			} = controllers;
+
+			try {
+				const courses = await getUserCourses(req.params.id)
+				return res
+					.status(200)
+					.validJsonResponse(courses);
+
+			} catch (err) {
+				return res
+					.status(400)
+					.validJsonError(err);
+			}
+		},
+	);
+
+	routes.get('/trends',
+		middlewares.validator(),
+		async (req, res) => {
+			const {
+				course: {
+					getTrendCourses,
+				},
+			} = controllers;
+
+			try {
+				const courses = await getTrendCourses(req.params.id)
 				return res
 					.status(200)
 					.validJsonResponse(courses);

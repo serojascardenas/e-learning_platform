@@ -1,14 +1,31 @@
-const getCourses = () => ([
-	{
-		courseId: 1,
-		courseName: 'Test Course from API',
-	},
-	{
-		courseId: 2,
-		courseName: 'Another Test Course',
-	},
-]);
+
+const Course = require('../../models/domain/course.model')
+
+const getAllCourses = async () => {
+
+	const courses = await Course.find()
+		.populate('instructors')
+		.populate('reviews')
+	return courses
+}
+
+const getUserCourses = async (userId) => {
+
+	const courses = await Course.find()
+		.populate('instructors')
+		.populate('reviews')
+	return courses
+}
+
+const getTrendCourses = async () => {
+
+	return await Course.find()
+		.populate('instructors')
+		.populate('reviews')
+}
 
 module.exports = {
-	getCourses,
+	getAllCourses,
+	getUserCourses,
+	getTrendCourses
 };
