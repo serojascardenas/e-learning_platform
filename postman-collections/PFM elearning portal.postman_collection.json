@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "fea1829e-50c4-4a71-8a9a-bd2a249befd1",
+		"name": "PFM elearning portal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API-Root",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-all-courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/course",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-top-trend-courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/course/trend",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"course",
+						"trend"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-user-courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/course/user/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"course",
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

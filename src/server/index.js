@@ -10,6 +10,12 @@ const {
 } = require('./data/dataContext');
 
 const {
+	addInstructores,
+	addCourses,
+	addReviews
+} = require('./data/base.collections');
+
+const {
 	loadControllers,
 	loadServices,
 	loadMiddlewares,
@@ -17,7 +23,7 @@ const {
 } = require('./utils/bootstrap');
 
 const config = require('./utils/config-loader');
-const session = require('./utils/session');
+//const session = require('./utils/session');
 
 const endpointNotFoundMiddleware = require('./middlewares/endpoint-not-found');
 
@@ -31,6 +37,19 @@ async function init() {
 	console.info(`⚙️ Loading config from: "${config.util.getEnv('NODE_CONFIG_ENV')}"`);
 
 	await initializeDb();
+	
+	/** Temporary db creation for development */
+	await addInstructores()
+		.then((result) => {
+			console.log('Intructors => ' + result)
+			addCourses(result)
+				.then((result) => {
+					console.log('Trainings => ' + result)
+					addReviews(result)
+						.then(() => { console.log('finish import') })
+				})
+		})
+	/**/
 
 	const bootstrap = {
 		express,
@@ -51,7 +70,7 @@ async function init() {
 	);
 
 	expressApp.use(express.json());
-	expressApp.use(session);
+	//expressApp.use(session);
 	expressApp.use('/api', routes);
 	expressApp.use('/*', endpointNotFoundMiddleware);
 
