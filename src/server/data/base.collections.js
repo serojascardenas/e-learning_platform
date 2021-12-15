@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-const Instructor = require('../models/domain/instructors.model')
-const Course = require('../models/domain/course.model')
-const Review = require('../models/domain/course_review.model')
+const Instructor = require('../models/domain/instructor')
+const Course = require('../models/domain/course')
+const Review = require('../models/domain/course_review')
 
 const instructorData = [{
     full_name: 'Instructor 1',
