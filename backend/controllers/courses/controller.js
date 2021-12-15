@@ -1,5 +1,5 @@
 
-const Course = require('../../models/domain/course.model')
+const Course = require('../../models/domain/course')
 
 const getAllCourses = async () => {
 
