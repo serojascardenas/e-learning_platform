@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 
 const MongoServer = require('mongodb-memory-server').MongoMemoryServer;
+const uri = 'mongodb+srv://application-user:uTFzRpPRTTDA7Ooh@myfreecluster.6lxeh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
 const initializeDb = async () => {
 	try {
-		const mongoServer = await MongoServer.create();
+		//const mongoServer = await MongoServer.create();
 
-		await mongoose.connect(mongoServer.getUri(), {
-			dbName: 'brain-link-api',
+		await mongoose.connect(uri, {
+			dbName: 'e-learning',
 			useUnifiedTopology: true,
 		});
 
