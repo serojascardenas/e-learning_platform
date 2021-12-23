@@ -109,4 +109,4 @@ const schema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Course', schema)
+module.exports = mongoose.model('Course', schema, 'course')

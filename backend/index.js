@@ -16,6 +16,14 @@ const {
 	loadRoutes,
 } = require('./utils/bootstrap');
 
+/** Temporary db creation for development */
+const {
+	addInstructores,
+	addCourses,
+	addReviews
+} = require('./data/base.collections');
+/**/
+
 const config = require('./utils/config-loader');
 //const session = require('./utils/session');
 
@@ -31,7 +39,18 @@ async function init() {
 	console.info(`⚙️ Loading config from: "${config.util.getEnv('NODE_CONFIG_ENV')}"`);
 
 	await initializeDb();
-
+	/** Temporary db creation for development */
+	await addInstructores()
+		.then((result) => {
+			console.log('Intructors => ' + result)
+			addCourses(result)
+				.then((result) => {
+					console.log('Trainings => ' + result)
+					addReviews(result)
+						.then(() => { console.log('finish import') })
+				})
+		})
+	/**/
 	const bootstrap = {
 		express,
 		app: expressApp,

@@ -37,4 +37,4 @@ const schema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Instructor', schema)
+module.exports = mongoose.model('Instructor', schema, 'instructor')

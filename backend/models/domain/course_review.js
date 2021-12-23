@@ -39,4 +39,4 @@ const schema = new Schema({
     }
 });
 
-module.exports = mongoose.model('CourseReview', schema)
+module.exports = mongoose.model('CourseReview', schema, 'course_review')
