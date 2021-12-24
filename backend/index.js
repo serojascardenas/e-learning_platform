@@ -17,7 +17,7 @@ const {
 } = require('./utils/bootstrap');
 
 const config = require('./utils/config-loader');
-const session = require('./utils/session');
+//const session = require('./utils/session');
 
 const endpointNotFoundMiddleware = require('./middlewares/endpoint-not-found');
 
@@ -31,7 +31,6 @@ async function init() {
 	console.info(`⚙️ Loading config from: "${config.util.getEnv('NODE_CONFIG_ENV')}"`);
 
 	await initializeDb();
-
 	const bootstrap = {
 		express,
 		app: expressApp,
@@ -51,7 +50,7 @@ async function init() {
 	);
 
 	expressApp.use(express.json());
-	expressApp.use(session);
+	//expressApp.use(session);
 	expressApp.use('/api', routes);
 	expressApp.use('/*', endpointNotFoundMiddleware);
 

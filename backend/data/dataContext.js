@@ -1,16 +1,18 @@
+const config = require('../utils/config-loader');
 const mongoose = require('mongoose');
 
-const MongoServer = require('mongodb-memory-server').MongoMemoryServer;
+const { dbUser, dbPwd, dbName } = config.get('server.dataBase');
+
+const uri = 'mongodb+srv://'+dbUser+':'+dbPwd+'@myfreecluster.6lxeh.mongodb.net/?retryWrites=true&w=majority'
 
 const initializeDb = async () => {
 	try {
-		const mongoServer = await MongoServer.create();
 
-		await mongoose.connect(mongoServer.getUri(), {
-			dbName: 'brain-link-api',
+		await mongoose.connect(uri, {
+			dbName: dbName,
 			useUnifiedTopology: true,
 		});
-
+		
 		console.log('💽 ', 'Loaded Database configuration');
 	}
 	catch (err) {
