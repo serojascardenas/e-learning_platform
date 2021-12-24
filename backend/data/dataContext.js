@@ -12,7 +12,7 @@ const initializeDb = async () => {
 			dbName: dbName,
 			useUnifiedTopology: true,
 		});
-
+		
 		console.log('💽 ', 'Loaded Database configuration');
 	}
 	catch (err) {

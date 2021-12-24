@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
 
-const schema = new Schema({
+const schema = new mongoose.Schema({
     id: {
         type: String
     },
@@ -20,12 +19,12 @@ const schema = new Schema({
         required: true
     },
     course: {
-        type: Schema.Types.ObjectId,
-        ref: "Course"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Course'
     },
     user: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 }, {
     timestamps: true,
@@ -39,4 +38,4 @@ const schema = new Schema({
     }
 });
 
-module.exports = mongoose.model('CourseReview', schema, 'course_review')
+module.exports = mongoose.model('CourseReview', schema, 'course_review' );

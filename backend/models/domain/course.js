@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const CourseReview = require('./course_review')
+const User = require('./user')
 
 const MIN_LENGTH_PATTERN = /^.{5,}$/
 
-const schema = new Schema({
+const schema = new mongoose.Schema({
     id: {
         type: String
     },
@@ -23,8 +24,8 @@ const schema = new Schema({
         required: true
     },
     instructors: [{
-        type: Schema.Types.ObjectId,
-        ref: "Instructor"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: User
     }],
     cover_image: {
         type: String,
@@ -34,8 +35,8 @@ const schema = new Schema({
         type: String
     },
     reviews: [{
-        type: Schema.Types.ObjectId,
-        ref: "CourseReview"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: CourseReview
     }],
     attributes: {
         video_content_length: {
@@ -109,4 +110,4 @@ const schema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Course', schema, 'course')
+module.exports = mongoose.model('Course', schema, 'course');

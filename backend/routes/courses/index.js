@@ -6,7 +6,7 @@ module.exports = function coursesRoutes(routes, {
 		middlewares.validator(),
 		async (_, res) => {
 			const {
-				course: {
+				courses: {
 					getAllCourses,
 				},
 			} = controllers;
@@ -29,7 +29,7 @@ module.exports = function coursesRoutes(routes, {
 		middlewares.validator(),
 		async (req, res) => {
 			const {
-				course: {
+				courses: {
 					getUserCourses,
 				},
 			} = controllers;
@@ -52,7 +52,7 @@ module.exports = function coursesRoutes(routes, {
 		middlewares.validator(),
 		async (req, res) => {
 			const {
-				course: {
+				courses: {
 					getTrendCourses,
 				},
 			} = controllers;
