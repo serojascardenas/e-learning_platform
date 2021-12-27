@@ -1,4 +1,3 @@
-
 const Course = require('../../models/domain/course')
 
 const getAllCourses = async () => {
@@ -9,7 +8,7 @@ const getAllCourses = async () => {
 	return courses
 }
 
-const getUserCourses = async (userId) => {
+const getUserCourses = async userId => {
 
 	const courses = await Course.find()
 		.populate('instructors')
