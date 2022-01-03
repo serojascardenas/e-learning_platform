@@ -1,27 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { fetchComponentData } from '../../utils';
+import React, { useEffect, useState } from "react";
+import { fetchComponentData } from "../../utils";
+import CourseList from "../../components/Cards/CourseList";
 
 const Home = () => {
-	// const [courses, setCourses] = useState([]);
+  // const [courses, setCourses] = useState([]);
 
-	// const getCoursesData = async () => {
-	// 	console.log('fetching data');
-	// 	const { data } = await fetchComponentData({
-	// 		endpoint: 'api/courses',
-	// 	});
-	// 	setCourses(data);
-	// };
+  // const getCoursesData = async () => {
+  // 	console.log('fetching data');
+  // 	const { data } = await fetchComponentData({
+  // 		endpoint: 'api/courses',
+  // 	});
+  // 	setCourses(data);
+  // };
 
-	// useEffect(() => {
-	// 	getCoursesData();
-	// }, []);
+  // useEffect(() => {
+  // 	getCoursesData();
+  // }, []);
 
-	return (
-		<>
-			Home Page
-			<div>NOTE: This is just an example! on how to fetch data and display it</div>
-		</>
-	);
+  return <CourseList></CourseList>;
+
+
+  
 };
 
 export default Home;
