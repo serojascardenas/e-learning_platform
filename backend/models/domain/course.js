@@ -5,7 +5,7 @@ const User = require('./user')
 const MIN_LENGTH_PATTERN = /^.{5,}$/
 
 const schema = new mongoose.Schema({
-    _id: {
+    id: {
         type: String
     },
     created_at: {
