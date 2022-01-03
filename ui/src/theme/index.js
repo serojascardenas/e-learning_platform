@@ -30,7 +30,7 @@ export default {
 	},
 	colors: {
 		white: '#FFFFFF',
-		whiteGray: '#FAFAFA',
+		whiteGray: '#F2F3F4',
 		whiteRgb: '255, 255, 255',
 		blackened: '#353535',
 		black: '#000000',
@@ -40,10 +40,12 @@ export default {
 		background: '#E5E5E5',
 		primaryWhite: '#FDFEFE',
 		negative: '#DADDD9',
+		wine: '#A9675E'
 	},
 	heights: {
 		footer: '12rem',
 		navbar: '4rem',
 		breakLine: '1.5rem',
+		card: '10rem'
 	},
 };
