@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 export default {
 	zIndex: {
 		navbar: 1000,
@@ -37,9 +38,14 @@ export default {
 		blackRgb: '0, 0, 0',
 		primary: '#4275A6',
 		secondary: '#115572',
+		terciary: '#0D9F9A',
 		background: '#E5E5E5',
 		primaryWhite: '#FDFEFE',
 		negative: '#DADDD9',
+		placeholder: '#A6ACAF',
+		title: {
+			black: '#071B21',
+		}
 	},
 	heights: {
 		footer: '12rem',

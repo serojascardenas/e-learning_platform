@@ -4,6 +4,7 @@ import theme from '../../theme'
 const variants = {
 	primary: theme.colors.primary,
 	secondary: theme.colors.secondary,
+	terciary: theme.colors.terciary,
 	negative: theme.colors.negative,
 };
 
@@ -15,7 +16,7 @@ const commonStyles = css`
   color: white;
   transition: all 0.5s ease;
 	padding: 0.5rem 1rem;
-	width: 7rem;
+	width: 100%;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.shamrock};
