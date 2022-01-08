@@ -50,6 +50,7 @@ const Login = ({
 				/>
 				<Form.Submit
 					variant="terciary"
+					type="submit"
 				>
 					Iniciar Sesión
 				</Form.Submit>
