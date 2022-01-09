@@ -3,6 +3,7 @@ const express = require('express');
 const set = require('lodash/set');
 const { resolve } = require('path');
 const createError = require('http-errors');
+const cors = require('cors');
 
 const {
 	initializeDb,
@@ -50,6 +51,7 @@ async function init() {
 	);
 
 	expressApp.use(express.json());
+	expressApp.use(cors());
 	expressApp.use(session);
 	expressApp.use('/api', routes);
 	expressApp.use('/*', endpointNotFoundMiddleware);
