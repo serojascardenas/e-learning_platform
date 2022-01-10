@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components/macro';
-import theme from '../../theme'
+import styled, { css } from "styled-components/macro";
+import theme from "../../theme";
 
 const variants = {
 	primary: theme.colors.primary,
@@ -9,9 +9,9 @@ const variants = {
 };
 
 const commonStyles = css`
-	font-weight: bold;
+  font-weight: bold;
   cursor: pointer;
-	border: none;
+  border: none;
   border-radius: 5px;
   color: white;
   transition: all 0.5s ease;
@@ -27,11 +27,9 @@ const commonStyles = css`
 const Button = styled.button`
   ${commonStyles};
 
-	background-color: ${({ variant }) => {
-		return variants[variant] ?? variants['primary'];
-	}};
+  background-color: ${({ variant }) => {
+    return variants[variant] ?? variants["primary"];
+  }};
 `;
 
-export {
-	Button,
-};
+export { Button };

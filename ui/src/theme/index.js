@@ -56,3 +56,4 @@ export default {
 		card: '10rem'
 	},
 };
+>>>>>>> origin/main
