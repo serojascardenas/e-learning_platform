@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
 
-import { Button } from '../Foundation'
+import { Button } from '../Foundation';
 
 const Container = styled.div`
 	position: absolute;
@@ -88,7 +88,7 @@ const Bottom = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
-`
+`;
 
 const Submit = styled(Button)`
   border-radius: 0.25rem;

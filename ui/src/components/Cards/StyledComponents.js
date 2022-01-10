@@ -1,34 +1,34 @@
-import styled from "styled-components/macro";
+import styled from 'styled-components/macro';
 
 const flex_variants = {
-  column: "column",
-  row: "row",
+  column: 'column',
+  row: 'row',
 };
 
 const dimension_variants = {
-  carousel: {height:"100%", width:"300px"},
-  filter: {height:"180px", width:"350px"},
+  carousel: { height: '100%', width: '300px' },
+  filter: { height: '180px', width: '350px' },
 };
 
 const snapshot_variant = {
-  carousel: { width: "100%", height: "60%" },
-  filter: { width: "50%", height: "100%" },
+  carousel: { width: '100%', height: '60%' },
+  filter: { width: '50%', height: '100%' },
 };
 
 const border_snapshot_variant = {
-  carousel: "10px 10px 0px 0px",
-  filter: "10px 0 0px 10px",
+  carousel: '10px 10px 0px 0px',
+  filter: '10px 0 0px 10px',
 };
 
 const Card = styled.div`
   margin: 10px;
-  flex: 0 0 ${({dimension}) => {return dimension_variants[dimension].width ?? dimension_variants["carousel"].width;}};
+  flex: 0 0 ${({ dimension }) => { return dimension_variants[dimension].width ?? dimension_variants['carousel'].width; }};
   height: ${({ dimension }) => {
-    return dimension_variants[dimension].height ?? dimension_variants["carousel"].height;
+    return dimension_variants[dimension].height ?? dimension_variants['carousel'].height;
   }};
   display: flex;
   flex-direction: ${({ flex_variant }) => {
-    return flex_variants[flex_variant] ?? flex_variants["column"];
+    return flex_variants[flex_variant] ?? flex_variants['column'];
   }};
   background-color: ${({ theme }) => theme.colors.whiteGray};
   justify-content: space-between;
@@ -40,12 +40,12 @@ const Card = styled.div`
 const CardSnapshot = styled.div`
   width: ${({ variant }) => {
     return (
-      snapshot_variant[variant].width ?? snapshot_variant["carousel"].width
+      snapshot_variant[variant].width ?? snapshot_variant['carousel'].width
     );
   }};
   height: ${({ variant }) => {
     return (
-      snapshot_variant[variant].height ?? snapshot_variant["carousel"].height
+      snapshot_variant[variant].height ?? snapshot_variant['carousel'].height
     );
   }};
 `;
@@ -58,7 +58,7 @@ const Snapshot = styled.img`
   min-height: 100%;
   border-radius: ${({ variant }) => {
     return (
-      border_snapshot_variant[variant] ?? border_snapshot_variant["carousel"]
+      border_snapshot_variant[variant] ?? border_snapshot_variant['carousel']
     );
   }};
 `;

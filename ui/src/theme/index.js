@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 export default {
 	zIndex: {
 		navbar: 1000,
@@ -47,13 +46,12 @@ export default {
 		placeholder: '#A6ACAF',
 		title: {
 			black: '#071B21',
-		}
+		},
 	},
 	heights: {
 		footer: '12rem',
 		navbar: '4rem',
 		breakLine: '1.5rem',
-		card: '10rem'
+		card: '10rem',
 	},
 };
->>>>>>> origin/main

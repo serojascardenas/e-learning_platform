@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { login } from '../../actions'
+import { login } from '../../actions';
 
 import Form from '../../components/Form';
 
@@ -14,11 +14,11 @@ const Login = ({
 
 	const dispatch = useDispatch();
 
-  const userLogin = useSelector(state => state.userLogin);
-  const { loading, errors, userInfo } = userLogin;
+	const userLogin = useSelector(state => state.userLogin);
+	const { loading, errors, userInfo } = userLogin;
 
 	const query = new URLSearchParams(location.search);
-  const redirect = query.get('redirect') ?? '/';
+	const redirect = query.get('redirect') ?? '/';
 
 	useEffect(() => {
 		if (userInfo) {
@@ -39,14 +39,14 @@ const Login = ({
 				<Form.Input
 					placeholder="Correo Electronico"
 					value={email}
-					onChange={({target}) => setEmail(target.value)}
+					onChange={({ target }) => setEmail(target.value)}
 				/>
 				<Form.Input 
 					placeholder="Contraseña"
 					type="password"
 					autoComplete="off"
 					value={password}
-					onChange={({target}) => setPassword(target.value)}
+					onChange={({ target }) => setPassword(target.value)}
 				/>
 				<Form.Submit
 					variant="terciary"
