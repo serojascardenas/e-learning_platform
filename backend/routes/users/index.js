@@ -4,6 +4,16 @@ module.exports = function userRoutes(routes, {
 	controllers,
 	middlewares,
 }) {
+
+	routes.get('/me',
+		middlewares.validator(),
+		middlewares.login.require,
+		(req, res) => {
+			const { user } = req;
+			return res.status(200).validJsonResponse(user);
+		},
+	);
+
 	routes.post('/',
 		middlewares.validator(),
 		async (req, res) => {

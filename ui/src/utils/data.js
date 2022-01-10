@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
+import config from '../config';
 import {
 	identity, get,
 } from './core';
 
-const LOCAL_HOST_ADDRESS = '127.0.0.1';
-
-const getServerOrigin = req => req && `${req.protocol}://${req.localhost || req.get('host') || LOCAL_HOST_ADDRESS}`;
+const API_HOST_ADDRESS = get(config, 'app.api.host') ?? 'http://127.0.0.1:8000';
 
 const defaultErrorHandler = (error, { req, res, ...props }) => {
 	const {
@@ -38,14 +37,18 @@ const fetchComponentData = ({
 	endpoint = '',
 	settings = {},
 	method = 'get',
+	widthCredentials = false,
 	mapper = identity,
 	errorHandler = defaultErrorHandler,
+	data,
 }) => {
 	const makeRequest = async ({
-		url, requestId, req, res, ...parsedSettings
+		url, data, requestId, req, res, ...parsedSettings
 	}) => {
 		const request = await axios({
 			url,
+			data,
+			widthCredentials,
 			method,
 			timeout: 10000,
 			headers: {
@@ -71,7 +74,7 @@ const fetchComponentData = ({
 		try {
 			if (res) res.set('X-Request-Id', requestId);
 
-			const absUrl = getServerOrigin(req);
+			const absUrl = API_HOST_ADDRESS;
 
 			let parsedEndpoint = endpoint;
 			let parsedSettings = settings;
@@ -89,7 +92,7 @@ const fetchComponentData = ({
 			url = `${absUrl || ''}/${parsedEndpoint.replace(/^\//, '')}`;
 
 			const requestInTransit = makeRequest({
-				url, requestId, req, res, ...parsedSettings,
+				url, data, requestId, req, res, ...parsedSettings,
 			});
 
 			return await requestInTransit;

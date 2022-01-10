@@ -1,22 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { GlobalStyles } from './components/Foundation';
 import theme from './theme';
 
+import App from './App';
+
+
+
 ReactDOM.render(
 	<React.StrictMode>
-		<ThemeProvider theme={theme}>
-			<Router>
+		<Router>
+			<ThemeProvider theme={theme}>
 				<GlobalStyles />
 				<App />
-			</Router>
-		</ThemeProvider>
+			</ThemeProvider>
+		</Router>
 	</React.StrictMode>,
 	document.getElementById('root'),
 );
