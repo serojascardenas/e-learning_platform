@@ -29,7 +29,7 @@ const schema = new mongoose.Schema({
     }],
     cover_image: {
         type: String,
-        default: 'https://picsum.photos/800'
+        required: true
     },
     cover_movie: {
         type: String
@@ -71,24 +71,29 @@ const schema = new mongoose.Schema({
     category: [{
         _id: false,
         name: {
-            type: String
-        }
+            type: String,
+            required: true
+        },
     }],
     sub_category: [{
         _id: false,
         name: {
-            type: String
-        }
+            type: String,
+            required: true
+        },
     }],
     price: {
         amount: {
-            type: String
+            type: Number,
+            required: true
         },
         currency: {
-            type: String
+            type: String,
+            required: true
         },
         currency_symbol: {
-            type: String
+            type: String,
+            required: true
         },
         price_string: {
             type: String
@@ -97,17 +102,51 @@ const schema = new mongoose.Schema({
             type: Boolean,
             default: false
         }
-    }
+    },
+    content_sections: [{
+        _id: false,
+        title: {
+            type: String,
+            required: true
+        },
+        order: {
+            type: Number,
+            required: true
+        },
+        items: [{
+            _id: false,
+            name: {
+                type: String,
+                required: true
+            },
+            video: {
+                type: String,
+                required: true
+            },
+            order: {
+                type: Number,
+                required: true
+            }
+        }]
+    }]
 }, {
     timestamps: true,
     toJSON: {
         transform: function (doc, ret) {
-            ret.id = ret._id;
+            ret.id = doc._id;
             delete ret.__v;
             delete ret._id;
             return ret;
         }
     }
+});
+
+schema.pre('save', async function (next) {
+	try {
+		this.price.price_string = `${this.price.currency_symbol} ${this.price.amount}` 
+	} catch (err) {
+		throw new Error(err);
+	}
 });
 
 module.exports = mongoose.model('Course', schema, 'course');

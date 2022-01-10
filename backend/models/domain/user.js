@@ -29,6 +29,22 @@ const schema = new mongoose.Schema({
 		type: Boolean,
 		default: true,
 	},
+	isInstructor: {
+		type: Boolean,
+		default: false
+	},
+	wishList: [{
+		_id: false,
+		courseId: {
+			type: String
+		}
+	}],
+	subscribedCourses: [{
+		_id: false,
+		courseId: {
+			type: String
+		}
+	}],
 }, {
 	timestamps: true,
 	toJSON: {

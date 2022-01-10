@@ -30,7 +30,7 @@ const schema = new mongoose.Schema({
     timestamps: true,
     toJSON: {
         transform: function (doc, ret) {
-            ret.id = ret._id;
+            ret.id = doc._id;
             delete ret.__v;
             delete ret._id;
             return ret;
