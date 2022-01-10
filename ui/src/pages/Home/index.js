@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { fetchComponentData } from "../../utils";
-import CourseList from "../../components/Cards/CourseList";
+import CourseCarousel from "../../components/Carousel/CourseCarousel";
+import FilterResult from "../../components/FilterResult/FilterResult";
+import { FilterContainer } from "../../components/Filter/FilterContainer";
+import {
+  HomeContainer,
+  FilterWrapper,
+  FilterFormWrapper,
+} from "../../components/Home/StyledComponents";
 
 const Home = () => {
   // const [courses, setCourses] = useState([]);
@@ -17,10 +24,17 @@ const Home = () => {
   // 	getCoursesData();
   // }, []);
 
-  return <CourseList></CourseList>;
-
-
-  
+  return (
+    <HomeContainer>
+      <CourseCarousel></CourseCarousel>
+      <FilterWrapper>
+        <FilterFormWrapper>
+          <FilterContainer></FilterContainer>
+        </FilterFormWrapper>
+          <FilterResult></FilterResult>
+      </FilterWrapper>
+    </HomeContainer>
+  );
 };
 
 export default Home;

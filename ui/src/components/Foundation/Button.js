@@ -1,21 +1,21 @@
-import styled, { css } from 'styled-components/macro';
-import theme from '../../theme'
+import styled, { css } from "styled-components/macro";
+import theme from "../../theme";
 
 const variants = {
-	primary: theme.colors.primary,
-	secondary: theme.colors.secondary,
-	negative: theme.colors.negative,
+  primary: theme.colors.primary,
+  secondary: theme.colors.secondary,
+  negative: theme.colors.negative,
 };
 
 const commonStyles = css`
-	font-weight: bold;
+  font-weight: bold;
   cursor: pointer;
-	border: none;
+  border: none;
   border-radius: 5px;
   color: white;
   transition: all 0.5s ease;
-	padding: 0.5rem 1rem;
-	width: 7rem;
+  padding: 0.5rem 1rem;
+  width: 7rem;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.shamrock};
@@ -26,11 +26,9 @@ const commonStyles = css`
 const Button = styled.button`
   ${commonStyles};
 
-	background-color: ${({ variant }) => {
-		return variants[variant] ?? variants['primary'];
-	}};
+  background-color: ${({ variant }) => {
+    return variants[variant] ?? variants["primary"];
+  }};
 `;
 
-export {
-	Button,
-};
+export { Button };
