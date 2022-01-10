@@ -1,15 +1,15 @@
-import React from 'react'
+import React from 'react';
 
 import {
 	Container,
-  Error,
-  Base,
-  Title,
-  Text,
-  TextSmall,
-  Link,
-  Input,
-  Submit,
+	Error,
+	Base,
+	Title,
+	Text,
+	TextSmall,
+	Link,
+	Input,
+	Submit,
 	Bottom,
 } from './StyledComponents';
 
@@ -26,40 +26,40 @@ const Form = ({
 	</Container>
 );
 
-Form.Error = function FormError({ children, ...rest}) {
+Form.Error = function FormError({ children, ...rest }) {
 	return <Error {...rest}>{children}</Error>;
 };
 
 Form.Title = function FormTitle({ children, ...rest }) {
-  return <Title {...rest}>{children}</Title>;
+	return <Title {...rest}>{children}</Title>;
 };
 
 Form.Base = function FormBase({ children, ...rest }) {
-  return <Base {...rest}>{children}</Base>;
+	return <Base {...rest}>{children}</Base>;
 };
 
 Form.Text = function FormText({ children, ...rest }) {
-  return <Text {...rest}>{children}</Text>;
+	return <Text {...rest}>{children}</Text>;
 };
 
 Form.TextSmall = function FormTextSmall({ children, ...rest }) {
-  return <TextSmall {...rest}>{children}</TextSmall>;
+	return <TextSmall {...rest}>{children}</TextSmall>;
 };
 
 Form.Link = function FormLink({ children, ...rest }) {
-  return <Link {...rest}>{children}</Link>;
+	return <Link {...rest}>{children}</Link>;
 };
 
 Form.Input = function FormInput({ children, ...rest }) {
-  return <Input {...rest}>{children}</Input>;
+	return <Input {...rest}>{children}</Input>;
 };
 
 Form.Bottom = function FormBottom({ children, ...rest }) {
-  return <Bottom {...rest}>{children}</Bottom>;
+	return <Bottom {...rest}>{children}</Bottom>;
 };
 
 Form.Submit = function FormSubmit({ children, ...rest }) {
-  return <Submit {...rest}>{children}</Submit>;
+	return <Submit {...rest}>{children}</Submit>;
 };
 
 export default Form;

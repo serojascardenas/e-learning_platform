@@ -11,28 +11,28 @@
  *   <NonPassiveTouchTarget onTouchMove={fnYourListener} />
  * </NonPassiveTouchTarget>
  */
-import React from "react";
+import React from 'react';
 
 const OPTIONS = { passive: false };
 
 class NonPassiveTouchTarget extends React.Component {
   componentDidMount() {
-    this.node.addEventListener("touchmove", this.props.onTouchMove, OPTIONS);
+    this.node.addEventListener('touchmove', this.props.onTouchMove, OPTIONS);
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.onTouchMove !== this.props.onTouchMove) {
       this.node.removeEventListener(
-        "touchmove",
+        'touchmove',
         prevProps.onTouchMove,
         OPTIONS
       );
-      this.node.addEventListener("touchmove", this.props.onTouchMove, OPTIONS);
+      this.node.addEventListener('touchmove', this.props.onTouchMove, OPTIONS);
     }
   }
 
   componentWillUnmount() {
-    this.node.removeEventListener("touchmove", this.props.onTouchMove, OPTIONS);
+    this.node.removeEventListener('touchmove', this.props.onTouchMove, OPTIONS);
   }
 
   ref = node => {
@@ -46,7 +46,7 @@ class NonPassiveTouchTarget extends React.Component {
 }
 
 NonPassiveTouchTarget.defaultProps = {
-  component: "div",
+  component: 'div',
   onTouchMove() {}
 };
 

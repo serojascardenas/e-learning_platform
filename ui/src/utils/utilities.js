@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
-import { faStar as faRegularStar } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faStarHalf } from '@fortawesome/free-solid-svg-icons';
+import { faStar as faRegularStar } from '@fortawesome/free-regular-svg-icons';
 
 const formatDecimal = (value) => {
   return (Math.round(value * 100) / 100).toFixed(2);
@@ -41,4 +41,4 @@ const addStarsToScore = (value) => {
 };
 
 
-export {formatDecimal, formatPrice, addStarsToScore}; 
+export { formatDecimal, formatPrice, addStarsToScore }; 
