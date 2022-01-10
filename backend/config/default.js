@@ -17,10 +17,10 @@ module.exports = {
 	server: {
 		port: process.env.PORT || 8000,
 		host: process.env.SERVER_HOST || 'localhost',
-		dataBase: {
+		database: {
 			dbUser: process.env.DB_USER,
 			dbPwd: process.env.DB_PWD,
 			dbName: process.env.DB_NAME,
-		}	
+		}
 	},
 };
