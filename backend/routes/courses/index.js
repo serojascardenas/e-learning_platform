@@ -1,3 +1,5 @@
+const { validateCourseRequestSchema } = require('../../models/entities');
+
 module.exports = function coursesRoutes(routes, {
 	controllers,
 	middlewares,
@@ -12,7 +14,7 @@ module.exports = function coursesRoutes(routes, {
 			} = controllers;
 
 			try {
-				const courses = await getAllCourses()
+				const courses = await getAllCourses();
 				return res
 					.status(200)
 					.validJsonResponse(courses);
@@ -25,20 +27,20 @@ module.exports = function coursesRoutes(routes, {
 		},
 	);
 
-	routes.get('/users/:id',
+	routes.get('/:id',
 		middlewares.validator(),
 		async (req, res) => {
 			const {
 				courses: {
-					getUserCourses,
+					getCourse,
 				},
 			} = controllers;
 
 			try {
-				const courses = await getUserCourses(req.params.id)
+				const course = await getCourse(req.params.id);
 				return res
 					.status(200)
-					.validJsonResponse(courses);
+					.validJsonResponse(course);
 
 			} catch (err) {
 				return res
@@ -48,20 +50,74 @@ module.exports = function coursesRoutes(routes, {
 		},
 	);
 
-	routes.get('/trends',
+	routes.post('/',
+		middlewares.validator(),
+		async (req, res) => {
+			const { body } = req;
+			const {
+				courses: {
+					createCourse,
+				},
+			} = controllers;
+
+			try {
+				const { isValid, errors } = validateCourseRequestSchema(body);
+				if (!isValid) {
+					res.status(400).validJsonResponse(errors);
+				}
+
+				const course = await createCourse(body);
+
+				return res
+					.status(201)
+					.validJsonResponse(course);
+
+			} catch (err) {
+				return res
+					.status(400)
+					.validJsonError(err);
+			}
+		},
+	);
+
+	routes.post('/reviews',
+		middlewares.validator(),
+		async (req, res) => {
+			const { body } = req;
+			const {
+				courses: {
+					createReview,
+				},
+			} = controllers;
+
+			try {
+				const review = await createReview(body);
+
+				return res
+					.status(201)
+					.validJsonResponse(review);
+
+			} catch (err) {
+				return res
+					.status(400)
+					.validJsonError(err);
+			}
+		},
+	);
+
+	routes.delete('/:id',
 		middlewares.validator(),
 		async (req, res) => {
 			const {
 				courses: {
-					getTrendCourses,
+					deleteCourse,
 				},
 			} = controllers;
 
 			try {
-				const courses = await getTrendCourses(req.params.id)
+				await deleteCourse(req.params.id);
 				return res
-					.status(200)
-					.validJsonResponse(courses);
+					.status(204).send();
 
 			} catch (err) {
 				return res
@@ -70,6 +126,5 @@ module.exports = function coursesRoutes(routes, {
 			}
 		},
 	);
-
 	return routes;
 };
