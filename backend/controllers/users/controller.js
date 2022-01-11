@@ -8,12 +8,14 @@ const getUserByIdAsync = async id => {
 
 const createUserAsync = async ({
 	name,
+	lastName,
 	email,
 	password,
 	bio,
 }) => {
 	const user = new User({
 		name,
+		lastName,
 		email,
 		password,
 		bio,

@@ -51,8 +51,12 @@ async function init() {
 	);
 
 	expressApp.use(express.json());
-	expressApp.use(cors());
 	expressApp.use(session);
+	expressApp.use(cors({
+		credentials: true,
+		methods: ['POST', 'PUT', 'GET', 'OPTIONS'],
+		origin: ['http://localhost:3000', 'http://localhost:8000'],
+	}));
 	expressApp.use('/api', routes);
 	expressApp.use('/*', endpointNotFoundMiddleware);
 

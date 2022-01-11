@@ -14,7 +14,7 @@ const Login = ({
 
 	const dispatch = useDispatch();
 
-	const userLogin = useSelector(state => state.userLogin);
+	const { userLogin } = useSelector(state => state);
 	const { loading, errors, userInfo } = userLogin;
 
 	const query = new URLSearchParams(location.search);

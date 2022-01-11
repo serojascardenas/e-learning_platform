@@ -9,6 +9,10 @@ const userRequestSchema = {
 			type: 'string',
 			nullable: false,
 		},
+		lastName: {
+			type: 'string',
+			nullable: false,
+		},
 		email: {
 			type: 'string',
 			nullable: false,
@@ -23,7 +27,7 @@ const userRequestSchema = {
 			nullable: true,
 		},
 	},
-	required: ['name', 'email', 'password'],
+	required: ['name', 'lastName', 'email', 'password'],
 	additionalProperties: false,
 };
 

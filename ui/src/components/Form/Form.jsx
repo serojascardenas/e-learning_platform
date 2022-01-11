@@ -4,6 +4,7 @@ import {
 	Container,
 	Error,
 	Base,
+	Row,
 	Title,
 	Text,
 	TextSmall,
@@ -60,6 +61,10 @@ Form.Bottom = function FormBottom({ children, ...rest }) {
 
 Form.Submit = function FormSubmit({ children, ...rest }) {
 	return <Submit {...rest}>{children}</Submit>;
+};
+
+Form.Row = function FormRow({ children, ...rest }) {
+	return <Row {...rest}>{children}</Row>;
 };
 
 export default Form;
