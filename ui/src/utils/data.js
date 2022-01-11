@@ -8,7 +8,7 @@ import {
 
 const API_HOST_ADDRESS = get(config, 'app.api.host') ?? 'http://127.0.0.1:8000';
 
-const defaultErrorHandler = (error, { req, res, ...props }) => {
+const defaultErrorHandler = (error, { ...props }) => {
 	const {
 		response: {
 			data: {
@@ -37,7 +37,7 @@ const fetchComponentData = ({
 	endpoint = '',
 	settings = {},
 	method = 'get',
-	widthCredentials = false,
+	withCredentials = true,
 	mapper = identity,
 	errorHandler = defaultErrorHandler,
 	data,
@@ -48,7 +48,6 @@ const fetchComponentData = ({
 		const request = await axios({
 			url,
 			data,
-			widthCredentials,
 			method,
 			timeout: 10000,
 			headers: {
@@ -56,6 +55,7 @@ const fetchComponentData = ({
 				'X-Request-Id': requestId,
 				...(req ? req.headers : undefined),
 			},
+			withCredentials: withCredentials,
 			...parsedSettings,
 		});
 

@@ -5,7 +5,6 @@ const get = require('lodash/get');
 
 const config = require('./config-loader');
 
-
 const sessionConfig = config.get('app.session');
 
 const SESSION_MAX_AGE_SECONDS = get(sessionConfig, 'maxAge');
@@ -18,9 +17,8 @@ module.exports = session({
 	resave: true,
 	saveUninitialized: false,
 	cookie: {
-		sameSite: 'none',
+		sameSite: false,
 		secure: SESSION_SECURE,
-		httpOnly: true,
 		maxAge: SESSION_MAX_AGE_SECONDS * 1000,
 	},
 	store: new MongoStore({

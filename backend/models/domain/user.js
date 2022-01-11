@@ -11,6 +11,10 @@ const schema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	lastName: {
+		type: String,
+		required: true,
+	},
 	email: {
 		type: String,
 		required: true,
@@ -58,4 +62,4 @@ schema.methods.checkPassword = async function (password) {
 	return await bcrypt.compare(password, this.password);
 };
 
-module.exports = mongoose.model('User', schema, 'user' );
+module.exports = mongoose.model('User', schema, 'user');

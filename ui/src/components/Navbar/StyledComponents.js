@@ -1,5 +1,11 @@
 import styled from 'styled-components/macro';
 
+import { Link as BaseLink } from 'react-router-dom';
+
+import {
+	Button as BaseButton,
+} from '../Foundation';
+
 const Wrapper = styled.nav`
 	padding: 0 2rem;
 	display: flex;
@@ -40,11 +46,23 @@ const SearchWrapper = styled.div`
 	width: 20rem;
 `;
 
+const Link = styled(BaseLink)`
+	text-decoration: none;
+
+	
+	&:last-of-type {
+		margin-left: 1rem;
+	}
+`;
+
 const UserActionsWrapper = styled.div`
 	display: flex;
-	justify-content: space-between;
-	width: 18rem;
+	justify-content: flex-end;
+	width: auto;
+`;
 
+const Button = styled(BaseButton)`
+	width: 8rem;
 `;
 
 export {
@@ -55,4 +73,6 @@ export {
 	Content,
 	SearchWrapper,
 	UserActionsWrapper,
+	Button,
+	Link,
 };

@@ -36,12 +36,12 @@ const CourseCarousel = () => {
 		/>
 
 	/*
-      <CourseCardWrapper>
-        {courses.map((course, index) => (
-          <CourseCard course={course}></CourseCard>
-        ))}
-      </CourseCardWrapper>
-    */
+			<CourseCardWrapper>
+				{courses.map((course, index) => (
+					<CourseCard course={course}></CourseCard>
+				))}
+			</CourseCardWrapper>
+		*/
 	);
 };
 

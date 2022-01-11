@@ -10,6 +10,7 @@ import Navbar from './components/Navbar';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 import store from './store';
 
@@ -24,6 +25,7 @@ const App = () => {
 			<Switch>
 				<Route path="/home" component={Home} />
 				<Route path="/login" component={Login}/>
+				<Route path="/register" component={Register} />
 				<Route path="/" component={Home} />
 			</Switch>
 		</StoreProvider>

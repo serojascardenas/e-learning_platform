@@ -26,7 +26,9 @@ module.exports = function userRoutes(routes, {
 			} = controllers;
 
 			try {
+
 				const { isValid, errors } = validateUserRequestSchema(body);
+
 				if (!isValid) {
 					res.status(400).validJsonResponse(errors);
 				}

@@ -9,27 +9,27 @@ const variants = {
 };
 
 const commonStyles = css`
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  transition: all 0.5s ease;
+	font-weight: bold;
+	cursor: pointer;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	transition: all 0.2s ease;
 	padding: 0.5rem 1rem;
 	width: 100%;
+	font-size: ${({ theme }) => theme.fontSizes.button};
 
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.shamrock};
-    color: ${({ theme }) => theme.colors.white};
-  }
+	&:hover {
+		filter: brightness(120%);
+	}
 `;
 
 const Button = styled.button`
-  ${commonStyles};
-
-  background-color: ${({ variant }) => {
+	background-color: ${({ variant }) => {
 		return variants[variant] ?? variants['primary'];
 	}};
+
+	${commonStyles};
 `;
 
 export { Button };
