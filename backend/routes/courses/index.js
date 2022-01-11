@@ -14,7 +14,7 @@ module.exports = function coursesRoutes(routes, {
 			} = controllers;
 
 			try {
-				const courses = await getAllCourses()
+				const courses = await getAllCourses();
 				return res
 					.status(200)
 					.validJsonResponse(courses);
@@ -37,7 +37,7 @@ module.exports = function coursesRoutes(routes, {
 			} = controllers;
 
 			try {
-				const course = await getCourse(req.params.id)
+				const course = await getCourse(req.params.id);
 				return res
 					.status(200)
 					.validJsonResponse(course);
@@ -54,7 +54,6 @@ module.exports = function coursesRoutes(routes, {
 		middlewares.validator(),
 		async (req, res) => {
 			const { body } = req;
-
 			const {
 				courses: {
 					createCourse,
@@ -81,6 +80,51 @@ module.exports = function coursesRoutes(routes, {
 		},
 	);
 
+	routes.post('/reviews',
+		middlewares.validator(),
+		async (req, res) => {
+			const { body } = req;
+			const {
+				courses: {
+					createReview,
+				},
+			} = controllers;
 
+			try {
+				const review = await createReview(body);
+
+				return res
+					.status(201)
+					.validJsonResponse(review);
+
+			} catch (err) {
+				return res
+					.status(400)
+					.validJsonError(err);
+			}
+		},
+	);
+
+	routes.delete('/:id',
+		middlewares.validator(),
+		async (req, res) => {
+			const {
+				courses: {
+					deleteCourse,
+				},
+			} = controllers;
+
+			try {
+				await deleteCourse(req.params.id);
+				return res
+					.status(204).send();
+
+			} catch (err) {
+				return res
+					.status(400)
+					.validJsonError(err);
+			}
+		},
+	);
 	return routes;
 };

@@ -31,19 +31,19 @@ const schema = new mongoose.Schema({
 	},
 	isInstructor: {
 		type: Boolean,
-		default: false
+		default: false,
 	},
 	wishList: [{
 		_id: false,
 		courseId: {
-			type: String
-		}
+			type: String,
+		},
 	}],
-	subscribedCourses: [{
+	enrolledCourses: [{
 		_id: false,
 		courseId: {
-			type: String
-		}
+			type: String,
+		},
 	}],
 }, {
 	timestamps: true,
