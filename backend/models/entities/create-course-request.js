@@ -6,45 +6,45 @@ const courseRequestSchema = {
 	type: 'object',
 	properties: {
 		title: {
-			type: 'string'
+			type: 'string',
 		},
 		description: {
-			type: 'string'
+			type: 'string',
 		},
 		instructors: {
 			type: 'array',
 			items: {
-				type: 'string'
-			}
+				type: 'string',
+			},
 		},
 		cover_image: {
-			type: 'string'
+			type: 'string',
 		},
 		cover_movie: {
-			type: 'string'
+			type: 'string',
 		},
 		attributes: {
 			type: 'object',
 			properties: {
 				video_content_length: {
-					type: 'number'
+					type: 'number',
 				},
 				num_articles: {
-					type: 'number'
+					type: 'number',
 				},
 				num_practice_tests: {
-					type: 'number'
+					type: 'number',
 				},
 				has_lifetime_access: {
-					type: 'boolean'
+					type: 'boolean',
 				},
 				has_assignments: {
-					type: 'boolean'
+					type: 'boolean',
 				},
 				has_certificate: {
-					type: 'boolean'
-				}
-			}
+					type: 'boolean',
+				},
+			},
 		},
 		category: {
 			type: 'array',
@@ -52,13 +52,13 @@ const courseRequestSchema = {
 				type: 'object',
 				properties: {
 					name: {
-						type: 'string'
-					}
+						type: 'string',
+					},
 				},
 				required: [
-					'name'
-				]
-			}
+					'name',
+				],
+			},
 		},
 		sub_category: {
 			type: 'array',
@@ -66,38 +66,38 @@ const courseRequestSchema = {
 				type: 'object',
 				properties: {
 					name: {
-						type: 'string'
-					}
+						type: 'string',
+					},
 				},
 				required: [
-					'name'
-				]
-			}
+					'name',
+				],
+			},
 		},
 		price: {
 			type: 'object',
 			properties: {
 				amount: {
-					type: 'string'
+					type: 'number',
 				},
 				currency: {
-					type: 'string'
+					type: 'string',
 				},
 				currency_symbol: {
-					type: 'string'
+					type: 'string',
 				},
 				price_string: {
-					type: 'string'
+					type: 'string',
 				},
 				is_free: {
-					type: 'boolean'
-				}
+					type: 'boolean',
+				},
 			},
 			required: [
 				'amount',
 				'currency',
-				'currency_symbol'
-			]
+				'currency_symbol',
+			],
 		},
 		content_sections: {
 			type: 'array',
@@ -105,10 +105,10 @@ const courseRequestSchema = {
 				type: 'object',
 				properties: {
 					title: {
-						type: 'string'
+						type: 'string',
 					},
 					order: {
-						type: 'number'
+						type: 'number',
 					},
 					items: {
 						type: 'array',
@@ -116,30 +116,30 @@ const courseRequestSchema = {
 							type: 'object',
 							properties: {
 								name: {
-									type: 'string'
+									type: 'string',
 								},
 								video: {
-									type: 'string'
+									type: 'string',
 								},
 								order: {
-									type: 'number'
-								}
+									type: 'number',
+								},
 							},
 							required: [
 								'name',
 								'video',
-								'order'
-							]
-						}
-					}
+								'order',
+							],
+						},
+					},
 				},
 				required: [
 					'title',
 					'order',
-					'items'
-				]
-			}
-		}
+					'items',
+				],
+			},
+		},
 	},
 	required: [
 		'price',
