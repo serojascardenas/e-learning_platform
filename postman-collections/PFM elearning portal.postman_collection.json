@@ -1,0 +1,409 @@
+{
+	"info": {
+		"_postman_id": "fea1829e-50c4-4a71-8a9a-bd2a249befd1",
+		"name": "PFM elearning portal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API-Root",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API- add wish list",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\":\"61ddd3f574c63d888da37076\",\n    \"courseId\":\"61dc6cb0fd6a4ad1d4e259d4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/users/wish-list",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"wish-list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API- add enrolled course",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\":\"61ddd3f574c63d888da37076\",\n    \"courseId\":\"61dc6cb0fd6a4ad1d4e259d4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/users/enrolled-course",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"enrolled-course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API- add user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Leonardo \",\n    \"email\": \"le.pache@gmail.com\",\n    \"password\": \"teste123\",\n    \"bio\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique congue convallis. Nullam et lorem ac diam mollis blandit vitae vitae neque. Fusce mattis eget.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API- user enrolled courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/users/61ddd3f574c63d888da37076/enrolled-courses",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"61ddd3f574c63d888da37076",
+						"enrolled-courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API- user wish list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/users/61ddd3f574c63d888da37076/wish-list",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"61ddd3f574c63d888da37076",
+						"wish-list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-all-courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/courses",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-course detail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/courses/61ddca001383e4308ce809ac",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"courses",
+						"61ddca001383e4308ce809ac"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(removed) API-top-trend-courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/courses/trends",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"courses",
+						"trends"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-add course",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let body = ",
+							"{",
+							"    attributes: {",
+							"        video_content_length: 14.5,",
+							"        num_articles: 6,",
+							"        num_practice_tests: 10,",
+							"        has_lifetime_access: true,",
+							"        has_assignments: true,",
+							"        has_certificate: true",
+							"    },",
+							"    price: {",
+							"        amount: 250.99,",
+							"        currency: \"EUR\",",
+							"        currency_symbol: \"€\",",
+							"        is_free: false",
+							"    },",
+							"    title: 'New Cryptocurrency Investment Course 2021: Fund your Retirement',",
+							"    description: \"Complete A-Z Guide to Bitcoin, Blockchain, Ethereum, Altcoins, Metaverse, NFT, DeFi & Meme coins for your retirement!\",",
+							"    instructors: [",
+							"        \"61c5d0101cd2d908aadd7ea0\",\"61c5d00f1cd2d908aadd7e9d\"",
+							"    ],",
+							"    category: [",
+							"        {",
+							"            name: \"IT & Software\"",
+							"        }",
+							"    ],",
+							"    sub_category: [",
+							"        {",
+							"            name: \"Blockchain\"",
+							"        }",
+							"    ],",
+							"    content_sections: [",
+							"        {",
+							"            title: \"Chapter 01 - introduction \",",
+							"            order: 0,",
+							"            items: [",
+							"                {",
+							"                    name: \"How to buy Cryptocurrencies right now!\",",
+							"                    video: \" \",",
+							"                    order: 0",
+							"                },",
+							"                {",
+							"                    name: \"Crypto Terminology Essentials\",",
+							"                    video: \" \",",
+							"                    order: 1",
+							"                },",
+							"                {",
+							"                    name: \"Crypto Terminology Essentials to get you started quickly\",",
+							"                    video: \" \",",
+							"                    order: 2",
+							"                }",
+							"            ]",
+							"        },",
+							"        {",
+							"            title: \"chapter 02 - Real world samples\",",
+							"            order: 1,",
+							"            items: [",
+							"                {",
+							"                    name: \"Cryptocurrency is ALL about this!\",",
+							"                    video: \" \",",
+							"                    order: 0",
+							"                },",
+							"                {",
+							"                    name: \"You must do this for the best results\",",
+							"                    video: \" \",",
+							"                    order: 1",
+							"                }",
+							"            ]",
+							"        }",
+							"    ]",
+							"}",
+							"",
+							"pm.variables.set('course_body', JSON.stringify(body));",
+							"",
+							"console.log(request.data)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "cover_image",
+							"contentType": "",
+							"type": "file",
+							"src": "/Volumes/SWAP/Downloads/e-learning-image-files/images.jpeg"
+						},
+						{
+							"key": "data",
+							"value": "{{course_body}}",
+							"contentType": "",
+							"type": "text"
+						},
+						{
+							"key": "cover_movie",
+							"type": "file",
+							"src": "/Volumes/SWAP/Downloads/e-learning-image-files/sample.mov"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/courses",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API- add courses review",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comment\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique congue convallis. Nullam et lorem ac diam mollis blandit vitae vitae neque. Fusce mattis eget.\",\n    \"rating\": 2.0,\n    \"user\": \"61c5d0101cd2d908aadd7ea0\",\n    \"course\": \"61ddca9daf1b78080602b864\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/courses/reviews",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"courses",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-user-courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/courses/users/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"courses",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API- delete course",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/courses/61ddc76015fe60d3a4fa0088",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"courses",
+						"61ddc76015fe60d3a4fa0088"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
