@@ -1,4 +1,5 @@
 const { validateCourseRequestSchema } = require('../../models/entities');
+const upload = require('../../utils/multer');
 
 module.exports = function coursesRoutes(routes, {
 	controllers,
@@ -52,8 +53,15 @@ module.exports = function coursesRoutes(routes, {
 
 	routes.post('/',
 		middlewares.validator(),
+		upload.fields([{ name: 'cover_image',  maxCount: 1 }, { name: 'cover_movie',  maxCount: 1 }]),
 		async (req, res) => {
-			const { body } = req;
+			const body = JSON.parse(req.body.data);
+			if(req.files.cover_image){
+				body['cover_image'] = req.files.cover_image[0].path;
+			}
+			if(req.files.cover_movie){
+				body['cover_movie'] = req.files.cover_movie[0].path;
+			}
 			const {
 				courses: {
 					createCourse,
