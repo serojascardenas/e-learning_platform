@@ -2,8 +2,9 @@
 import React from 'react';
 import {
 	formatDecimal,
-	formatPrice,
+	concatInstructors,
 	addStarsToScore,
+	averageRating,
 } from '../../utils/utilities';
 
 import {
@@ -25,25 +26,23 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faBars } from '@fortawesome/free-solid-svg-icons';
 
-const CourseCard = ({
-	course,
-}) => {
+const CourseCard = ({ course }) => {
+	let average = averageRating(course.reviews);
 	return (
 		<Card flex_variant="column" dimension="carousel">
 			<CardSnapshot variant="carousel">
-				<Snapshot src={course.image} variant="carousel" />
+				<Snapshot src={course.cover_image} variant="carousel" />
 			</CardSnapshot>
 			<CardDetail>
 				<DetailCourseTittle>{course.title}</DetailCourseTittle>
-				<DetailCourseInstructor>
-					{course.instructors}
-				</DetailCourseInstructor>
+				<DetailCourseInstructor>{concatInstructors(course.instructors)}</DetailCourseInstructor>
 				<DetailCourseScore>
-					{formatDecimal(course.score)}{' '}
-					<StarsIcon>{addStarsToScore(course.score)}</StarsIcon>
+					{formatDecimal(average)} <StarsIcon>{addStarsToScore(average)}</StarsIcon>
 				</DetailCourseScore>
 				<DetailPriceAndButtons>
-					<DetailPrice>{formatPrice(course.price)}</DetailPrice>
+					<DetailPrice>
+						{course.price === null ? '' : course.price.price_string}
+					</DetailPrice>
 					<BeforeButtons></BeforeButtons>
 					<DetailButtons>
 						<Icon>
