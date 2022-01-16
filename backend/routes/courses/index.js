@@ -50,6 +50,30 @@ module.exports = function coursesRoutes(routes, {
 		},
 	);
 
+	routes.get('/filter',
+		middlewares.validator(),
+		async (req, res) => {
+			const {
+				courses: {
+					getCourseByFilters,
+				},
+			} = controllers;
+
+			try {
+				const course = await getCourseByFilters(req.query.title);
+				return res
+					.status(200)
+					.validJsonResponse(course);
+
+			} catch (err) {
+				return res
+					.status(400)
+					.validJsonError(err);
+			}
+		},
+	);
+
+
 	routes.post('/',
 		middlewares.validator(),
 		async (req, res) => {
