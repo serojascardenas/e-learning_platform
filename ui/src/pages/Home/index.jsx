@@ -1,42 +1,109 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import Carousel from 'react-multi-carousel';
 
-import CourseCarousel from '../../components/Carousel/CourseCarousel';
+import 'react-multi-carousel/lib/styles.css';
+
+import CourseCard from '../../components/Cards/CourseCard';
+import { listCourses, listFilterCourses } from '../../actions';
+
 import FilterResult from '../../components/FilterResult/FilterResult';
 import { FilterContainer } from '../../components/Filter/FilterContainer';
-
+import { isEmptyArray } from '../../utils';
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  padding: 50px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	padding: 50px;
 `;
 
 const FilterWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	margin-top: 50px;
 `;
 
 const FilterFormWrapper = styled.div`
-  display: flex;
-  width: 25%;
+	display: flex;
+	width: 25%;
 `;
 
+const responsive = {
+	desktop: {
+		breakpoint: { max: 3000, min: 1024 },
+		items: 6,
+		slidesToSlide: 3, // optional, default to 1.
+	},
+	tablet: {
+		breakpoint: { max: 1024, min: 464 },
+		items: 2,
+		slidesToSlide: 2, // optional, default to 1.
+	},
+	mobile: {
+		breakpoint: { max: 464, min: 0 },
+		items: 1,
+		slidesToSlide: 1, // optional, default to 1.
+	},
+};
+
 const Home = () => {
+	const dispatch = useDispatch();
+
+	const { courseList, filteredCourseList } = useSelector(state => state);
+	const { courses, loading, errors } = courseList;
+	const { filteredCourses } = filteredCourseList;
+
+	useEffect(() => {
+		dispatch(listCourses());
+	}, [dispatch]);
+
+	const onFilterSubmit = filters => {
+		dispatch(listFilterCourses(filters));
+	};
 
 	return (
-		<Container>
-			<CourseCarousel></CourseCarousel>
-			<FilterWrapper>
-				<FilterFormWrapper>
-					<FilterContainer></FilterContainer>
-				</FilterFormWrapper>
-				<FilterResult></FilterResult>
-			</FilterWrapper>
-		</Container>
+		<>
+		{loading ? (<h1>Loading...</h1>)
+			: errors ? <h1>{errors}</h1>
+			: (
+				<Container>
+					<Carousel
+						swipeable={false}
+						draggable={false}
+						showDots={true}
+						responsive={responsive}
+						ssr={true} // means to render carousel on server-side.
+						infinite={true}
+						autoPlay={false}
+						autoPlaySpeed={1000}
+						keyBoardControl={true}
+						customTransition="all .5"
+						transitionDuration={500}
+						containerClass="carousel-container"
+						removeArrowOnDeviceType={['tablet', 'mobile']}
+						deviceType="web"
+						dotListClass="custom-dot-list-style"
+						itemClass="carousel-item-padding-40-px"
+					>
+						{courses && courses.map((course, i) => (
+							<CourseCard key={i} course={course}></CourseCard>
+						))}
+					</Carousel>
+					<FilterWrapper>
+						<FilterFormWrapper>
+							<FilterContainer 
+								handleFilterSubmit={onFilterSubmit} 
+							/>
+						</FilterFormWrapper>
+						<FilterResult filterCourses={isEmptyArray(filteredCourses) ? courses : filteredCourses}></FilterResult>
+					</FilterWrapper>
+				</Container>
+			)}
+		</>
 	);
 };
 

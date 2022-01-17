@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { logout } from '../../actions';
 
 import {
@@ -33,6 +32,7 @@ const Navbar = () => {
 		dispatch(logout());
 		history.push('/');
 	};
+
 
 	return (
 		<Wrapper>

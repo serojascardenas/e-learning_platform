@@ -80,7 +80,7 @@ const DetailCourseTittle = styled.div`
 	width: 100%;
 	height: 20%;
 	color: ${({ theme }) => theme.colors.primary};
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: 900;
 `;
 
@@ -89,6 +89,7 @@ const DetailCourseInstructor = styled.div`
 	height: 20%;
 	color: ${({ theme }) => theme.colors.black};
 	font-size: 14px;
+	margin-top: 20px;
 `;
 
 const DetailCourseScore = styled.div`
@@ -111,7 +112,7 @@ const DetailPriceAndButtons = styled.div`
 const DetailPrice = styled.div`
 	width: 50%;
 	height: 100%;
-	font-size: 24px;
+	font-size: 16px;
 	font-weight: 800;
 	color: ${({ theme }) => theme.colors.black};
 `;

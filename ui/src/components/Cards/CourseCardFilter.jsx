@@ -1,8 +1,9 @@
 import React from 'react';
 import {
 	formatDecimal,
-	formatPrice,
+	concatInstructors,
 	addStarsToScore,
+	averageRating,
 } from '../../utils/utilities';
 
 import {
@@ -24,9 +25,9 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faBars } from '@fortawesome/free-solid-svg-icons';
 
-const CourseCardFilter = ({
-	course,
-}) => {
+const CourseCardFilter = ({ course }) => {
+	let average = averageRating(course.reviews);
+
 	return (
 		<Card flex_variant="row" dimension="filter">
 			<CardSnapshot variant="filter">
@@ -35,14 +36,16 @@ const CourseCardFilter = ({
 			<CardFilterDetail>
 				<DetailCourseTittle>{course.title}</DetailCourseTittle>
 				<DetailCourseInstructor>
-					{course.instructors}
+					{concatInstructors(course.instructors)}
 				</DetailCourseInstructor>
 				<DetailCourseScore>
-					{formatDecimal(course.score)}{' '}
-					<StarsIcon>{addStarsToScore(course.score)}</StarsIcon>
+					{formatDecimal(average)}{' '}
+					<StarsIcon>{addStarsToScore(average)}</StarsIcon>
 				</DetailCourseScore>
 				<DetailPriceAndButtons>
-					<DetailPrice>{formatPrice(course.price)}</DetailPrice>
+					<DetailPrice>
+						{course.price === null ? '' : course.price.price_string}
+					</DetailPrice>
 					<BeforeButtons></BeforeButtons>
 					<DetailButtons>
 						<Icon>

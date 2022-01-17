@@ -1,4 +1,12 @@
 {
-"editor.tabSize": 2,
-"editor.insertSpaces": false
+	"editor.insertSpaces": false,
+	"editor.tabSize": 2,
+	"editor.detectIndentation": false,	
+	"prettier.tabWidth": 2,
+	"prettier.useTabs": true,
+	"prettier.singleQuote": true,
+	"prettier.arrowParens": "avoid",
+	"eslint.workingDirectories": [
+		"./backend", 
+		"./ui"]
 }

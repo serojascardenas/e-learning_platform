@@ -2,26 +2,21 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
 import config from '../config';
-import {
-	identity, get,
-} from './core';
+import { identity, get } from './core';
 
 const API_HOST_ADDRESS = get(config, 'app.api.host') ?? 'http://127.0.0.1:8000';
 
 const defaultErrorHandler = (error, { ...props }) => {
-	const {
-		response: {
-			data: {
-				statusCode,
-			} = {},
-		} = {},
-	} = error;
+	const { response: { data: { statusCode } = {} } = {} } = error;
 
 	let errorString = get(error, 'response.data', get(error, 'response', error));
 
 	// errorString could be an HTML error. To avoid spreading a very long string,
 	//    validate first if it's an actual HTML string.
-	if (typeof errorString === 'string' && errorString.indexOf('<!DOCTYPE html>') === 0) {
+	if (
+		typeof errorString === 'string' &&
+		errorString.indexOf('<!DOCTYPE html>') === 0
+	) {
 		errorString = { errorString };
 	}
 
@@ -38,31 +33,37 @@ const fetchComponentData = ({
 	settings = {},
 	method = 'get',
 	withCredentials = true,
-	mapper = identity,
 	errorHandler = defaultErrorHandler,
 	data,
+	params,
 }) => {
+	console.log(params);
 	const makeRequest = async ({
-		url, data, requestId, req, res, ...parsedSettings
+		url,
+		data,
+		requestId,
+		req,
+		res,
 	}) => {
 		const request = await axios({
 			url,
 			data,
 			method,
 			timeout: 10000,
+			params,
 			headers: {
 				'Content-Type': 'application/json',
 				'X-Request-Id': requestId,
 				...(req ? req.headers : undefined),
 			},
 			withCredentials: withCredentials,
-			...parsedSettings,
 		});
 
 		return {
-			...mapper({
-				...request.data, parsedSettings, req, res,
-			}, request),
+			...request.data,
+			req,
+			res,
+			request,
 			state: request.data.state,
 		};
 	};
@@ -92,7 +93,12 @@ const fetchComponentData = ({
 			url = `${absUrl || ''}/${parsedEndpoint.replace(/^\//, '')}`;
 
 			const requestInTransit = makeRequest({
-				url, data, requestId, req, res, ...parsedSettings,
+				url,
+				data,
+				requestId,
+				req,
+				res,
+				...parsedSettings,
 			});
 
 			return await requestInTransit;
@@ -107,6 +113,11 @@ const fetchComponentData = ({
 	return fetcherFunction();
 };
 
-export {
-	fetchComponentData,
+const fetchData = async ({ endpoint = '' } = {}) => {
+	const absUrl = API_HOST_ADDRESS;
+
+	const response = await axios.get(`${absUrl}/${endpoint}`);
+	return await response;
 };
+
+export { fetchComponentData, fetchData };
