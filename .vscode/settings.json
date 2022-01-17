@@ -5,7 +5,7 @@
 	"prettier.tabWidth": 2,
 	"prettier.useTabs": true,
 	"prettier.singleQuote": true,
-	"prettier.arrowParens": "always",
+	"prettier.arrowParens": "avoid",
 	"eslint.workingDirectories": [
 		"./backend", 
 		"./ui"]

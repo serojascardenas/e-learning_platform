@@ -51,13 +51,11 @@ const responsive = {
 };
 
 const Home = () => {
-	const [filterCourses, setFilterCourses] = useState([]);
-
 	const dispatch = useDispatch();
+
 	const { courseList, filteredCourseList } = useSelector(state => state);
 	const { courses, loading, errors } = courseList;
 	const { filteredCourses } = filteredCourseList;
-
 
 	useEffect(() => {
 		dispatch(listCourses());
@@ -97,7 +95,9 @@ const Home = () => {
 					</Carousel>
 					<FilterWrapper>
 						<FilterFormWrapper>
-							<FilterContainer handleFilterSubmit={onFilterSubmit} setFilterCourses={setFilterCourses}></FilterContainer>
+							<FilterContainer 
+								handleFilterSubmit={onFilterSubmit} 
+							/>
 						</FilterFormWrapper>
 						<FilterResult filterCourses={isEmptyArray(filteredCourses) ? courses : filteredCourses}></FilterResult>
 					</FilterWrapper>
