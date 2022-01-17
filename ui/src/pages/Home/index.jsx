@@ -5,7 +5,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 import CourseCard from '../../components/Cards/CourseCard';
-import { getAllCourses } from '../../actions/courses';
+import { getCourses } from '../../actions/courses';
 
 import FilterResult from '../../components/FilterResult/FilterResult';
 import { FilterContainer } from '../../components/Filter/FilterContainer';
@@ -50,19 +50,20 @@ const responsive = {
 
 const Home = () => {
 	const [carouselCourses, setCarouselCourses] = useState([]);
+	const [filterCourses, setFilterCourses] = useState([]);
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		console.log('useeffect>>');
 		const fetchData = async () => {
-			let courses = await dispatch(getAllCourses());
+			let courses = await dispatch(getCourses());
 			setCarouselCourses(buildCourseItem(courses));
 		};
 		fetchData();
 	}, []);
 
-	const buildCourseItem = courses => {
+	const buildCourseItem = (courses) => {
 		let items = courses.map((course, index) => {
 			// eslint-disable-next-line react/jsx-key
 			return <CourseCard course={course}></CourseCard>;
@@ -94,9 +95,9 @@ const Home = () => {
 			</Carousel>
 			<FilterWrapper>
 				<FilterFormWrapper>
-					<FilterContainer></FilterContainer>
+					<FilterContainer setFilterCourses></FilterContainer>
 				</FilterFormWrapper>
-				<FilterResult></FilterResult>
+				<FilterResult filterCourses={filterCourses}></FilterResult>
 			</FilterWrapper>
 		</Container>
 	);

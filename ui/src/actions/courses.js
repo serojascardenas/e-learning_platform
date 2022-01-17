@@ -9,13 +9,15 @@ import {
 	COURSE_GET_ALL_SUCCESS,
 } from '../constants';
 
-const getAllCourses = () => async (dispatch) => {
+const getCourses = (filters = null) => async (dispatch) => {
 	dispatch({
 		type: COURSE_REQUEST_ALL,
 	});
 
+	let queryParams = filters === null || filters === undefined ? '': `?title=${filters.title}&instructor=${filters.instructor}&category=${filters.category}&sub_category=${filters.sub_category}`;
+
 	const response = await fetchComponentData({
-		endpoint: get(config, 'app.api.routes.courses'),
+		endpoint: get(config, 'app.api.routes.courses') + queryParams,
 		method: 'get',
 	});
 
@@ -37,5 +39,4 @@ const getAllCourses = () => async (dispatch) => {
 	return response.data;
 };
 
-export { getAllCourses };
-
+export { getCourses };

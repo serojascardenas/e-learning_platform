@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCourses } from '../../actions';
 import { logout } from '../../actions';
 
 import {
@@ -35,10 +34,6 @@ const Navbar = () => {
 	};
 
 
-	const onSubmit =()=>{
-		dispatch(getAllCourses());
-	};
-
 	return (
 		<Wrapper>
 			<Logo>LMD</Logo>
@@ -66,7 +61,7 @@ const Navbar = () => {
 					: (
 						<>
 							<Link to="/login">
-								<Button variant="secondary" onClick={()=>onSubmit()}>Iniciar Sesión</Button>
+								<Button variant="secondary">Iniciar Sesión</Button>
 							</Link>
 							<Link to="/register">
 								<Button variant="negative">Crear Cuenta</Button>

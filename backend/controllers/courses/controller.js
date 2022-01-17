@@ -14,10 +14,46 @@ const getCourse = async (courseId) => {
 		.populate('reviews');
 };
 
-const getCourseByFilters = async ( title ) => {
-	return await Course.find({
-		title: { $regex: title, $options: 'i' },
-	})
+const getCourseByFilters = async (
+	title,
+	instructor,
+	category,
+	sub_category
+) => {
+	var filters = {};
+	if (title !== undefined && title !== null && title.trim() !== '') {
+		filters.title = {};
+		filters.title.$regex = title;
+		filters.title.$options = 'i';
+	}
+
+	if (
+		instructor !== undefined &&
+		instructor !== null &&
+		instructor.trim() !== ''
+	) {
+		filters.instructors = {
+			$elemMatch: { name: { $regex: instructor, $options: 'i' } },
+		};
+	}
+
+	if (category !== undefined && category !== null && category.trim() !== '') {
+		filters.category = {
+			$elemMatch: { name: { $regex: category, $options: 'i' } },
+		};
+	}
+
+	if (
+		sub_category !== undefined &&
+		sub_category !== null &&
+		sub_category.trim() !== ''
+	) {
+		filters.sub_category = {
+			$elemMatch: { name: { $regex: sub_category, $options: 'i' } },
+		};
+	}
+
+	return await Course.find(filters)
 		.populate('instructors')
 		.populate('reviews');
 };
