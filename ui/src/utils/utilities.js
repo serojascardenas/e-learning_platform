@@ -10,7 +10,6 @@ const formatPrice = (value) => {
 };
 
 const addStarsToScore = (value) => {
-	console.log(`value: ${value}`);
 	let stars = 1;
 	let halfStar = 0;
 	let icons = [];
@@ -32,7 +31,6 @@ const addStarsToScore = (value) => {
 	}
 
 	let diffStars = Math.round(maxStars - value);
-	console.log(`diffStars ${diffStars}`);
 	if (diffStars > 0) {
 		for (let i = 0; i < diffStars; i++) {
 			icons.push(<FontAwesomeIcon icon={faRegularStar} />);

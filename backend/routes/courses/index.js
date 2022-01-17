@@ -8,8 +8,9 @@ module.exports = function coursesRoutes(routes, { controllers, middlewares }) {
 
 		try {
 			let data = [];
-			if (req.params) {
-				data = await getCourseByFilters(req.query.title, req.query.instructor, req.query.category, req.query.sub_category);
+			if (req.query) {
+				const { title, instructor, category, sub_category } = req.query;
+				data = await getCourseByFilters(title, instructor, category, sub_category);
 			} else {
 				data = await getAllCourses();
 			}

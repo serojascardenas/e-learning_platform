@@ -6,13 +6,15 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import {
 	userLoginReducer,
 	userRegisterReducer,
-	courseReducer,
+	courseListReducer,
+	courseFilterReducer,
 } from './reducers';
 
 const reducers = combineReducers({
 	userLogin: userLoginReducer,
 	userRegister: userRegisterReducer,
-	getAllCourses: courseReducer,
+	courseList: courseListReducer,
+	filteredCourseList: courseFilterReducer,
 });
 
 const middleware = [thunk];

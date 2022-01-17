@@ -33,42 +33,37 @@ const fetchComponentData = ({
 	settings = {},
 	method = 'get',
 	withCredentials = true,
-	mapper = identity,
 	errorHandler = defaultErrorHandler,
 	data,
+	params,
 }) => {
+	console.log(params);
 	const makeRequest = async ({
 		url,
 		data,
 		requestId,
 		req,
 		res,
-		...parsedSettings
 	}) => {
 		const request = await axios({
 			url,
 			data,
 			method,
 			timeout: 10000,
+			params,
 			headers: {
 				'Content-Type': 'application/json',
 				'X-Request-Id': requestId,
 				...(req ? req.headers : undefined),
 			},
 			withCredentials: withCredentials,
-			...parsedSettings,
 		});
 
 		return {
-			...mapper(
-				{
-					...request.data,
-					parsedSettings,
-					req,
-					res,
-				},
-				request
-			),
+			...request.data,
+			req,
+			res,
+			request,
 			state: request.data.state,
 		};
 	};

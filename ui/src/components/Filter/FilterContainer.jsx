@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { FilterWrapper, Select, Input, Submit } from './StyledComponents';
-import { getCourses } from '../../actions/courses';
 
-const FilterContainer = ({ setFilterCourses }) => {
-	const dispatch = useDispatch();
+const FilterContainer = ({ 
+	handleFilterSubmit,
+}) => {
+	
 	const [title, setTitle] = useState('');
 	const [instructor, setInstructor] = useState('');
 	const [category, setCategory] = useState('');
@@ -12,24 +12,22 @@ const FilterContainer = ({ setFilterCourses }) => {
 
 	const filterCourses = e => {
 		e.preventDefault();
-		let filters = { title, instructor, category, subCategory };
-		let courses = dispatch(getCourses(filters));
-		setFilterCourses(courses);
+		handleFilterSubmit({ title, instructor, category, subCategory });
 	};
 
 	return (
 		<FilterWrapper>
-			<form>
+			<form onSubmit={filterCourses}>
 				<Input
 					placeholder="Nombre del Curso"
 					value={title}
 					onChange={({ target }) => setTitle(target.value)}
-				></Input>
+				/>
 				<Input
 					placeholder="Instructor"
 					value={instructor}
-					onChange={({ target }) => setTitle(target.value)}
-				></Input>
+					onChange={({ target }) => setInstructor(target.value)}
+				/>
 				<Select value={category}>
 					<option value="" hidden>
 						Categoría
@@ -40,11 +38,9 @@ const FilterContainer = ({ setFilterCourses }) => {
 						Tema
 					</option>
 				</Select>
-
 				<Submit
 					variant="primary"
 					type="submit"
-					onSubmit={() => filterCourses()}
 				>
 					Buscar
 				</Submit>
@@ -52,4 +48,7 @@ const FilterContainer = ({ setFilterCourses }) => {
 		</FilterWrapper>
 	);
 };
-export { FilterContainer };
+
+export { 
+	FilterContainer,
+};

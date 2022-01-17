@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-multi-carousel';
+
 import 'react-multi-carousel/lib/styles.css';
 
 import CourseCard from '../../components/Cards/CourseCard';
-import { getCourses } from '../../actions/courses';
+import { listCourses, listFilterCourses } from '../../actions';
 
 import FilterResult from '../../components/FilterResult/FilterResult';
 import { FilterContainer } from '../../components/Filter/FilterContainer';
+import { isEmptyArray } from '../../utils';
 
 const Container = styled.div`
 	display: flex;
@@ -49,57 +51,59 @@ const responsive = {
 };
 
 const Home = () => {
-	const [carouselCourses, setCarouselCourses] = useState([]);
 	const [filterCourses, setFilterCourses] = useState([]);
 
 	const dispatch = useDispatch();
+	const { courseList, filteredCourseList } = useSelector(state => state);
+	const { courses, loading, errors } = courseList;
+	const { filteredCourses } = filteredCourseList;
+
 
 	useEffect(() => {
-		console.log('useeffect>>');
-		const fetchData = async () => {
-			let courses = await dispatch(getCourses());
-			setCarouselCourses(buildCourseItem(courses));
-		};
-		fetchData();
-	}, []);
+		dispatch(listCourses());
+	}, [dispatch]);
 
-	const buildCourseItem = (courses) => {
-		let items = courses.map((course, index) => {
-			// eslint-disable-next-line react/jsx-key
-			return <CourseCard course={course}></CourseCard>;
-		});
-		return items;
+	const onFilterSubmit = filters => {
+		dispatch(listFilterCourses(filters));
 	};
 
 	return (
-		<Container>
-			<Carousel
-				swipeable={false}
-				draggable={false}
-				showDots={true}
-				responsive={responsive}
-				ssr={true} // means to render carousel on server-side.
-				infinite={true}
-				autoPlay={false}
-				autoPlaySpeed={1000}
-				keyBoardControl={true}
-				customTransition="all .5"
-				transitionDuration={500}
-				containerClass="carousel-container"
-				removeArrowOnDeviceType={['tablet', 'mobile']}
-				deviceType="web"
-				dotListClass="custom-dot-list-style"
-				itemClass="carousel-item-padding-40-px"
-			>
-				{carouselCourses}
-			</Carousel>
-			<FilterWrapper>
-				<FilterFormWrapper>
-					<FilterContainer setFilterCourses></FilterContainer>
-				</FilterFormWrapper>
-				<FilterResult filterCourses={filterCourses}></FilterResult>
-			</FilterWrapper>
-		</Container>
+		<>
+		{loading ? (<h1>Loading...</h1>)
+			: errors ? <h1>{errors}</h1>
+			: (
+				<Container>
+					<Carousel
+						swipeable={false}
+						draggable={false}
+						showDots={true}
+						responsive={responsive}
+						ssr={true} // means to render carousel on server-side.
+						infinite={true}
+						autoPlay={false}
+						autoPlaySpeed={1000}
+						keyBoardControl={true}
+						customTransition="all .5"
+						transitionDuration={500}
+						containerClass="carousel-container"
+						removeArrowOnDeviceType={['tablet', 'mobile']}
+						deviceType="web"
+						dotListClass="custom-dot-list-style"
+						itemClass="carousel-item-padding-40-px"
+					>
+						{courses && courses.map((course, i) => (
+							<CourseCard key={i} course={course}></CourseCard>
+						))}
+					</Carousel>
+					<FilterWrapper>
+						<FilterFormWrapper>
+							<FilterContainer handleFilterSubmit={onFilterSubmit} setFilterCourses={setFilterCourses}></FilterContainer>
+						</FilterFormWrapper>
+						<FilterResult filterCourses={isEmptyArray(filteredCourses) ? courses : filteredCourses}></FilterResult>
+					</FilterWrapper>
+				</Container>
+			)}
+		</>
 	);
 };
 
