@@ -22,9 +22,7 @@ const getCourseByFilters = async (
 ) => {
 	var filters = {};
 	if (title !== undefined && title !== null && title.trim() !== '') {
-		filters.title = {};
-		filters.title.$regex = title;
-		filters.title.$options = 'i';
+		filters.title = { $regex: title, $options: 'i' };
 	}
 
 	if (
