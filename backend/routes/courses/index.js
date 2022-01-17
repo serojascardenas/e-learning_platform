@@ -1,84 +1,130 @@
 const { validateCourseRequestSchema } = require('../../models/entities');
+const upload = require('../../utils/multer');
 
 module.exports = function coursesRoutes(routes, { controllers, middlewares }) {
-	routes.get('/', middlewares.validator(), async (req, res) => {
-		const {
-			courses: { getAllCourses, getCourseByFilters },
-		} = controllers;
 
-		try {
-			let data = [];
-			if (req.query) {
-				const { title, instructor, category, sub_category } = req.query;
-				data = await getCourseByFilters(title, instructor, category, sub_category);
-			} else {
-				data = await getAllCourses();
+	routes.get('/',
+		middlewares.validator(),
+		async (req, res) => {
+			const {
+				courses: {
+					getAllCourses,
+					getCourseByFilters,
+				},
+			} = controllers;
+
+			try {
+				let data = [];
+				if (req.query) {
+					const { title, instructor, category, sub_category } = req.query;
+					data = await getCourseByFilters(title, instructor, category, sub_category);
+				} else {
+					data = await getAllCourses();
+				}
+				return res.status(200).validJsonResponse(data);
+			} catch (err) {
+				return res.status(400).validJsonError(err);
 			}
-			return res.status(200).validJsonResponse(data);
-		} catch (err) {
-			return res.status(400).validJsonError(err);
-		}
-	});
+		});
 
-	routes.get('/:id', middlewares.validator(), async (req, res) => {
-		const {
-			courses: { getCourse },
-		} = controllers;
+	routes.get('/:id',
+		middlewares.validator(),
+		async (req, res) => {
+			const {
+				courses: { getCourse },
+			} = controllers;
 
-		try {
-			const course = await getCourse(req.params.id);
-			return res.status(200).validJsonResponse(course);
-		} catch (err) {
-			return res.status(400).validJsonError(err);
-		}
-	});
-
-	routes.post('/', middlewares.validator(), async (req, res) => {
-		const { body } = req;
-		const {
-			courses: { createCourse },
-		} = controllers;
-
-		try {
-			const { isValid, errors } = validateCourseRequestSchema(body);
-			if (!isValid) {
-				res.status(400).validJsonResponse(errors);
+			try {
+				const course = await getCourse(req.params.id);
+				return res.status(200).validJsonResponse(course);
+			} catch (err) {
+				return res.status(400).validJsonError(err);
 			}
+		});
 
-			const course = await createCourse(body);
+	routes.post('/',
+		middlewares.validator(),
+		upload.fields([{ name: 'cover_image', maxCount: 1 }, { name: 'cover_movie', maxCount: 1 }]),
+		async (req, res) => {
+			const body = JSON.parse(req.body.data);
+			if (req.files.cover_image) {
+				body['cover_image'] = req.files.cover_image[0].path;
+			}
+			if (req.files.cover_movie) {
+				body['cover_movie'] = req.files.cover_movie[0].path;
+			}
+			const {
+				courses: {
+					createCourse,
+				},
+			} = controllers;
 
-			return res.status(201).validJsonResponse(course);
-		} catch (err) {
-			return res.status(400).validJsonError(err);
-		}
-	});
+			try {
+				const { isValid, errors } = validateCourseRequestSchema(body);
+				if (!isValid) {
+					res.status(400).validJsonResponse(errors);
+				}
 
-	routes.post('/reviews', middlewares.validator(), async (req, res) => {
-		const { body } = req;
-		const {
-			courses: { createReview },
-		} = controllers;
+				const course = await createCourse(body);
 
-		try {
-			const review = await createReview(body);
+				return res
+					.status(201)
+					.validJsonResponse(course);
 
-			return res.status(201).validJsonResponse(review);
-		} catch (err) {
-			return res.status(400).validJsonError(err);
-		}
-	});
+			} catch (err) {
+				return res
+					.status(400)
+					.validJsonError(err);
+			}
+		},
+	);
 
-	routes.delete('/:id', middlewares.validator(), async (req, res) => {
-		const {
-			courses: { deleteCourse },
-		} = controllers;
+	routes.post('/reviews',
+		middlewares.validator(),
+		async (req, res) => {
+			const { body } = req;
+			const {
+				courses: {
+					createReview,
+				},
+			} = controllers;
 
-		try {
-			await deleteCourse(req.params.id);
-			return res.status(204).send();
-		} catch (err) {
-			return res.status(400).validJsonError(err);
-		}
-	});
+			try {
+				const review = await createReview(body);
+
+				return res
+					.status(201)
+					.validJsonResponse(review);
+
+			} catch (err) {
+				return res
+					.status(400)
+					.validJsonError(err);
+			}
+		},
+	);
+
+	routes.delete('/:id',
+		middlewares.validator(),
+		async (req, res) => {
+			const {
+				courses: {
+					deleteCourse,
+				},
+			} = controllers;
+
+			try {
+				await deleteCourse(req.params.id);
+				return res
+					.status(204).send();
+
+			} catch (err) {
+				return res
+					.status(400)
+					.validJsonError(err);
+			}
+		},
+	);
+
 	return routes;
-};
+}

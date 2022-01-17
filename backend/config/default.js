@@ -21,6 +21,6 @@ module.exports = {
 			dbUser: process.env.DB_USER,
 			dbPwd: process.env.DB_PWD,
 			dbName: process.env.DB_NAME,
-		}
+		},
 	},
 };
