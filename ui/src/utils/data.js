@@ -2,7 +2,7 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
 import config from '../config';
-import { identity, get } from './core';
+import { get } from './core';
 
 const API_HOST_ADDRESS = get(config, 'app.api.host') ?? 'http://127.0.0.1:8000';
 
@@ -37,7 +37,6 @@ const fetchComponentData = ({
 	data,
 	params,
 }) => {
-	console.log(params);
 	const makeRequest = async ({
 		url,
 		data,

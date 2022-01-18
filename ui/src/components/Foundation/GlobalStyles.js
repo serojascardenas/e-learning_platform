@@ -7,8 +7,26 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     margin: 0;
   }
+
+	main {
+		height: 90vh;
+
+		h3 {
+			padding: 1rem 0;
+		}
+
+		h1 {
+			font-size: 1.8rem;
+			padding: 1rem 0;
+		}
+
+		h2 {
+			font-size: 1.4rem;
+			padding: 0.5rem 0;
+		}
+	}
+
   html, body {
-    font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif, Arial, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;

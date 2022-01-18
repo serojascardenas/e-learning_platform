@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Joi from 'joi-browser';
+import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+import FormContainer from '../../components/FormContainer';
+import Message from '../../components/Message';
+import Loader from '../../components/Loader';
+
 
 import { useDispatch, useSelector } from 'react-redux';
-
 import { register } from '../../actions';
-
-import Form from '../../components/Form';
 
 const Register = ({
 	location,
@@ -59,8 +63,6 @@ const Register = ({
 		},
 		);
 
-		console.log(error);
-
 		if (error) {
 			let errors = error.details.reduce((acc, cur) => acc + cur.message + '. ', '');
 			setMessage(errors);
@@ -70,53 +72,80 @@ const Register = ({
 	};
 
 	return (
-		<Form>
-			<Form.Title>Crear Cuenta</Form.Title>
-			{message && <Form.Error>{message}</Form.Error>}
-			{error && <Form.Error>{error}</Form.Error>}
-			<Form.Base onSubmit={submitHandler}>
-				<Form.Row>
-					<Form.Input 
-						placeholder="Nombre"
-						value={name}
-						onChange={({ target }) => setName(target.value)}
+		<FormContainer>
+			<h1>Crear Cuenta</h1>
+			{message && <Message variant="danger">{message}</Message>}
+			{error && <Message variant="danger">{error}</Message>}
+			{loading && <Loader /> }
+			<Form onSubmit={submitHandler}>
+				<Row className="mb-4">
+					<Col>
+						<Form.Group>
+							<Form.Label>Nombre</Form.Label>
+							<Form.Control
+								type="name"
+								value={name}
+								required
+								placeholder="Ingresa tu nombre"
+								onChange={e => setName(e.target.value)}
+							/>
+						</Form.Group>
+					</Col>
+					<Col>
+						<Form.Group>
+							<Form.Label>Apellido</Form.Label>
+							<Form.Control
+								type="name"
+								value={lastName}
+								required
+								placeholder="Ingresa tu apellido"
+								onChange={e => setLastName(e.target.value)}
+							/>
+						</Form.Group>
+					</Col>
+				</Row>
+				<Form.Group className="mb-4">
+					<Form.Label>Correo Electrónico</Form.Label>
+					<Form.Control
+						type="email"
+						value={email}
+						required
+						placeholder="Ingresa tu correo electrónico"
+						onChange={e => setEmail(e.target.value)}
 					/>
-					<Form.Input 
-						placeholder="Apellido"
-						value={lastName}
-						onChange={({ target }) => setLastName(target.value)}
+				</Form.Group>
+				<Form.Group className="mb-4">
+					<Form.Label>Contraseña</Form.Label>
+					<Form.Control
+						type="password"
+						value={password}
+						required
+						placeholder="Ingresa tu contraseña"
+						onChange={e => setPassword(e.target.value)}
 					/>
-				</Form.Row>
-				<Form.Input 
-					placeholder="Correo Electronico"
-					type="email"
-					value={email}
-					onChange={({ target }) => setEmail(target.value)}
-				/>
-				<Form.Input 
-					placeholder="Contraseña"
-					type="password"
-					value={password}
-					onChange={({ target }) => setPassword(target.value)}
-				/>
-				<Form.Input 
-					placeholder="Confirmar Contraseña"
-					type="password"
-					value={confirmPassword}
-					onChange={({ target }) => setConfirmPassword(target.value)}
-				/>
-				<Form.Submit
-					variant="terciary"
+				</Form.Group>
+				<Form.Group>
+					<Form.Label>Confirmar Contraseña</Form.Label>
+					<Form.Control
+						type="password"
+						value={confirmPassword}
+						required
+						placeholder="Confirma tu contraseña"
+						onChange={e => setConfirmPassword(e.target.value)}
+					/>
+				</Form.Group>
+				<Button
+					className="mt-4"
 					type="submit"
-				>
-					Crear Cuenta
-				</Form.Submit>
-			</Form.Base>
-			<Form.Bottom>
-				<Form.TextSmall>¿Ya tienes cuenta?</Form.TextSmall>
-				<Form.Link to={redirect ? `login?redirect=${redirect}` : '/login'}>Iniciar Sesion</Form.Link>
-			</Form.Bottom>
-		</Form>
+					variant="primary"
+				>Registrarse</Button>
+			</Form>
+			<Row  className="pt-3">
+				<Col>
+          ¿Ya tienes cuenta? <Link to={redirect ? `login?redirect=${redirect}` : '/login'}>Iniciar Sesión</Link>
+				</Col>
+			</Row>
+		</FormContainer>
 	);
 };
 

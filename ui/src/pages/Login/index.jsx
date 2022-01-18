@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+import FormContainer from '../../components/FormContainer';
 
 import { login } from '../../actions';
-
-import Form from '../../components/Form';
 
 const Login = ({
 	location,
@@ -32,34 +34,39 @@ const Login = ({
 	};
 
 	return (
-		<Form>
-			<Form.Title>Iniciar Sesion</Form.Title>
-			{errors && <Form.Error>{errors}</Form.Error>}
-			<Form.Base onSubmit={submitHandler}>
-				<Form.Input
-					placeholder="Correo Electronico"
-					value={email}
-					onChange={({ target }) => setEmail(target.value)}
-				/>
-				<Form.Input 
-					placeholder="Contraseña"
-					type="password"
-					autoComplete="off"
-					value={password}
-					onChange={({ target }) => setPassword(target.value)}
-				/>
-				<Form.Submit
-					variant="terciary"
+		<FormContainer>
+			<h1>Iniciar Sesión</h1>
+			<Form onSubmit={submitHandler}>
+				<Form.Group controlId="email">
+					<Form.Label>Correo Electronico</Form.Label>
+					<Form.Control
+						type="email"
+						value={email}
+						placeholder="Ingresa tu Email"
+						onChange={e => setEmail(e.target.value)}
+					></Form.Control>
+				</Form.Group>
+				<Form.Group className="mt-4" controlId="password">
+					<Form.Label>Contraseña</Form.Label>
+					<Form.Control
+						type="password"
+						value={password}
+						placeholder="Ingresa tu contraseña"
+						onChange={e => setPassword(e.target.value)}
+					></Form.Control>
+				</Form.Group>
+				<Button
+					className="mt-4"
 					type="submit"
-				>
-					Iniciar Sesión
-				</Form.Submit>
-			</Form.Base>
-			<Form.Bottom>
-				<Form.TextSmall>¿Aún no tienes cuenta?</Form.TextSmall>
-				<Form.Link to="/register">Crear Cuenta</Form.Link>
-			</Form.Bottom>
-		</Form>
+					variant="primary"
+				>Iniciar Sesión</Button>
+			</Form>
+			<Row  className="pt-3">
+				<Col>
+          ¿Aún no tienes cuenta? <Link to={redirect ? `register?redirect=${redirect}` : '/register'}>Crear Cuenta</Link>
+				</Col>
+			</Row>
+		</FormContainer>
 	);
 };
 

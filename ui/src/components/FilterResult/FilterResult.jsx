@@ -1,21 +1,18 @@
+import { Row, Col } from 'react-bootstrap';
 import CourseCardFilter from '../Cards/CourseCardFilter';
 import { FilterResultWrapper } from './StyledComponents';
 
-const FilterResult = ({ filterCourses }) => (
+const FilterResult = ({ 
+	filterCourses, 
+}) => (
 	<FilterResultWrapper>
-		{filterCourses === null || filterCourses === undefined ? (
-			<></>
-		) : (
-			filterCourses.map((course, index) => {
-				let filterCourses = [];
-				if (index < 5) {
-					filterCourses.push(
-						<CourseCardFilter course={course}></CourseCardFilter>
-					);
-				}
-				return filterCourses;
-			})
-		)}
+		<Row>
+			{filterCourses && filterCourses.map((course, index) => (
+				<Col key={index} sm={12} md={6} lg={6} xl={4}>
+					<CourseCardFilter course={course}></CourseCardFilter>
+				</Col>
+			))}
+		</Row>
 	</FilterResultWrapper>
 );
 

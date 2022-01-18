@@ -1,15 +1,12 @@
 import React from 'react';
 import {
-	formatDecimal,
 	concatInstructors,
-	addStarsToScore,
 	averageRating,
 } from '../../utils/utilities';
 
 import {
 	Card,
-	CardSnapshot,
-	Snapshot,
+	Img,
 	CardFilterDetail,
 	DetailCourseTittle,
 	DetailCourseInstructor,
@@ -18,35 +15,31 @@ import {
 	DetailPrice,
 	DetailButtons,
 	Icon,
-	StarsIcon,
-	BeforeButtons,
 } from './StyledComponents';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faBars } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import Rating from '../Rating';
 
 const CourseCardFilter = ({ course }) => {
-	let average = averageRating(course.reviews);
-
 	return (
 		<Card flex_variant="row" dimension="filter">
-			<CardSnapshot variant="filter">
-				<Snapshot src={course.image} variant="filter" />
-			</CardSnapshot>
+			<Img src={course.cover_image} variant="filter" />
 			<CardFilterDetail>
-				<DetailCourseTittle>{course.title}</DetailCourseTittle>
+				<Link to={`/courses/${course.id}`}>
+					<DetailCourseTittle>{course.title}</DetailCourseTittle>
+				</Link>
 				<DetailCourseInstructor>
 					{concatInstructors(course.instructors)}
 				</DetailCourseInstructor>
 				<DetailCourseScore>
-					{formatDecimal(average)}{' '}
-					<StarsIcon>{addStarsToScore(average)}</StarsIcon>
+					<Rating value={averageRating(course.reviews)}/>
 				</DetailCourseScore>
 				<DetailPriceAndButtons>
 					<DetailPrice>
-						{course.price === null ? '' : course.price.price_string}
+						{course.price === null ? '' :  course.price.price_string}
 					</DetailPrice>
-					<BeforeButtons></BeforeButtons>
 					<DetailButtons>
 						<Icon>
 							<FontAwesomeIcon icon={faBars} />
