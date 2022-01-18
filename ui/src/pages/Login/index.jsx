@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import FormContainer from '../../components/FormContainer';
 
 import { login } from '../../actions';
+import Message from '../../components/Message';
+import Loader from '../../components/Loader';
 
 const Login = ({
 	location,
@@ -36,6 +38,7 @@ const Login = ({
 	return (
 		<FormContainer>
 			<h1>Iniciar Sesión</h1>
+			{errors && <Message variant="danger">{errors}</Message>}
 			<Form onSubmit={submitHandler}>
 				<Form.Group controlId="email">
 					<Form.Label>Correo Electronico</Form.Label>
@@ -55,11 +58,15 @@ const Login = ({
 						onChange={e => setPassword(e.target.value)}
 					></Form.Control>
 				</Form.Group>
-				<Button
-					className="mt-4"
-					type="submit"
-					variant="primary"
-				>Iniciar Sesión</Button>
+				{loading 
+					? <Loader style={{ height: '2rem', width: '2rem', marginTop: '1rem' }}/> 
+					: ( 
+						<Button
+							className="mt-4"
+							type="submit"
+							variant="primary"
+						>Iniciar Sesión</Button>
+					)}
 			</Form>
 			<Row  className="pt-3">
 				<Col>

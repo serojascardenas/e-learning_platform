@@ -13,31 +13,36 @@ import {
 import Rating from '../Rating';
 
 const CourseCard = ({ 
-	course,
+	id,
+	cover_image,
+	title,
+	instructors,
+	reviews,
+	price,
 }) => {
 	return (
 		<Card className="h-100">
-			<Link to={`/courses/${course.id}`}>
+			<Link to={`/courses/${id}`}>
 				<Card.Img
 					style={{ height: '15rem' }}
-					src={course.cover_image || '/images/not-found.jpg'}
+					src={cover_image || '/images/not-found.jpg'}
 					variant="top"
 				/>
 			</Link>
 			<Card.Body>
-				<Link to={`/courses/${course.id}`}>
+				<Link to={`/courses/${id}`}>
 					<Card.Title as="div">
-						<strong>{course.title}</strong>
+						<strong>{title}</strong>
 					</Card.Title>
 				</Link>
 				<Card.Text as="p">
-					<Card.Text>{concatInstructors(course.instructors)}</Card.Text>
+					<Card.Text>{concatInstructors(instructors)}</Card.Text>
 					<Rating
-						value={averageRating(course.reviews)}
-						text={`${course.reviews.length} reviews`}
+						value={averageRating(reviews)}
+						text={`${reviews.length} reviews`}
 					/>
 					<Card.Text as="h3">
-						{formatPrice(course.price.amount)}
+						{formatPrice(price.amount)}
 					</Card.Text>
 				</Card.Text>
 			</Card.Body>

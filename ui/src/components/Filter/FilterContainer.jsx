@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { FilterWrapper, Select, Input, Submit } from './StyledComponents';
+import { Form, Button } from 'react-bootstrap';
 
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { FilterWrapper, Select, Input } from './StyledComponents';
 
 const FilterContainer = ({ 
 	handleFilterSubmit,
+	setIsFiltering,
 }) => {
 	
 	const [title, setTitle] = useState('');
@@ -14,6 +15,7 @@ const FilterContainer = ({
 
 	const filterCourses = e => {
 		e.preventDefault();
+		setIsFiltering(true);
 		handleFilterSubmit({ title, instructor, category, subCategory });
 	};
 

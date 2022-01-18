@@ -9,7 +9,7 @@ const FilterResult = ({
 		<Row>
 			{filterCourses && filterCourses.map((course, index) => (
 				<Col key={index} sm={12} md={6} lg={6} xl={4}>
-					<CourseCardFilter course={course}></CourseCardFilter>
+					<CourseCardFilter {...course} />
 				</Col>
 			))}
 		</Row>

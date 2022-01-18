@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-multi-carousel';
@@ -40,11 +40,21 @@ const responsive = {
 };
 
 const Home = () => {
+	const [isFiltering, setIsFiltering] = useState(false);
+
 	const dispatch = useDispatch();
 
 	const { courseList, filteredCourseList } = useSelector(state => state);
-	const { courses, loading, errors } = courseList;
-	const { filteredCourses } = filteredCourseList;
+	const { 
+		courses, 
+		loading, 
+		errors, 
+	} = courseList;
+	const { 
+		filteredCourses, 
+		loading: loadingFiltered, 
+		errors: errorsFiltered, 
+	} = filteredCourseList;
 
 	useEffect(() => {
 		dispatch(listCourses());
@@ -55,11 +65,11 @@ const Home = () => {
 	};
 
 	return (
-		<>
+		<Container fluid>
 			{loading ? (<Loader />)
 				: errors ? <Message>{errors}</Message>
 					: (
-						<Container fluid>
+						<>
 							<Carousel
 								swipeable={false}
 								draggable={false}
@@ -79,27 +89,29 @@ const Home = () => {
 								itemClass="carousel-item-padding-40-px"
 							>
 								{courses && courses.map((course, i) => (
-									<CourseCard key={i} course={course}></CourseCard>
+									<CourseCard key={i} {...course}></CourseCard>
 								))}
 							</Carousel>
 							<Row className="mt-5 ml-1">
-								<h1>Todos Los Cursos</h1>
+								<h1>Buscar Cursos</h1>
 							</Row>
-							<Row className="mt-2">
-								<Col md={2}>
+							<Row>
+								<Col md={12} xs={12} lg={3} className="my-4">
 									<FilterContainer 
-										handleFilterSubmit={onFilterSubmit} 
+										handleFilterSubmit={onFilterSubmit}
+										setIsFiltering={setIsFiltering}
 									/>
 								</Col>
-								<Col md={10}>
-									<FilterResult 
-										filterCourses={isEmptyArray(filteredCourses) ? courses : filteredCourses}
-									/>
+								<Col md={12} xs={12} lg={9} className="my-4">
+									{loadingFiltered && <Loader />}
+									{!loadingFiltered && isFiltering && isEmptyArray(filteredCourses) && <Message variant="info">Tu busqueda no ha arrojado resultados</Message>}
+									{errorsFiltered && <Message variant="danger">{errorsFiltered}</Message>}
+									{!loadingFiltered && <FilterResult filterCourses={isEmptyArray(filteredCourses) ? courses : filteredCourses} />}
 								</Col>
 							</Row>
-						</Container>
+						</>
 					)}
-		</>
+		</Container>
 	);
 };
 
