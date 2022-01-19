@@ -56,7 +56,7 @@ async function init() {
 	expressApp.use(cors({
 		credentials: true,
 		methods: ['POST', 'PUT', 'GET', 'OPTIONS'],
-		origin: ['http://localhost:3000', 'http://localhost:8000'],
+		origin: ['https://elearning-lamanoderecha-4a62a.web.app', 'https://elearninglmd.herokuapp.com'],
 	}));
 	expressApp.use('/api', routes);
 	expressApp.use('/*', endpointNotFoundMiddleware);
