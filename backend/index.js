@@ -83,7 +83,7 @@ async function init() {
 	console.info('-- Dependencies initialized --');
 
 	if (process.env.NODE_ENV === 'production') {
-		expressApp.use(express.static(join(__dirname, '../../build')));
+		expressApp.use(express.static(path.join(__dirname, '../../build')));
 
 		expressApp.get('*', (_, res) => res.sendFile(resolve(__dirname, '..', '..', 'build', 'index.html')));
 	} else {
