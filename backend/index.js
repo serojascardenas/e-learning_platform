@@ -4,6 +4,7 @@ const set = require('lodash/set');
 const { resolve } = require('path');
 const createError = require('http-errors');
 const cors = require('cors');
+const path = require('path')
 
 const {
 	initializeDb,
