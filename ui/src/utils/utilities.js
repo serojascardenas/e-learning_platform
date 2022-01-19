@@ -2,14 +2,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faStarHalf } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faRegularStar } from '@fortawesome/free-regular-svg-icons';
 
-const formatDecimal = (value) => {
+const formatDecimal = value => {
 	return (Math.round(value * 100) / 100).toFixed(2);
 };
-const formatPrice = (value) => {
-	return `$ ${formatDecimal(value)}`;
+const formatPrice = value => {
+	return `€ ${formatDecimal(value)}`;
 };
 
-const addStarsToScore = (value) => {
+const addStarsToScore = value => {
 	let stars = 1;
 	let halfStar = 0;
 	let icons = [];

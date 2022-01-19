@@ -1,115 +1,84 @@
 import styled from 'styled-components/macro';
 
-const flex_variants = {
-	column: 'column',
-	row: 'row',
-};
+import { Card as BaseCard } from 'react-bootstrap';
+import { getMediaMinWidth } from '../../utils';
 
-const dimension_variants = {
-	carousel: { height: '100%', width: '300px' },
-	filter: { height: '180px', width: '350px' },
-};
-
-const snapshot_variant = {
-	carousel: { width: '100%', height: '60%' },
-	filter: { width: '50%', height: '100%' },
-};
-
-const border_snapshot_variant = {
-	carousel: '10px 10px 0px 0px',
-	filter: '10px 0 0px 10px',
-};
-
-const Card = styled.div`
-	margin: 10px;
-	flex: 0 0 ${({ dimension }) => { return dimension_variants[dimension].width ?? dimension_variants['carousel'].width; }};
-	height: ${({ dimension }) => {
-		return dimension_variants[dimension].height ?? dimension_variants['carousel'].height;
-	}};
+const Card = styled(BaseCard)`
+	position: relative;
+	height: 11.5rem;
 	display: flex;
-	flex-direction: ${({ flex_variant }) => {
-		return flex_variants[flex_variant] ?? flex_variants['column'];
-	}};
+	flex-direction: row;
 	background-color: ${({ theme }) => theme.colors.whiteGray};
 	justify-content: space-between;
 	align-items: center;
-	-webkit-tap-highlight-color: transparent;
+	overflow: hidden;
 	border-radius: 10px 10px 10px 10px;
+	margin-bottom: 1.5rem;
+
+	${getMediaMinWidth('sm')} {
+		height: 13rem;
+	}
+
+	${getMediaMinWidth('md')} {
+		height: 12rem;
+	}
 `;
 
-const CardSnapshot = styled.div`
-	width: ${({ variant }) => {
-		return (
-			snapshot_variant[variant].width ?? snapshot_variant['carousel'].width
-		);
-	}};
-	height: ${({ variant }) => {
-		return (
-			snapshot_variant[variant].height ?? snapshot_variant['carousel'].height
-		);
-	}};
-`;
-
-const Snapshot = styled.img`
-	margin: 1px;
-	max-width: 100%;
-	min-width: 100%;
-	max-height: 100%;
-	min-height: 100%;
-	border-radius: ${({ variant }) => {
-		return (
-			border_snapshot_variant[variant] ?? border_snapshot_variant['carousel']
-		);
-	}};
+const Img = styled.img`
+	height: 100%;
+	min-width: 25%;
+	max-width: 30%;
 `;
 
 const CardDetail = styled.div`
-	margin-top: 1rem;
 	padding: 0 2rem;
-	width: 100%;
-	height: 40%;
-`;
-
-const CardFilterDetail = styled.div`
-	padding: 1rem;
 	width: 100%;
 	height: 100%;
 `;
 
-const DetailCourseTittle = styled.div`
+const CardFilterDetail = styled.div`
+	padding: 0.5rem 1rem;
 	width: 100%;
-	height: 20%;
-	color: ${({ theme }) => theme.colors.primary};
+	height: 100%;
+`;
+
+const DetailCourseTittle = styled(Card.Text)`
+	width: 100%;
+	display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+	height: 24%;
 	font-size: 14px;
 	font-weight: 900;
 `;
 
-const DetailCourseInstructor = styled.div`
+const DetailCourseInstructor = styled(Card.Text)`
 	width: 100%;
 	height: 20%;
+	margin-top: 1rem;
+	display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
 	color: ${({ theme }) => theme.colors.black};
 	font-size: 14px;
-	margin-top: 20px;
 `;
 
 const DetailCourseScore = styled.div`
-	width: 100%;
 	height: 20%;
-	color: ${({ theme }) => theme.colors.wine};
-	font-size: 18px;
-	font-weight: 800;
-	display: flex;
-	flex-direction: row;
+	width: 100%;
 `;
 
-const DetailPriceAndButtons = styled.div`
-	width: 100%;
+const DetailPriceAndButtons = styled(Card.Text)`
+	width: 10rem;
 	height: 20%;
 	display: flex;
 	flex-direction: row;
 `;
 
 const DetailPrice = styled.div`
+	position: absolute;
 	width: 50%;
 	height: 100%;
 	font-size: 16px;
@@ -117,17 +86,13 @@ const DetailPrice = styled.div`
 	color: ${({ theme }) => theme.colors.black};
 `;
 
-const BeforeButtons = styled.div`
-	width: 20%;
-`;
-
 const DetailButtons = styled.div`
-	width: 30%;
+	position: absolute;
+	right: 1rem;
 	height: 100%;
 	text-align: right;
 	display: flex;
 	flex-direction: row;
-	padding-left: 0.8rem;
 `;
 
 const Icon = styled.div`
@@ -137,19 +102,13 @@ const Icon = styled.div`
 	color: ${({ theme }) => theme.colors.turquoise};
 `;
 
-const StarsIcon = styled.div`
-	padding-left: 0.5rem;
-	color: ${({ theme }) => theme.colors.wine};
-`;
-
 const CourseCardWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 `;
 export {
 	Card,
-	CardSnapshot,
-	Snapshot,
+	Img,
 	CardDetail,
 	CardFilterDetail,
 	DetailCourseInstructor,
@@ -159,7 +118,5 @@ export {
 	DetailPrice,
 	DetailButtons,
 	Icon,
-	StarsIcon,
 	CourseCardWrapper,
-	BeforeButtons,
 };

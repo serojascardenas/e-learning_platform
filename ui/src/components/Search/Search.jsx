@@ -1,17 +1,25 @@
 import React from 'react';
 
 import {
-	Root,
-} from './StyledComponents';
+	Form,
+} from 'react-bootstrap';
 
 const Search = ({
 	onInputChange = () => {},
-	...restProps
+	...rest
 }) => (
-	<Root 
-		onChange={onInputChange}
-		{...restProps}
-	/>
+	<Form
+		inline
+	>
+		<Form.Control
+			autoComplete="off"
+			size="sm"
+			type="text"
+			name="q"
+			className="mr-sm-1 "
+			{...rest}
+		></Form.Control>
+	</Form>
 );
 
 export default Search;

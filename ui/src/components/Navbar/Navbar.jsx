@@ -1,18 +1,21 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
+import {
+	Navbar as Navigation,
+	Nav,
+	Container,
+	NavDropdown,
+	Badge,
+	Button,
+} from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+
 import { logout } from '../../actions';
 
 import {
 	Wrapper,
-	Logo,
-	ContentLinks,
-	LinkItem,
-	Content,
-	SearchWrapper,
-	UserActionsWrapper,
-	Button,
-	Link,
 } from './StyledComponents';
 
 import Search from '../Search';
@@ -33,42 +36,58 @@ const Navbar = () => {
 		history.push('/');
 	};
 
-
 	return (
 		<Wrapper>
-			<Logo>LMD</Logo>
-			<Content>
-				<ContentLinks>
-					<LinkItem>
-					Home
-					</LinkItem>
-					<LinkItem>
-					Cursos
-					</LinkItem>
-					<LinkItem>
-					Nosotros
-					</LinkItem>
-				</ContentLinks>
-				<SearchWrapper>
-					<Search placeholder="Buscar cursos"/>
-				</SearchWrapper>
-			</Content>
-			<UserActionsWrapper>
-				{userInfo 
-					? ( <Button 
-						variant="secondary" 
-						onClick={logoutHandler}>Cerrar Sesión</Button>) 
-					: (
-						<>
-							<Link to="/login">
-								<Button variant="secondary">Iniciar Sesión</Button>
-							</Link>
-							<Link to="/register">
-								<Button variant="negative">Crear Cuenta</Button>
-							</Link>
-						</>
-					)}
-			</UserActionsWrapper>
+			<Navigation bg="dark" variant="dark" expand="lg" collapseOnSelect>
+				<Container fluid>
+					<LinkContainer to="/">
+						<Navigation.Brand>LMD</Navigation.Brand>
+					</LinkContainer>
+					<Navigation.Toggle aria-controls="basic-navbar-nav" />
+					<Navigation.Collapse id="basic-navbar-nav">
+						<Nav className="ml-auto justify-content-center">
+							<Nav.Item>
+								<LinkContainer to="/">
+									<Nav.Link>Cursos</Nav.Link>
+								</LinkContainer>
+							</Nav.Item>
+							<Nav.Item>
+								<LinkContainer to="/about-us">
+									<Nav.Link>Nosotros</Nav.Link>
+								</LinkContainer>
+							</Nav.Item>
+							<Nav.Item>
+								<Search 
+									placeholder="Buscar Cursos"
+								/>
+							</Nav.Item>
+						</Nav>
+						<Nav className="ml-auto">
+							{userInfo 
+								? ( 
+									<Nav.Item>
+										<Button 
+											variant="secondary" 
+											onClick={logoutHandler}>Cerrar Sesión</Button>
+									</Nav.Item>)
+								: (
+									<>
+										<Nav.Item>
+											<LinkContainer to="/login">
+												<Nav.Link>Iniciar Sesión</Nav.Link>
+											</LinkContainer>
+										</Nav.Item>
+										<Nav.Item>
+											<LinkContainer to="/register">
+												<Nav.Link>Crear Cuenta</Nav.Link>
+											</LinkContainer>
+										</Nav.Item>
+									</>
+								)}
+						</Nav>
+					</Navigation.Collapse>
+				</Container>
+			</Navigation>
 		</Wrapper>
 	);};
 
