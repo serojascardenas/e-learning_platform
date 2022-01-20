@@ -31,11 +31,13 @@ module.exports = function coursesRoutes(routes, { controllers, middlewares }) {
 		middlewares.validator(),
 		async (req, res) => {
 			const {
-				courses: { getCourse },
+				courses: {
+					getCourseById,
+				},
 			} = controllers;
 
 			try {
-				const course = await getCourse(req.params.id);
+				const course = await getCourseById(req.params.id);
 				return res.status(200).validJsonResponse(course);
 			} catch (err) {
 				return res.status(400).validJsonError(err);

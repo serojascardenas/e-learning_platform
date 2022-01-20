@@ -8,7 +8,7 @@ import 'react-multi-carousel/lib/styles.css';
 
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
-import CourseCard from '../../components/Cards/CourseCard';
+import CourseCard from '../../components/Cards/VerticalCourseCard';
 import { listCourses, listFilterCourses } from '../../actions';
 
 import FilterResult from '../../components/FilterResult/FilterResult';
@@ -89,7 +89,11 @@ const Home = () => {
 								itemClass="carousel-item-padding-40-px"
 							>
 								{courses && courses.map((course, i) => (
-									<CourseCard key={i} {...course}></CourseCard>
+									<CourseCard 
+										key={i} 
+										variant="vertical"
+										{...course}
+									/>
 								))}
 							</Carousel>
 							<Row className="mt-5 ml-1">

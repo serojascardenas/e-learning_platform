@@ -36,13 +36,11 @@ const Register = ({
 
 	const dispatch = useDispatch();
 
-	const { userRegister, userLogin } = useSelector(state => state);
+	const { userRegister } = useSelector(state => state);
 	
-	const { loading, error } = userRegister;
-	const { userInfo } = userLogin;
+	const { userInfo, loading, error } = userRegister;
 
 	useEffect(() => {
-		console.log(userInfo);
 		if (userInfo) {
 			history.push(redirect);
 		}

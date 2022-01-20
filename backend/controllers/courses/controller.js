@@ -8,7 +8,7 @@ const getAllCourses = async () => {
 	return courses;
 };
 
-const getCourse = async (courseId) => {
+const getCourseById = async courseId => {
 	return await Course.findById(courseId)
 		.populate('instructors')
 		.populate('reviews');
@@ -112,7 +112,7 @@ const deleteCourse = async (courseId) => {
 
 module.exports = {
 	getAllCourses,
-	getCourse,
+	getCourseById,
 	createCourse,
 	createReview,
 	deleteCourse,

@@ -73,10 +73,17 @@ const register = ({
 		return;
 	}
 
-	localStorage.setItem('userInfo', JSON.stringify(response.data));
+	const { data } = response;
+
+	localStorage.setItem('userInfo', JSON.stringify(data));
 	dispatch({
 		type: USER_REGISTER_SUCCESS,
-		payload: response.data,
+		payload: data,
+	});
+
+	dispatch({
+		type: USER_LOGIN_SUCCESS,
+		payload: data,
 	});
 };
 
