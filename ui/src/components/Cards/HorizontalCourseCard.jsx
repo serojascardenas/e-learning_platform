@@ -27,6 +27,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faBars } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import Rating from '../Rating';
+import { addDefaultSrc } from './utils';
 
 const HorizontalCourseCard = ({ 
 	children,
@@ -47,9 +48,6 @@ const HorizontalCourseCard = ({
 		history.push(`/cart/${id}`);
 	};
 
-	const addDefaultSrc = e => {
-		e.target.src = '/images/not-found.jpg';
-	};
 
 	return (
 		<Card>

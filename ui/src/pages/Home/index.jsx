@@ -14,6 +14,7 @@ import { listCourses, listFilterCourses } from '../../actions';
 import FilterResult from '../../components/FilterResult/FilterResult';
 import { FilterContainer } from '../../components/Filter/FilterContainer';
 import { isEmptyArray } from '../../utils';
+import { H1 } from '../../components/Foundation';
 
 const Container = styled(BaseContainer)`
 	width: 100%;
@@ -22,18 +23,23 @@ const Container = styled(BaseContainer)`
 `;
 
 const responsive = {
+	superLargeDesktop: {
+		// the naming can be any, depends on you.
+		breakpoint: { max: 4000, min: 2560 },
+		items: 7,
+	},
 	desktop: {
-		breakpoint: { max: 3000, min: 1024 },
-		items: 4,
+		breakpoint: { max: 2560, min: 1024 },
+		items: 5,
 		slidesToSlide: 3, // optional, default to 1.
 	},
 	tablet: {
-		breakpoint: { max: 1024, min: 464 },
-		items: 2,
+		breakpoint: { max: 1024, min: 550 },
+		items: 3,
 		slidesToSlide: 2, // optional, default to 1.
 	},
 	mobile: {
-		breakpoint: { max: 464, min: 0 },
+		breakpoint: { max: 550, min: 0 },
 		items: 1,
 		slidesToSlide: 1, // optional, default to 1.
 	},
@@ -71,22 +77,16 @@ const Home = () => {
 					: (
 						<>
 							<Carousel
-								swipeable={false}
-								draggable={false}
+								swipeable={true}
+								draggable={true}
 								showDots={true}
 								responsive={responsive}
-								ssr={true} // means to render carousel on server-side.
+								ssr={true} 
 								infinite={true}
-								autoPlay={false}
-								autoPlaySpeed={1000}
+								autoPlay={true}
+								autoPlaySpeed={3000}
 								keyBoardControl={true}
-								customTransition="all .5"
 								transitionDuration={500}
-								containerClass="carousel-container"
-								removeArrowOnDeviceType={['tablet', 'mobile']}
-								deviceType="web"
-								dotListClass="custom-dot-list-style"
-								itemClass="carousel-item-padding-40-px"
 							>
 								{courses && courses.map((course, i) => (
 									<CourseCard 
@@ -97,7 +97,7 @@ const Home = () => {
 								))}
 							</Carousel>
 							<Row className="mt-5 ml-1">
-								<h1>Buscar Cursos</h1>
+								<H1>Buscar Cursos</H1>
 							</Row>
 							<Row>
 								<Col md={12} xs={12} lg={3} className="my-4">

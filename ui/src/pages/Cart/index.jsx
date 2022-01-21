@@ -6,14 +6,13 @@ import {
 	Row,
 	Col,
 	ListGroup,
-	Button,
 	Card,
 	Modal,
 } from 'react-bootstrap';
 
 import CourseCard from '../../components/Cards';
 import Message from '../../components/Message';
-import { ClampText, Text } from '../../components/Foundation';
+import { ClampText, H1, H2, Text, Button } from '../../components/Foundation';
 
 import { 
 	addToCart, 
@@ -23,7 +22,6 @@ import {
 
 const Cart = ({
 	match,
-	location,
 	history,
 }) => {
 
@@ -53,6 +51,10 @@ const Cart = ({
 		setSelectedCourse(course);
 	};
 
+	const checkoutHandler = () => {
+		history.push('/login?redirect=billing');
+	};
+
 	return (
 		<Container className="mt-5">
 			<Modal show={showModal} onHide={() => setShowModal(false)}>
@@ -74,7 +76,7 @@ const Cart = ({
 			</Modal>
 			<Row>
 				<Col md={8}>
-					<h1>Cesta</h1>
+					<H1>Cesta</H1>
 					{cartItems?.length === 0
 						? <Message>Tu carrito esta vacio <Link to="/">Ir a Cursos</Link></Message>
 						: (
@@ -104,7 +106,7 @@ const Cart = ({
 					<Card>
 						<ListGroup variant="flush">
 							<ListGroup.Item>
-								<h2>Subtotal ({cartItems.reduce((acc, _) => acc + 1, 0)}) cursos</h2>
+								<H2>Subtotal ({cartItems.reduce((acc, _) => acc + 1, 0)}) cursos</H2>
 							</ListGroup.Item>
 							<ListGroup.Item>
 								{cartItems.map(course => (
@@ -135,6 +137,7 @@ const Cart = ({
 									type="button"
 									className="btn-block"
 									disabled={cartItems.length === 0}
+									onClick={checkoutHandler}
 								>Proceder a Checkout</Button>
 							</ListGroup.Item>
 						</ListGroup>

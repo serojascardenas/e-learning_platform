@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import {
 	COURSE_LIST_REQUEST,
 	COURSE_LIST_SUCCESS,

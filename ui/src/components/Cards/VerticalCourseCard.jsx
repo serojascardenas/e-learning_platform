@@ -11,6 +11,7 @@ import {
 } from '../../utils/utilities';
 
 import Rating from '../Rating';
+import { addDefaultSrc } from './utils';
 
 const VerticalCourseCard = ({ 
 	id,
@@ -26,6 +27,7 @@ const VerticalCourseCard = ({
 				<Card.Img
 					style={{ height: '15rem' }}
 					src={cover_image || '/images/not-found.jpg'}
+					onError={addDefaultSrc}
 					variant="top"
 				/>
 			</Link>

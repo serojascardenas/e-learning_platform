@@ -1,18 +1,19 @@
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 
 import { Card as BaseCard } from 'react-bootstrap';
 import { getMediaMinWidth } from '../../utils';
 import { ClampText } from '../Foundation';
 
 const Card = styled(BaseCard)`
+	overflow: auto;
 	display: flex;
 	flex-direction: row;
 	height: 11.5rem;
-	max-width: 30rem;
+	max-width: 40rem;
 	background-color: ${({ theme }) => theme.colors.whiteGray};
-	overflow: hidden;
 	border-radius: 10px 10px 10px 10px;
 	margin-bottom: 1.5rem;
+	box-shadow: 1px 2px 5px 2px rgba(0,0,0,0.15);
 
 	${getMediaMinWidth('sm')} {
 		max-height: 13rem;
@@ -35,7 +36,8 @@ const CardContent = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-	width: 40%;
+	width: 15rem;
+	max-width: 25%;
 `;
 
 const Img = styled.img`

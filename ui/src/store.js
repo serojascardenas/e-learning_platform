@@ -23,6 +23,7 @@ const middleware = [thunk];
 
 // Get initial state from storage if item exists
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
+const billingAddressFromStorage = localStorage.getItem('billingAddress') ? JSON.parce(localStorage.getItem('billingAddress')) : {};
 const userInfoFromStorage = localStorage.getItem('userInfo')
 	? JSON.parse(localStorage.getItem('userInfo'))
 	: null;
@@ -30,6 +31,7 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
 const initialState = {
 	cart: {
 		cartItems: cartItemsFromStorage,
+		billingAddress: billingAddressFromStorage,
 	},
 	userLogin: {
 		userInfo: userInfoFromStorage,

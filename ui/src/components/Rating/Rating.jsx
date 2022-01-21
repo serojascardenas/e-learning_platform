@@ -3,7 +3,7 @@ import React from 'react';
 const Rating = ({
 	value,
 	text,
-	color = 'wine',
+	color = '#A9675E',
 }) => (
 	<div className="rating" >
 		<span><i style={{ color }} className={value >= 1 ? 'fa fa-star' : value >= 0.5 ? 'fas fa-star-half-alt' : 'far fa-star'}></i></span>
