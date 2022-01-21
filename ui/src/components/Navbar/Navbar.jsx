@@ -2,6 +2,9 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+
 import {
 	Navbar as Navigation,
 	Nav,
@@ -63,27 +66,38 @@ const Navbar = () => {
 							</Nav.Item>
 						</Nav>
 						<Nav className="ml-auto">
-							{userInfo 
-								? ( 
-									<Nav.Item>
-										<Button 
-											variant="secondary" 
-											onClick={logoutHandler}>Cerrar Sesión</Button>
-									</Nav.Item>)
-								: (
-									<>
-										<Nav.Item>
-											<LinkContainer to="/login">
-												<Nav.Link>Iniciar Sesión</Nav.Link>
+							<>
+								<LinkContainer to="/cart">
+									<Nav.Link>
+										<FontAwesomeIcon icon={faShoppingCart} />
+									</Nav.Link>
+								</LinkContainer>
+								{userInfo 
+									? ( 
+										<NavDropdown
+											title={userInfo.name}
+											id="username"
+										>
+											<LinkContainer to="/profile">
+												<NavDropdown.Item>Profile</NavDropdown.Item>
 											</LinkContainer>
-										</Nav.Item>
-										<Nav.Item>
-											<LinkContainer to="/register">
-												<Nav.Link>Crear Cuenta</Nav.Link>
-											</LinkContainer>
-										</Nav.Item>
-									</>
-								)}
+											<NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+										</NavDropdown>
+									) : (
+										<>
+											<Nav.Item>
+												<LinkContainer to="/login">
+													<Nav.Link>Iniciar Sesión</Nav.Link>
+												</LinkContainer>
+											</Nav.Item>
+											<Nav.Item>
+												<LinkContainer to="/register">
+													<Nav.Link>Crear Cuenta</Nav.Link>
+												</LinkContainer>
+											</Nav.Item>
+										</>
+									)}
+							</>
 						</Nav>
 					</Navigation.Collapse>
 				</Container>

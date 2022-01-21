@@ -13,8 +13,10 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Cart from './pages/Cart';
 
 import theme from './theme';
+import Billing from './pages/Billing';
 
 const App = () => {
 	
@@ -28,6 +30,8 @@ const App = () => {
 						<Container fluid>
 							<Route path="/login" component={Login}/>
 							<Route path="/register" component={Register} />
+							<Route path="/cart/:id?" component={Cart} />
+							<Route path="/billing" component={Billing}/>
 							<Route path="/" exact component={Home} />
 						</Container>
 					</main>

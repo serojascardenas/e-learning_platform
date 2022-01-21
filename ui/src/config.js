@@ -8,6 +8,7 @@ export default {
 				register: 'api/users',
 				logout: 'api/auth/logout',
 				courses: 'api/courses',
+				courseById: 'api/courses/{id}',
 			},
 		},
 	},

@@ -2,32 +2,48 @@ import styled from 'styled-components/macro';
 
 import { Card as BaseCard } from 'react-bootstrap';
 import { getMediaMinWidth } from '../../utils';
+import { ClampText } from '../Foundation';
 
 const Card = styled(BaseCard)`
-	position: relative;
-	height: 11.5rem;
+	overflow: auto;
 	display: flex;
 	flex-direction: row;
+	height: 11.5rem;
+	max-width: 40rem;
 	background-color: ${({ theme }) => theme.colors.whiteGray};
-	justify-content: space-between;
-	align-items: center;
-	overflow: hidden;
 	border-radius: 10px 10px 10px 10px;
 	margin-bottom: 1.5rem;
+	box-shadow: 1px 2px 5px 2px rgba(0,0,0,0.15);
 
 	${getMediaMinWidth('sm')} {
-		height: 13rem;
+		max-height: 13rem;
 	}
 
 	${getMediaMinWidth('md')} {
-		height: 12rem;
+		max-height: 12rem;
 	}
+`;
+
+const CardContent = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	background: transparent;
+	position: relative;
+	width: 100%;
+	height: 100%;
+`;
+
+const ImgWrapper = styled.div`
+	width: 15rem;
+	max-width: 25%;
 `;
 
 const Img = styled.img`
 	height: 100%;
-	min-width: 25%;
-	max-width: 30%;
+	width: 100%;
+	object-fit: cover;
 `;
 
 const CardDetail = styled.div`
@@ -44,6 +60,7 @@ const CardFilterDetail = styled.div`
 
 const DetailCourseTittle = styled(Card.Text)`
 	width: 100%;
+	max-width: 20rem;
 	display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;  
@@ -70,20 +87,32 @@ const DetailCourseScore = styled.div`
 	width: 100%;
 `;
 
-const DetailPriceAndButtons = styled(Card.Text)`
-	width: 10rem;
+const DetailPrice = styled.div`
+	position: absolute;
+	height: 100%;
+	font-size: 16px;
+	font-weight: 800;
+	color: ${({ theme }) => theme.colors.black};
+	width: 50%;
+	left: 1rem;
+`;
+
+const DetailPriceAndButtons = styled.div`
+	width: 100%;
+	left: 0;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
 	height: 20%;
 	display: flex;
 	flex-direction: row;
 `;
 
-const DetailPrice = styled.div`
-	position: absolute;
-	width: 50%;
-	height: 100%;
-	font-size: 16px;
-	font-weight: 800;
-	color: ${({ theme }) => theme.colors.black};
+const DetailDescription = styled(ClampText)`
+	margin: 0;
+	margin-top: 1rem;
+	max-width: 20rem;
+	font-size: 0.75rem;
 `;
 
 const DetailButtons = styled.div`
@@ -96,22 +125,37 @@ const DetailButtons = styled.div`
 `;
 
 const Icon = styled.div`
+	cursor: pointer;
 	width: 100%;
 	height: 100%;
 	padding: 0.2rem;
 	color: ${({ theme }) => theme.colors.turquoise};
+
+	&:hover {
+		filter: brightness(120%);
+	}
 `;
 
 const CourseCardWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 `;
+
+const AddOns = styled.div`
+	position: absolute;
+	right: 1rem;
+	bottom: 1rem;
+`;
+
 export {
 	Card,
+	CardContent,
 	Img,
+	ImgWrapper,
 	CardDetail,
 	CardFilterDetail,
 	DetailCourseInstructor,
+	DetailDescription,
 	DetailCourseTittle,
 	DetailCourseScore,
 	DetailPriceAndButtons,
@@ -119,4 +163,5 @@ export {
 	DetailButtons,
 	Icon,
 	CourseCardWrapper,
+	AddOns,
 };

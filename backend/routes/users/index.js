@@ -1,4 +1,5 @@
 const { validateUserRequestSchema } = require('../../models/entities');
+const get = require('lodash/get');
 
 module.exports = function userRoutes(routes, {
 	controllers,
@@ -33,6 +34,7 @@ module.exports = function userRoutes(routes, {
 				}
 
 				const user = await createUserAsync(body);
+				req.session.userId = get(user, 'id');
 
 				return res
 					.status(201)
