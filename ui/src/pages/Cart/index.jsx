@@ -112,11 +112,11 @@ const Cart = ({
 								{cartItems.map(course => (
 									<Card.Text key={course.id}>
 										<Row>
-											<Col md={8}>
+											<Col sm={6} md={8}>
 												<ClampText by={2}>{course.title}</ClampText>
 											</Col> 
-											<Col md={4}>
-												<Text>{course.price.price_string}</Text>
+											<Col sm={6} md={4}>
+												<Text className="d-flex justify-content-end">{course.price.price_string}</Text>
 											</Col>
 										</Row>
 									</Card.Text>
@@ -124,11 +124,11 @@ const Cart = ({
 							</ListGroup.Item>
 							<ListGroup.Item>
 								<Row>
-									<Col md={8}>
+									<Col md={6}>
 										<Text>Subtotal</Text>
 									</Col>
-									<Col md={4}>
-										<Text>€ {cartItems.reduce((acc, course) => acc + course?.price?.amount, 0).toFixed(2)}</Text>
+									<Col md={6}>
+										<Text className="d-flex justify-content-end">€ {cartItems.reduce((acc, course) => acc + course?.price?.amount, 0).toFixed(2)}</Text>
 									</Col>
 								</Row>
 							</ListGroup.Item>

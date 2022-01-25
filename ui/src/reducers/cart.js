@@ -17,11 +17,11 @@ export const cartReducer = (
 	switch (action.type) {
 		case CART_ADD_ITEM:
 			const item = action.payload;
-			const existItem = state.cartItems.find(x => x.id === item.id);
+			const existItem = state.cartItems.find(x => x.courseId === item.courseId);
 			if (existItem) {
 				return {
 					...state,
-					cartItems: state.cartItems.map(x => x.id === existItem.id ? item : x),
+					cartItems: state.cartItems.map(x => x.courseId === existItem.courseId ? item : x),
 				};
 			} else {
 				return {
@@ -32,7 +32,7 @@ export const cartReducer = (
 		case CART_REMOVE_ITEM:
 			return {
 				...state,
-				cartItems: state.cartItems.filter(x => x.id !== action.payload),
+				cartItems: state.cartItems.filter(x => x.courseId !== action.payload),
 			};
 		case CART_SAVE_PAYMENT_METHOD:
 			return {

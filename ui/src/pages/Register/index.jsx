@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Joi from 'joi-browser';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import FormContainer from '../../components/FormContainer';
@@ -10,7 +10,7 @@ import Loader from '../../components/Loader';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../actions';
-import { H1 } from '../../components/Foundation';
+import { Button, H1 } from '../../components/Foundation';
 
 const Register = ({
 	location,

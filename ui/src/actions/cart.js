@@ -28,7 +28,7 @@ const addToCart = courseId => async (dispatch, getState) => {
 	dispatch({
 		type: CART_ADD_ITEM,
 		payload: {
-			id,
+			courseId: id,
 			title,
 			description,
 			cover_image,
@@ -65,9 +65,19 @@ const saveBillingAddress = data => async dispatch => {
 	localStorage.setItem('billingAddress', JSON.stringify(data));
 };
 
+const savePaymentMethod = data => async dispatch => {
+	dispatch({
+		type: CART_SAVE_PAYMENT_METHOD,
+		payload: data,
+	});
+
+	localStorage.setItem('paymentMethod', JSON.stringify(data));
+};
+
 export {
 	addToCart,
 	resetCartItems,
 	removeFromCart,
 	saveBillingAddress,
+	savePaymentMethod,
 };

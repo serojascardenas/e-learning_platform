@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import FormContainer from '../../components/FormContainer';
@@ -8,7 +8,7 @@ import FormContainer from '../../components/FormContainer';
 import { login } from '../../actions';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
-import { H1 } from '../../components/Foundation';
+import { Button, H1 } from '../../components/Foundation';
 
 const Login = ({
 	location,
