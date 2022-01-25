@@ -20,7 +20,7 @@ module.exports = function userRoutes(routes, {
 
 			const {
 				orders: {
-					createOrder,
+					createOrderAsync,
 				},
 			} = controllers
 
@@ -37,7 +37,7 @@ module.exports = function userRoutes(routes, {
 				if (isEmptyArray(orderItems))
 					return res.status(400).validJsonError('Los cursos ordenados deben contener por lo menos un elemento');
 
-				const order = await createOrder({
+				const order = await createOrderAsync({
 					user,
 					orderItems,
 					billingAddress,
@@ -70,12 +70,12 @@ module.exports = function userRoutes(routes, {
 
 			const {
 				orders: {
-					getMyOrders,
+					getMyOrdersAsync,
 				},
 			} = controllers;
 
 			try {
-				const orders = await getMyOrders(user);
+				const orders = await getMyOrdersAsync(user);
 				return res.status(200).validJsonResponse(orders);
 			} catch (err) {
 				return res.status(400).validJsonError(err);
@@ -90,7 +90,7 @@ module.exports = function userRoutes(routes, {
 		async (req, res) => {
 			const {
 				orders: {
-					getOrderById,
+					getOrderByIdAsync,
 				},
 			} = controllers
 
@@ -101,7 +101,7 @@ module.exports = function userRoutes(routes, {
 			} = req;
 
 			try {
-				const order = await getOrderById(id);
+				const order = await getOrderByIdAsync(id);
 				if (order) return res.status(200).validJsonResponse(order);
 
 				return res
@@ -121,8 +121,8 @@ module.exports = function userRoutes(routes, {
 		async (req, res) => {
 			const {
 				orders: {
-					getOrderById,
-					updateOrderToPaid,
+					getOrderByIdAsync,
+					updateOrderToPaidAsync,
 				},
 				users: {
 					updateUserEnrolledCourseAsync,
@@ -145,11 +145,11 @@ module.exports = function userRoutes(routes, {
 			} = req;
 
 			try {
-				const order = await getOrderById(orderId);
+				const order = await getOrderByIdAsync(orderId);
 
 				if (!order) return res.status(404).json('Orden no encontrada');
 
-				const updatedOrder = await updateOrderToPaid(order, { id, status, update_time, email_address });
+				const updatedOrder = await updateOrderToPaidAsync(order, { id, status, update_time, email_address });
 
 				const courseIds = order.orderItems?.map(course => course.courseId.toString());
 
