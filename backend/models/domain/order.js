@@ -7,18 +7,38 @@ const orderSchema = mongoose.Schema({
 		ref: 'User',
 	},
 	orderItems: [{
-		name: {
+		courseId: {
+			type: String,
+			required: true,
+		},
+		title: {
+			type: String,
+			required: true,
+		},
+		cover_image: {
 			type: String,
 			required: true,
 		},
 		price: {
-			type: Number,
-			required: true
-		},
-		course: {
-			type: mongoose.Schema.Types.ObjectId,
-			required: true,
-			ref: 'Course',
+			amount: {
+				type: Number,
+				required: true,
+			},
+			currency: {
+				type: String,
+				required: true,
+			},
+			currency_symbol: {
+				type: String,
+				required: true,
+			},
+			price_string: {
+				type: String,
+			},
+			is_free: {
+				type: Boolean,
+				default: false,
+			},
 		},
 	}],
 	billingAddress: {
@@ -38,6 +58,11 @@ const orderSchema = mongoose.Schema({
 			type: String,
 			required: true,
 		},
+	},
+	itemsPrice: {
+		type: Number,
+		require: true,
+		default: 0.0,
 	},
 	paymentMethod: {
 		type: String,
@@ -69,6 +94,13 @@ const orderSchema = mongoose.Schema({
 	}
 }, {
 	timestamps: true,
+	toJSON: {
+		transform: (doc, ret) => {
+			ret.id = doc._id;
+			delete ret._id;
+			delete ret.__v;
+		},
+	},
 });
 
 module.exports = mongoose.model('Order', orderSchema, 'orders');

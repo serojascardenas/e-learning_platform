@@ -17,6 +17,10 @@ import Cart from './pages/Cart';
 
 import theme from './theme';
 import Billing from './pages/Billing';
+import Payment from './pages/Payment';
+import PlaceOrder from './pages/PlaceOrder';
+import Order from './pages/Order';
+import MyOrders from './pages/MyOrders';
 
 const App = () => {
 	
@@ -32,6 +36,10 @@ const App = () => {
 							<Route path="/register" component={Register} />
 							<Route path="/cart/:id?" component={Cart} />
 							<Route path="/billing" component={Billing}/>
+							<Route path="/payment" component={Payment}/>
+							<Route path="/place-order" component={PlaceOrder}/>
+							<Route path="/my-orders" exact component={MyOrders} />
+							<Route path="/orders/:id" component={Order}/>
 							<Route path="/" exact component={Home} />
 						</Container>
 					</main>

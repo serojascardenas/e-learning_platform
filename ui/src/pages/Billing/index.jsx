@@ -54,7 +54,7 @@ const Billing = ({
 							type="text"
 							value={address}
 							required
-							placeholder="Enter your address"
+							placeholder="Ingresa tu dirección"
 							onChange={e => setAddress(e.target.value)}
 						></Form.Control>
 					</Form.Group>
@@ -64,7 +64,7 @@ const Billing = ({
 							type="text"
 							value={country}
 							required
-							placeholder="Enter your country"
+							placeholder="Ingresa tu país"
 							onChange={e => setCountry(e.target.value)}
 						></Form.Control>
 					</Form.Group>
@@ -74,7 +74,7 @@ const Billing = ({
 							type="text"
 							value={city}
 							required
-							placeholder="Enter your city"
+							placeholder="Ingresa tu ciudad"
 							onChange={e => setCity(e.target.value)}
 						></Form.Control>
 					</Form.Group>
@@ -84,7 +84,7 @@ const Billing = ({
 							type="text"
 							value={postalCode}
 							required
-							placeholder="Enter your postal code"
+							placeholder="Ingresa tu código postal"
 							onChange={e => setPostalCode(e.target.value)}
 						></Form.Control>
 					</Form.Group>
@@ -92,7 +92,7 @@ const Billing = ({
 						className="mt-4"
 						type="submit"
 						variant="primary"
-					>Continue</Button>
+					>Continuar</Button>
 				</Form>
 			</FormContainer>
 		</>

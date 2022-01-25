@@ -14,7 +14,10 @@ const H3 = styled.h3`
 	padding: 1rem 0;
 `;
 
-const Text = styled.p``;
+const Text = styled.p`
+		margin: 0;
+		font-size: ${({ textSize = 1 }) => `${textSize}rem`};
+`;
 
 const ClampText = styled(Text)`
 	display: -webkit-box;

@@ -78,10 +78,10 @@ const Navbar = () => {
 											title={userInfo.name}
 											id="username"
 										>
-											<LinkContainer to="/profile">
-												<NavDropdown.Item>Profile</NavDropdown.Item>
+											<LinkContainer to="/my-orders">
+												<NavDropdown.Item>Mis Órdenes</NavDropdown.Item>
 											</LinkContainer>
-											<NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+											<NavDropdown.Item onClick={logoutHandler}>Salir</NavDropdown.Item>
 										</NavDropdown>
 									) : (
 										<>
