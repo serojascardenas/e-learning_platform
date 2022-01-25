@@ -14,6 +14,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
+import Course from './pages/Course';
 
 import theme from './theme';
 import Billing from './pages/Billing';
@@ -35,6 +36,7 @@ const App = () => {
 							<Route path="/login" component={Login}/>
 							<Route path="/register" component={Register} />
 							<Route path="/cart/:id?" component={Cart} />
+							<Route path="/course/:id?" component={Course} />
 							<Route path="/billing" component={Billing}/>
 							<Route path="/payment" component={Payment}/>
 							<Route path="/place-order" component={PlaceOrder}/>

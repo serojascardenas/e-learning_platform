@@ -1,10 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import {
-	concatInstructors,
-	averageRating,
-} from '../../utils/utilities';
+import { concatInstructors, averageRating } from '../../utils/utilities';
 
 import {
 	AddOns,
@@ -29,7 +26,7 @@ import { Link } from 'react-router-dom';
 import Rating from '../Rating';
 import { addDefaultSrc } from './utils';
 
-const HorizontalCourseCard = ({ 
+const HorizontalCourseCard = ({
 	children,
 	id,
 	cover_image,
@@ -41,21 +38,21 @@ const HorizontalCourseCard = ({
 	showDescription = false,
 	showActionButtons = true,
 }) => {
-
 	const history = useHistory();
 
 	const addToCartHandler = () => {
 		history.push(`/cart/${id}`);
 	};
 
+	const openCourseDetail = () => {
+		history.push(`/course/${id}`);
+
+	};
 
 	return (
 		<Card>
 			<ImgWrapper>
-				<Img 
-					src={cover_image}
-					onError={addDefaultSrc}
-				/>
+				<Img src={cover_image} onError={addDefaultSrc} />
 			</ImgWrapper>
 			<CardContent>
 				<CardFilterDetail>
@@ -65,23 +62,23 @@ const HorizontalCourseCard = ({
 					{showDescription && description && (
 						<DetailDescription by={3}>{description}</DetailDescription>
 					)}
-					{ instructors && 
-					<DetailCourseInstructor>
-						{concatInstructors(instructors)}
-					</DetailCourseInstructor>
-					}
-					{ reviews && 
-					<DetailCourseScore>
-						<Rating value={averageRating(reviews)}/>
-					</DetailCourseScore>
-					}
+					{instructors && (
+						<DetailCourseInstructor>
+							{concatInstructors(instructors)}
+						</DetailCourseInstructor>
+					)}
+					{reviews && (
+						<DetailCourseScore>
+							<Rating value={averageRating(reviews)} />
+						</DetailCourseScore>
+					)}
 					<DetailPriceAndButtons>
-						<DetailPrice showActionButtons={showActionButtons} >
+						<DetailPrice showActionButtons={showActionButtons}>
 							{price && price.price_string}
 						</DetailPrice>
 						{showActionButtons && (
 							<DetailButtons>
-								<Icon>
+								<Icon onClick={openCourseDetail}>
 									<FontAwesomeIcon icon={faBars} />
 								</Icon>
 								<Icon onClick={addToCartHandler}>
@@ -89,9 +86,7 @@ const HorizontalCourseCard = ({
 								</Icon>
 							</DetailButtons>
 						)}
-						<AddOns>
-							{children}
-						</AddOns>
+						<AddOns>{children}</AddOns>
 					</DetailPriceAndButtons>
 				</CardFilterDetail>
 			</CardContent>

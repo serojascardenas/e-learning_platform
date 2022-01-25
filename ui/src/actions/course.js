@@ -10,6 +10,9 @@ import {
 	COURSE_FILTER_REQUEST,
 	COURSE_FILTER_SUCCESS,
 	COURSE_FILTER_FAIL,
+	COURSE_DETAIL_REQUEST,
+	COURSE_DETAIL_SUCCESS,
+	COURSE_DETAIL_FAIL,
 } from '../constants';
 
 const listCourses = () => async dispatch => {
@@ -65,8 +68,30 @@ const listFilterCourses = (filters = null) => async dispatch => {
 	});
 };
 
+const getCourse = courseId => async dispatch => {
+	dispatch({
+		type: COURSE_DETAIL_REQUEST,
+	});
 
-export {
-	listCourses,
-	listFilterCourses,
+	const { data } = await fetchComponentData({
+		endpoint: get(config, 'app.api.routes.courseById').replace(
+			'{id}',
+			courseId
+		),
+	});
+
+	if (data?.error) {
+		dispatch({
+			type: COURSE_DETAIL_FAIL,
+			payload: getErrorMessage(data),
+		});
+		return;
+	}
+
+	dispatch({
+		type: COURSE_DETAIL_SUCCESS,
+		payload: data,
+	});
 };
+
+export { listCourses, listFilterCourses, getCourse };
