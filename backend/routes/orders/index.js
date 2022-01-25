@@ -157,7 +157,7 @@ module.exports = function userRoutes(routes, {
 				await Promise.all(courseIds.map(async courseId => {
 					await updateUserEnrolledCourseAsync({
 						userId: user.id,
-						courseId: new ObjectId(courseId),
+						courseId,
 					});
 				}));
 

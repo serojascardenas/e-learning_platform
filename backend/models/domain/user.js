@@ -44,10 +44,9 @@ const schema = new mongoose.Schema({
 		},
 	}],
 	enrolledCourses: [{
+		_id: false,
 		courseId: {
-			type: mongoose.Schema.Types.ObjectId,
-			required: true,
-			ref: 'Course',
+			type: String,
 		},
 	}],
 }, {
