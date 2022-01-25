@@ -149,11 +149,9 @@ module.exports = function userRoutes(routes, {
 
 				if (!order) return res.status(404).json('Orden no encontrada');
 
-				if (isEmptyArray(order.orderItems)) return res.status(400).json('La orden debe contener almenos un curso');
-
 				const updatedOrder = await updateOrderToPaid(order, { id, status, update_time, email_address });
 
-				const courseIds = order.orderItems.map(course => course.courseId.toString());
+				const courseIds = order.orderItems?.map(course => course.courseId.toString());
 
 				// Enroll user in course
 				await Promise.all(courseIds.map(async courseId => {
