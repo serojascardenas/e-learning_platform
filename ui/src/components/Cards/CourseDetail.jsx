@@ -25,7 +25,7 @@ const StyledPanel = styled.p`
 	padding: 0.75rem 1.25rem;
 `;
 
-const CourseDetail = ({ id, description }) => {
+const CourseDetail = ({ description }) => {
 	return (
 		<Container>
 			<StyledCard>

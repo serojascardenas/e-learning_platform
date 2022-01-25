@@ -5,7 +5,7 @@ const variants = {
 	articles: { icon: 'far fa-newspaper', color: '#0D9F9A' },
 	practiceTests: { icon: 'fas fa-vials', color: '#0D9F9A' },
 	lifetimeAccess: { icon: 'fas fa-infinity', color: '#0D9F9A' },
-	hasCertificate: { icon: 'fas fa-infinity', color: '#0D9F9A' },
+	hasCertificate: { icon: 'fas fa-graduation-cap', color: '#0D9F9A' },
 };
 
 const Icon = ({ variant, text }) => (

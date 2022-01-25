@@ -7,7 +7,9 @@ import CourseCard from '../../components/Cards/ExtendedVerticalCourseCard';
 
 const StyledCourseContainer = styled.div`
 	width: 100%;
-	margin: 5rem 0rem 0rem 5rem;
+	padding: 2rem 10rem 0rem 10rem;
+	margin-right: auto;
+	margin-left: auto;
 `;
 const StyledContainer = styled.div`
 	width: 100%;
@@ -21,11 +23,11 @@ const StyledTitle = styled.h1`
 
 `;
 const CourseCardContainer = styled.div`
-	width: 20%;
+	width: 25%;
 `;
 
 const CourseDetailContainer = styled.div`
-	width: 80%;
+	width: 75%;
 `;
 
 const Course = ({ match, history }) => {
