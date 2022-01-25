@@ -7,6 +7,10 @@ const orderSchema = mongoose.Schema({
 		ref: 'User',
 	},
 	orderItems: [{
+		courseId: {
+			type: String,
+			required: true,
+		},
 		title: {
 			type: String,
 			required: true,
@@ -35,11 +39,6 @@ const orderSchema = mongoose.Schema({
 				type: Boolean,
 				default: false,
 			},
-		},
-		courseId: {
-			type: mongoose.Schema.Types.ObjectId,
-			required: true,
-			ref: 'Course',
 		},
 	}],
 	billingAddress: {

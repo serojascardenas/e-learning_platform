@@ -28,7 +28,7 @@ const addToCart = courseId => async (dispatch, getState) => {
 	dispatch({
 		type: CART_ADD_ITEM,
 		payload: {
-			courseId: id,
+			courseId: String(id),
 			title,
 			description,
 			cover_image,
