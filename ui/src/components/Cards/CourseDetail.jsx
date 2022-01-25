@@ -29,7 +29,7 @@ const CourseDetail = ({ description }) => {
 	return (
 		<Container>
 			<StyledCard>
-				<Card.Header as="h1">Descripción</Card.Header>
+				<Card.Header as="h3">Descripción</Card.Header>
 				<Card.Body>
 					<Card.Text>{description}</Card.Text>
 				</Card.Body>

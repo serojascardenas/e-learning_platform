@@ -12,7 +12,7 @@ import {
 	COURSE_FILTER_FAIL,
 	COURSE_DETAIL_REQUEST,
 	COURSE_DETAIL_SUCCESS,
-	COURSE_DETAIL_FAIL
+	COURSE_DETAIL_FAIL,
 } from '../constants';
 
 const listCourses = () => async dispatch => {
@@ -82,7 +82,7 @@ const getCourse = courseId => async dispatch => {
 
 	if (data?.error) {
 		dispatch({
-			type: COURSE_DETAIL_SUCCESS,
+			type: COURSE_DETAIL_FAIL,
 			payload: getErrorMessage(data),
 		});
 		return;
