@@ -6,12 +6,12 @@ import {
 	COURSE_FILTER_REQUEST,
 	COURSE_FILTER_SUCCESS,
 	COURSE_FILTER_FAIL,
+	COURSE_DETAIL_REQUEST,
+	COURSE_DETAIL_SUCCESS,
+	COURSE_DETAIL_FAIL,
 } from '../constants';
 
-const courseListReducer = (
-	state = {},
-	action,
-) => {
+const courseListReducer = (state = {}, action) => {
 	switch (action.type) {
 		case COURSE_LIST_REQUEST:
 			return {
@@ -32,10 +32,7 @@ const courseListReducer = (
 	}
 };
 
-const courseFilterReducer = (
-	state = {},
-	action,
-) => {
+const courseFilterReducer = (state = {}, action) => {
 	switch (action.type) {
 		case COURSE_FILTER_REQUEST:
 			return {
@@ -56,7 +53,25 @@ const courseFilterReducer = (
 	}
 };
 
-export {
-	courseListReducer,
-	courseFilterReducer,
+const courseDetailReducer = (state = {}, action) => {
+	switch (action.type) {
+		case COURSE_DETAIL_REQUEST:
+			return {
+				loading: true,
+			};
+		case COURSE_DETAIL_FAIL:
+			return {
+				loading: false,
+				errors: action.payload,
+			};
+		case COURSE_DETAIL_SUCCESS:
+			return {
+				loading: false,
+				course: action.payload,
+			};
+		default:
+			return state;
+	}
 };
+
+export { courseListReducer, courseFilterReducer, courseDetailReducer };

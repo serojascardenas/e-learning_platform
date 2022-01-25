@@ -12,12 +12,14 @@ import {
 	orderPayReducer,
 	orderDetailsReducer,
 	myOrdersListReducer,
+	courseDetailReducer,
 } from './reducers';
 
 const reducers = combineReducers({
 	userLogin: userLoginReducer,
 	userRegister: userRegisterReducer,
 	courseList: courseListReducer,
+	courseDetail: courseDetailReducer,
 	filteredCourseList: courseFilterReducer,
 	cart: cartReducer,
 	orderCreate: orderCreateReducer,
@@ -48,7 +50,7 @@ const initialState = {
 const store = createStore(
 	reducers,
 	initialState,
-	composeWithDevTools(applyMiddleware(...middleware)),
+	composeWithDevTools(applyMiddleware(...middleware))
 );
 
 export default store;
