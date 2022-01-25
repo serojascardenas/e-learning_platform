@@ -40,7 +40,7 @@ const updateOrderToPaidAsync = async (order, { id, status, update_time, email_ad
 	return await order.save();
 };
 
-const getMyOrders = async user => {
+const getMyOrdersAsync = async user => {
 	if (!user) throw new Error('Usuario no encontrado');
 	const orders = await Order.find({ user: user.id });
 	return orders;
@@ -52,5 +52,5 @@ module.exports = {
 	createOrderAsync,
 	getOrderByIdAsync,
 	updateOrderToPaidAsync,
-	getMyOrders,
+	getMyOrdersAsync,
 };

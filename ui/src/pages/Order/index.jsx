@@ -144,7 +144,7 @@ const Order = ({
 																	</Col>
 																	<Col>
 																		<ClampText by={1}>
-																			<Link to={`/courses/${item.id}`}>{item.title}</Link>
+																			<Link to={`/courses/${item.courseId}`}>{item.title}</Link>
 																		</ClampText>
 																	</Col>
 																	<Col md={4}>
