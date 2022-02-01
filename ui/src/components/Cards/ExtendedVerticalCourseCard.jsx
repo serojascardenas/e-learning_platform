@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-import { Card } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
+import { Card, Container, Button, Row, Col } from 'react-bootstrap';
 
 import { addDefaultSrc } from './utils';
 import Icon from '../Icons';
@@ -12,8 +11,8 @@ import { averageRating } from '../../utils/utilities';
 import { useHistory } from 'react-router-dom';
 
 const StyledButton = styled(Button)`
-	width: 20rem;
-	margin-top: 0.5rem;
+	width: 100%;
+	margin-bottom: 0.5rem;
 `;
 
 const StyleRatingCard = styled(Card)`
@@ -80,16 +79,20 @@ const ExtendedVerticalCourseCard = ({
 						<></>
 					)}
 
-					<StyledButton
-						type="submit"
-						variant="primary"
-						onClick={addToCartHandler}
-					>
-						Añadir a la cesta
-					</StyledButton>
-					<StyledButton type="submit" variant="primary">
-						Comprar ahora
-					</StyledButton>
+					<Container>
+						<Row>
+							<Col sm={12} md={12} lg={12}>
+								<StyledButton bsStyle="primary" onClick={addToCartHandler}>
+									Añadir a la cesta
+								</StyledButton>
+							</Col>
+						</Row>
+						<Row>
+							<Col sm={12} md={12} lg={12}>
+								<StyledButton block>Comprar ahora</StyledButton>
+							</Col>
+						</Row>
+					</Container>
 				</Card.Body>
 			</Card>
 

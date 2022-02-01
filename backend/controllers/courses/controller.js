@@ -1,5 +1,6 @@
 const Course = require('../../models/domain/course');
 const CourseReview = require('../../models/domain/course_review');
+const User = require('../../models/domain/user');
 
 const getAllCourses = async () => {
 	const courses = await Course.find()
@@ -9,9 +10,40 @@ const getAllCourses = async () => {
 };
 
 const getCourseById = async courseId => {
-	return await Course.findById(courseId)
+	let course = await Course.findById(courseId)
 		.populate('instructors')
 		.populate('reviews');
+	let _reviews = await Promise.all(
+		course.reviews.map(async review => {
+			let user = await User.findById(review.user).exec();
+			return {
+				_id: review._id,
+				comment: review.comment,
+				rating: review.rating,
+				user: review.user,
+				userName: user.name,
+				createdAt: review.createdAt,
+			};
+		})
+	);
+
+	let _course = {
+		title: course.title,
+		description: course.description,
+		instructors: course.instructors,
+		price: course.price,
+		cover_image: course.cover_image,
+		number_subscribers: course.number_subscribers,
+		content_sections: course.content_sections,
+		reviews: _reviews,
+		category: course.category,
+		sub_category: course.sub_category,
+		attributes: course.attributes,
+		createdAt: course.createdAt,
+		updatedAt: course.updatedAt,
+	};
+
+	return _course;
 };
 
 const getCourseByFilters = async (
@@ -102,7 +134,7 @@ const createReview = async ({ comment, rating, user, course }) => {
 	return review;
 };
 
-const deleteCourse = async (courseId) => {
+const deleteCourse = async courseId => {
 	const course = await Course.findByIdAndDelete(courseId);
 	if (course) {
 		course.remove();
