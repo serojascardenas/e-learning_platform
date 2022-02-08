@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-	Route,
-	Switch,
-} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
@@ -24,7 +21,6 @@ import Order from './pages/Order';
 import MyOrders from './pages/MyOrders';
 
 const App = () => {
-	
 	return (
 		<Router>
 			<ThemeProvider theme={theme}>
@@ -33,15 +29,15 @@ const App = () => {
 				<Switch>
 					<main>
 						<Container fluid>
-							<Route path="/login" component={Login}/>
+							<Route path="/login" component={Login} />
 							<Route path="/register" component={Register} />
 							<Route path="/cart/:id?" component={Cart} />
 							<Route path="/course/:id?" component={Course} />
-							<Route path="/billing" component={Billing}/>
-							<Route path="/payment" component={Payment}/>
-							<Route path="/place-order" component={PlaceOrder}/>
+							<Route path="/billing" component={Billing} />
+							<Route path="/payment" component={Payment} />
+							<Route path="/place-order" component={PlaceOrder} />
 							<Route path="/my-orders" exact component={MyOrders} />
-							<Route path="/orders/:id" component={Order}/>
+							<Route path="/orders/:id" component={Order} />
 							<Route path="/" exact component={Home} />
 						</Container>
 					</main>

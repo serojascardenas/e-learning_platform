@@ -10,12 +10,7 @@ import Switch from '../../components/Switch';
 import { paymentMethods } from './paymentMethods';
 import { savePaymentMethod } from '../../actions';
 
-
-
-const Payment = ({
-	history,
-}) => {
-
+const Payment = ({ history }) => {
 	const [paymentMethod, setPaymentMethod] = useState('PayPal');
 
 	const { cart } = useSelector(state => state);
@@ -30,9 +25,14 @@ const Payment = ({
 	const submitHandler = e => {
 		e.preventDefault();
 		dispatch(savePaymentMethod(paymentMethod));
-		history.push('/place-order');
-	};
 
+		history.push('/place-order');
+		/*if (paymentMethod === paymentMethods[0].value) {
+			history.push('/place-order');
+		} else if (paymentMethod === paymentMethods[1].value) {
+			history.push('/stripe-payment');
+		}*/
+	};
 
 	const handleChange = e => {
 		setPaymentMethod(e.target.value);
@@ -40,23 +40,17 @@ const Payment = ({
 
 	return (
 		<>
-			<CheckoutSteps
-				step1
-				step2
-				step3
-			/>
+			<CheckoutSteps step1 step2 step3 />
 			<FormContainer>
 				<H1>Método de Pago</H1>
 				<Form onSubmit={submitHandler}>
 					<Form.Group>
-						<Form.Label
-							className="mb-4"
-							as="legend">
+						<Form.Label className="mb-4" as="legend">
 							Seleccione un método
 						</Form.Label>
 						<Col>
 							{paymentMethods.map(method => (
-								<Switch 
+								<Switch
 									handleChange={handleChange}
 									key={method.id}
 									id={method.id}
@@ -68,11 +62,8 @@ const Payment = ({
 							))}
 						</Col>
 					</Form.Group>
-					<Button
-						type="submit"
-						variant="primary"
-					>
-					Continuar
+					<Button type="submit" variant="primary">
+						Continuar
 					</Button>
 				</Form>
 			</FormContainer>
