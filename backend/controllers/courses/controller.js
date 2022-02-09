@@ -10,12 +10,12 @@ const getAllCourses = async () => {
 };
 
 const getCourseById = async courseId => {
-	let course = await Course.findById(courseId)
+	const course = await Course.findById(courseId)
 		.populate('instructors')
 		.populate('reviews');
-	let _reviews = await Promise.all(
+	const _reviews = await Promise.all(
 		course.reviews.map(async review => {
-			let user = await User.findById(review.user).exec();
+			const user = await User.findById(review.user).exec();
 			return {
 				_id: review._id,
 				comment: review.comment,
@@ -27,7 +27,7 @@ const getCourseById = async courseId => {
 		})
 	);
 
-	let _course = {
+	const _course = {
 		title: course.title,
 		description: course.description,
 		instructors: course.instructors,
