@@ -161,7 +161,7 @@ const CommentHeader = styled.header`
 `;
 
 /* CourseDetail styled components */
-const StyledCard = styled(Card)`
+const StyledCard = styled(BaseCard)`
 	margin-bottom: 2rem;
 `;
 
@@ -171,7 +171,7 @@ const StyledButton = styled(Button)`
 	margin-bottom: 0.5rem;
 `;
 
-const StyleRatingCard = styled(Card)`
+const StyleRatingCard = styled(BaseCard)`
 	margin-top: 0.5rem;
 	text-align: center;
 	color: ${({ theme }) => theme.colors.wine};
@@ -191,7 +191,7 @@ const StyledPanel = styled.p`
 `;
 
 /*CommentCard styled components*/
-const StyleCommentCard = styled(Card)`
+const StyleCommentCard = styled(BaseCard)`
 	padding: 0.8rem;
 	width: 100%;
 `;

@@ -6,7 +6,6 @@ import { Accordion } from 'react-accessible-accordion';
 import CommentCard from './CommentCard';
 import AccordionCard from './AccordionCard';
 import { StyledCard } from './StyledComponents';
-
 const CourseDetail = course => {
 	return (
 		<Container>

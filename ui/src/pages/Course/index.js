@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { getCourse } from '../../actions';
@@ -20,7 +20,6 @@ const StyledContainer = styled.div`
 const StyledTitle = styled.h1`
 	color: ${({ theme }) => theme.colors.chathamsBlue};
 	margin-bottom: 2rem;
-
 `;
 const CourseCardContainer = styled.div`
 	width: 25%;
