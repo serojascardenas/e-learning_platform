@@ -3,13 +3,9 @@ import React from 'react';
 
 import { Card, Container } from 'react-bootstrap';
 import { Accordion } from 'react-accessible-accordion';
-import styled from 'styled-components';
 import CommentCard from './CommentCard';
 import AccordionCard from './AccordionCard';
-
-const StyledCard = styled(Card)`
-	margin-bottom: 2rem;
-`;
+import { StyledCard } from './StyledComponents';
 
 const CourseDetail = course => {
 	return (

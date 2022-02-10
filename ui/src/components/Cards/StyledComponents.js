@@ -1,8 +1,9 @@
 import styled from 'styled-components/macro';
 
-import { Card as BaseCard } from 'react-bootstrap';
+import { Button, Card as BaseCard } from 'react-bootstrap';
 import { getMediaMinWidth } from '../../utils';
 import { ClampText } from '../Foundation';
+import { AccordionItemHeading } from 'react-accessible-accordion';
 
 const Card = styled(BaseCard)`
 	overflow: auto;
@@ -159,6 +160,41 @@ const CommentHeader = styled.header`
 	display: flex;
 `;
 
+/* CourseDetail styled components */
+const StyledCard = styled(Card)`
+	margin-bottom: 2rem;
+`;
+
+/*ExtendedVerticalCourseCard styled components */
+const StyledButton = styled(Button)`
+	width: 100%;
+	margin-bottom: 0.5rem;
+`;
+
+const StyleRatingCard = styled(Card)`
+	margin-top: 0.5rem;
+	text-align: center;
+	color: ${({ theme }) => theme.colors.wine};
+	font-size: 2.5rem;
+	font-weight: bolder;
+`;
+
+/*AccordionCard styled component */
+const StyledAccordionItemHeading = styled(AccordionItemHeading)`
+	background-color: rgba(0, 0, 0, 0.03);
+	padding: 0.75rem 1.25rem;
+	border: 1px solid rgba(0, 0, 0, 0.125);
+`;
+
+const StyledPanel = styled.p`
+	padding: 0.75rem 1.25rem;
+`;
+
+/*CommentCard styled components*/
+const StyleCommentCard = styled(Card)`
+	padding: 0.8rem;
+	width: 100%;
+`;
 export {
 	Card,
 	CardContent,
@@ -178,4 +214,10 @@ export {
 	AddOns,
 	LineSeparator,
 	CommentHeader,
+	StyledCard,
+	StyledButton,
+	StyleRatingCard,
+	StyledAccordionItemHeading,
+	StyledPanel,
+	StyleCommentCard,
 };

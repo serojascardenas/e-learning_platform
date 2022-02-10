@@ -1,13 +1,9 @@
-import { Card, Col, Row, Container } from 'react-bootstrap';
+import { Col, Row, Container } from 'react-bootstrap';
 import Icon from '../Icons/index';
-import styled from 'styled-components';
 import Rating from '../Rating';
 import { formatDate } from '../../utils';
 
-const StyleCommentCard = styled(Card)`
-	padding: 0.8rem;
-	width: 100%;
-`;
+import { StyleCommentCard } from './StyledComponents';
 
 const CommentCard = review => {
 	return (

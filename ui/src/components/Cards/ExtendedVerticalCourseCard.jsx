@@ -1,27 +1,16 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-import { Card, Container, Button, Row, Col } from 'react-bootstrap';
+import { Card, Container, Row, Col } from 'react-bootstrap';
 
 import { addDefaultSrc } from './utils';
 import Icon from '../Icons';
-import styled from 'styled-components';
 import Rating from '../Rating';
 import { averageRating } from '../../utils/utilities';
 import { useHistory } from 'react-router-dom';
 
-const StyledButton = styled(Button)`
-	width: 100%;
-	margin-bottom: 0.5rem;
-`;
+import { StyledButton, StyleRatingCard } from './StyledComponents';
 
-const StyleRatingCard = styled(Card)`
-	margin-top: 0.5rem;
-	text-align: center;
-	color: ${({ theme }) => theme.colors.wine};
-	font-size: 2.5rem;
-	font-weight: bolder;
-`;
 const ExtendedVerticalCourseCard = ({
 	id,
 	cover_image,
