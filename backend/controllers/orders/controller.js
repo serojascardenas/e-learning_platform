@@ -62,7 +62,7 @@ const checkoutStripePayment = async (order, { id }) => {
 		);
 		description = description.substring(0, description.length - 2);
 
-		let amount = Math.trunc(order.totalPrice * 100);
+		const amount = Math.trunc(order.totalPrice * 100);
 		const payment = await stripe.paymentIntents.create({
 			amount: amount, //amount in cents
 			currency: 'EUR',

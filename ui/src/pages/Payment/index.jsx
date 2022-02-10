@@ -25,13 +25,7 @@ const Payment = ({ history }) => {
 	const submitHandler = e => {
 		e.preventDefault();
 		dispatch(savePaymentMethod(paymentMethod));
-
 		history.push('/place-order');
-		/*if (paymentMethod === paymentMethods[0].value) {
-			history.push('/place-order');
-		} else if (paymentMethod === paymentMethods[1].value) {
-			history.push('/stripe-payment');
-		}*/
 	};
 
 	const handleChange = e => {
