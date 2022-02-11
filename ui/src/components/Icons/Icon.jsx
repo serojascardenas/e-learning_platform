@@ -6,13 +6,14 @@ const variants = {
 	practiceTests: { icon: 'fas fa-vials', color: '#0D9F9A' },
 	lifetimeAccess: { icon: 'fas fa-infinity', color: '#0D9F9A' },
 	hasCertificate: { icon: 'fas fa-graduation-cap', color: '#0D9F9A' },
+	avatar: { icon: 'fas fa-user-circle', color: '#0D9F9A' },
 };
 
-const Icon = ({ variant, text }) => (
+const Icon = ({ variant, text, size = '18px' }) => (
 	<p>
 		<span style={{ paddingLeft: '0.5rem' }}>
 			<i
-				style={{ color: variants[variant].color, paddingLeft: '0.25rem' }}
+				style={{ color: variants[variant].color, paddingLeft: '0.25rem', fontSize: size }}
 				className={variants[variant].icon}
 			></i>
 		</span>

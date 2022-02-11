@@ -44,20 +44,33 @@ const addStarsToScore = value => {
 const concatInstructors = instructors => {
 	if (isEmptyArray(instructors)) return '';
 
-	const instructorsStr = instructors.reduce((acc, instructor) => acc + `${instructor.name}, `, '');
+	const instructorsStr = instructors.reduce(
+		(acc, instructor) => acc + `${instructor.name}, `,
+		''
+	);
 	return instructorsStr.substring(0, instructorsStr.length - 2);
 };
 
 const averageRating = reviews => {
 	if (isEmptyArray(reviews)) return 0;
-	const rating = reviews.reduce((acc, review) => acc += review.rating, 0);
+	const rating = reviews.reduce((acc, review) => (acc += review.rating), 0);
 	return rating / (reviews.length === 0 ? 1 : reviews.length);
 };
 
+const formatDate = value => {
+	const date = new Date(value);
+	const options = {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+	};
+	return date.toLocaleString('es-ES', options);
+};
 export {
 	formatDecimal,
 	formatPrice,
 	addStarsToScore,
 	concatInstructors,
 	averageRating,
+	formatDate,
 };

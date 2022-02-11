@@ -1,8 +1,9 @@
 import styled from 'styled-components/macro';
 
-import { Card as BaseCard } from 'react-bootstrap';
+import { Button, Card as BaseCard } from 'react-bootstrap';
 import { getMediaMinWidth } from '../../utils';
 import { ClampText } from '../Foundation';
+import { AccordionItemHeading } from 'react-accessible-accordion';
 
 const Card = styled(BaseCard)`
 	overflow: auto;
@@ -13,7 +14,7 @@ const Card = styled(BaseCard)`
 	background-color: ${({ theme }) => theme.colors.whiteGray};
 	border-radius: 10px 10px 10px 10px;
 	margin-bottom: 1.5rem;
-	box-shadow: 1px 2px 5px 2px rgba(0,0,0,0.15);
+	box-shadow: 1px 2px 5px 2px rgba(0, 0, 0, 0.15);
 
 	${getMediaMinWidth('sm')} {
 		max-height: 13rem;
@@ -62,9 +63,9 @@ const DetailCourseTittle = styled(Card.Text)`
 	width: 100%;
 	max-width: 20rem;
 	display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 	height: 24%;
 	font-size: 14px;
 	font-weight: 900;
@@ -75,9 +76,9 @@ const DetailCourseInstructor = styled(Card.Text)`
 	height: 20%;
 	margin-top: 1rem;
 	display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 	color: ${({ theme }) => theme.colors.black};
 	font-size: 14px;
 `;
@@ -147,6 +148,53 @@ const AddOns = styled.div`
 	bottom: 1rem;
 `;
 
+const LineSeparator = styled.div`
+	width: 80%;
+	height: 2rem;
+	border-bottom: 1px solid ${({ theme }) => theme.colors.blackened};
+	position: absolute;
+`;
+
+const CommentHeader = styled.header`
+	width: 100%;
+	display: flex;
+`;
+
+/* CourseDetail styled components */
+const StyledCard = styled(BaseCard)`
+	margin-bottom: 2rem;
+`;
+
+/*ExtendedVerticalCourseCard styled components */
+const StyledButton = styled(Button)`
+	width: 100%;
+	margin-bottom: 0.5rem;
+`;
+
+const StyleRatingCard = styled(BaseCard)`
+	margin-top: 0.5rem;
+	text-align: center;
+	color: ${({ theme }) => theme.colors.wine};
+	font-size: 2.5rem;
+	font-weight: bolder;
+`;
+
+/*AccordionCard styled component */
+const StyledAccordionItemHeading = styled(AccordionItemHeading)`
+	background-color: rgba(0, 0, 0, 0.03);
+	padding: 0.75rem 1.25rem;
+	border: 1px solid rgba(0, 0, 0, 0.125);
+`;
+
+const StyledPanel = styled.p`
+	padding: 0.75rem 1.25rem;
+`;
+
+/*CommentCard styled components*/
+const StyleCommentCard = styled(BaseCard)`
+	padding: 0.8rem;
+	width: 100%;
+`;
 export {
 	Card,
 	CardContent,
@@ -164,4 +212,12 @@ export {
 	Icon,
 	CourseCardWrapper,
 	AddOns,
+	LineSeparator,
+	CommentHeader,
+	StyledCard,
+	StyledButton,
+	StyleRatingCard,
+	StyledAccordionItemHeading,
+	StyledPanel,
+	StyleCommentCard,
 };
