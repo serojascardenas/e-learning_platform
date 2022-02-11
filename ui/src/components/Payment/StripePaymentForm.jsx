@@ -5,14 +5,17 @@ import {
 	useStripe,
 } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Button, Form, FormGroup } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { payOrder } from '../../actions';
 import { H2 } from '../Foundation';
 
-const stripePromise = loadStripe(process.env.REACT_APP_PUBLISH_STRIPE_KEY);
+import config from '../../config';
+import { get } from '../../utils';
+import { fetchComponentData } from '../../utils';
+
 
 const PaymentForm = order => {
 	const stripe = useStripe();
@@ -65,10 +68,32 @@ const PaymentForm = order => {
 	);
 };
 
-const StripePaymentForm = orderId => (
-	<Elements stripe={stripePromise}>
-		<PaymentForm {...orderId} />
-	</Elements>
-);
+const StripePaymentForm = orderId => {
+	const [stripePromise, setStripePromise] = useState('');
+
+	useEffect(() => {
+		const stripe = async () => {
+			const { data: key } = await fetchComponentData({
+				endpoint: get(config, 'app.api.routes.paymentProviders.stripe'),
+				method: 'get',
+			});
+			setStripePromise(loadStripe(key));
+		};
+
+		stripe();
+	}, []);
+
+	return (
+		<div>
+			{stripePromise ? (
+				<Elements stripe={stripePromise}>
+					<PaymentForm {...orderId} />
+				</Elements>
+			) : (
+				<></>
+			)}
+		</div>
+	);
+};
 
 export default StripePaymentForm;

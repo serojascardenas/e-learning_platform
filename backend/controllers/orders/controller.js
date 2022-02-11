@@ -56,17 +56,16 @@ const getMyOrdersAsync = async user => {
 const checkoutStripePayment = async (order, { id }) => {
 	if (!order) throw new Error('Orden no puede ser nula');
 	try {
-		let description = order.orderItems.reduce(
+		const description = order.orderItems.reduce(
 			(acc, item) => acc + `${item.title}, `,
 			''
 		);
-		description = description.substring(0, description.length - 2);
 
 		const amount = Math.trunc(order.totalPrice * 100);
 		const payment = await stripe.paymentIntents.create({
 			amount: amount, //amount in cents
 			currency: 'EUR',
-			description: description,
+			description: description.substring(0, description.length - 2),
 			payment_method: id,
 			confirm: true,
 		});

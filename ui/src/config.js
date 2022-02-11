@@ -15,7 +15,7 @@ export default {
 				getMyOrders: 'api/orders/my-orders',
 				paymentProviders: {
 					paypal: 'api/configs/paypal',
-					stripe: '',
+					stripe: 'api/configs/stripe',
 				},
 			},
 		},
