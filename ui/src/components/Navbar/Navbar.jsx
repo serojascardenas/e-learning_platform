@@ -78,6 +78,10 @@ const Navbar = () => {
 											title={userInfo.name}
 											id="username"
 										>
+											<LinkContainer to="/profile">
+												<NavDropdown.Item>Perfil</NavDropdown.Item>
+											</LinkContainer>
+
 											<LinkContainer to="/my-orders">
 												<NavDropdown.Item>Mis Órdenes</NavDropdown.Item>
 											</LinkContainer>
