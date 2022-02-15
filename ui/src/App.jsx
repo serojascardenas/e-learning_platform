@@ -13,6 +13,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Profile from './pages/Profile';
 import Cart from './pages/Cart';
 import Course from './pages/Course';
 
@@ -35,6 +36,7 @@ const App = () => {
 						<Container fluid>
 							<Route path="/login" component={Login}/>
 							<Route path="/register" component={Register} />
+							<Route path="/profile" component={Profile} />
 							<Route path="/cart/:id?" component={Cart} />
 							<Route path="/course/:id?" component={Course} />
 							<Route path="/billing" component={Billing}/>
