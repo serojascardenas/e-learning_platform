@@ -11,6 +11,9 @@ import {
 	USER_REGISTER_REQUEST,
 	USER_REGISTER_SUCCESS,
 	USER_REGISTER_FAIL,
+	USER_UPDATE_REQUEST,
+	USER_UPDATE_SUCCESS,
+	USER_UPDATE_FAIL,
 } from '../constants';
 
 const login = (email, password) => async dispatch => {
@@ -44,6 +47,7 @@ const login = (email, password) => async dispatch => {
 };
 
 const register = ({
+	id,
 	name,
 	lastName,
 	email,
@@ -102,8 +106,40 @@ const logout = () => async dispatch => {
 	}
 };
 
+const updateProfile = body => async dispatch => {
+	dispatch({
+		type: USER_UPDATE_REQUEST,
+	});
+	const response = await fetchComponentData({
+		endpoint: get(config, 'app.api.routes.me.update'),
+		method: 'put',
+		data: body,
+		withCredentials: true,
+	});
+	if (response?.error) {
+		dispatch({
+			type: USER_UPDATE_FAIL,
+			payload: getErrorMessage(response),
+		});
+		return;
+	}
+
+	const { data } = response;
+
+	localStorage.setItem('userInfo', JSON.stringify(data));
+	dispatch({
+		type: USER_UPDATE_SUCCESS,
+		payload: data,
+	});
+
+	dispatch({
+		type: USER_UPDATE_SUCCESS,
+		payload: data,
+	});
+};
 export {
 	login,
 	register,
 	logout,
+	updateProfile,
 };

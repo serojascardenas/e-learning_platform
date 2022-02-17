@@ -13,11 +13,15 @@ import {
 	orderDetailsReducer,
 	myOrdersListReducer,
 	courseDetailReducer,
+	enrolledCoursesReducer,
+	wishListCoursesReducer,
 } from './reducers';
 
 const reducers = combineReducers({
 	userLogin: userLoginReducer,
 	userRegister: userRegisterReducer,
+	enrolledCourses: enrolledCoursesReducer,
+	wishList: wishListCoursesReducer,
 	courseList: courseListReducer,
 	courseDetail: courseDetailReducer,
 	filteredCourseList: courseFilterReducer,

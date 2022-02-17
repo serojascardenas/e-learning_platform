@@ -13,6 +13,12 @@ import {
 	COURSE_DETAIL_REQUEST,
 	COURSE_DETAIL_SUCCESS,
 	COURSE_DETAIL_FAIL,
+	COURSE_ENROLLED_REQUEST,
+	COURSE_ENROLLED_SUCCESS,
+	COURSE_ENROLLED_FAIL,
+	COURSE_WISHLIST_REQUEST,
+	COURSE_WISHLIST_SUCCESS, 
+	COURSE_WISHLIST_FAIL,
 } from '../constants';
 
 const listCourses = () => async dispatch => {
@@ -76,7 +82,7 @@ const getCourse = courseId => async dispatch => {
 	const { data } = await fetchComponentData({
 		endpoint: get(config, 'app.api.routes.courseById').replace(
 			'{id}',
-			courseId
+			courseId,
 		),
 	});
 
@@ -94,4 +100,58 @@ const getCourse = courseId => async dispatch => {
 	});
 };
 
-export { listCourses, listFilterCourses, getCourse };
+const getMyEnrolledCourses = () => async dispatch => { 
+	dispatch({
+		type: COURSE_ENROLLED_REQUEST,
+	});
+
+	const response = await fetchComponentData({
+		endpoint: get(config, 'app.api.routes.me.enrolledCurses'),
+		method: 'get',
+	});
+
+	if (response?.error) {
+		dispatch({
+			type: COURSE_ENROLLED_FAIL,
+			payload: getErrorMessage(response),
+		});
+		return;
+	}
+
+	dispatch({
+		type: COURSE_ENROLLED_SUCCESS,
+		payload: response.data,
+	});
+};
+
+const getMyWishListCourses = () => async dispatch => { 
+	dispatch({
+		type: COURSE_WISHLIST_REQUEST,
+	});
+
+	const response = await fetchComponentData({
+		endpoint: get(config, 'app.api.routes.me.wishList'),
+		method: 'get',
+	});
+
+	if (response?.error) {
+		dispatch({
+			type: COURSE_WISHLIST_FAIL,
+			payload: getErrorMessage(response),
+		});
+		return;
+	}
+
+	dispatch({
+		type: COURSE_WISHLIST_SUCCESS,
+		payload: response.data,
+	});
+};
+
+export { 
+	listCourses, 
+	listFilterCourses, 
+	getCourse, 
+	getMyEnrolledCourses,
+	getMyWishListCourses,
+};
