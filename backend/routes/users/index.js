@@ -1,5 +1,6 @@
 const { validateUserRequestSchema } = require('../../models/entities');
 const get = require('lodash/get');
+const upload = require('../../utils/multer');
 
 module.exports = function userRoutes(routes, {
 	controllers,
@@ -48,43 +49,28 @@ module.exports = function userRoutes(routes, {
 		},
 	);
 
-	routes.get('/:id/enrolled-courses',
+	routes.put('/',
 		middlewares.validator(),
+		middlewares.login.require,
+		upload.fields([
+			{ name: 'file_avatar', maxCount: 1 },
+		]),
 		async (req, res) => {
-			const {
-				users: {
-					getUserByIdAsync,
-				},
-			} = controllers;
-
-			try {
-				const user = await getUserByIdAsync(req.params.id);
-				return res
-					.status(200)
-					.validJsonResponse(user.enrolledCourses);
-
-			} catch (err) {
-				return res
-					.status(400)
-					.validJsonError(err);
+			const body = JSON.parse(req.body.body);
+			if (req.files.file_avatar) {
+				body['avatar'] = req.files.file_avatar[0].path;
 			}
-		},
-	);
-
-	routes.get('/:id/wish-list',
-		middlewares.validator(),
-		async (req, res) => {
 			const {
 				users: {
-					getUserByIdAsync,
+					updateUserAsync,
 				},
 			} = controllers;
 
 			try {
-				const user = await getUserByIdAsync(req.params.id);
+				const user = await updateUserAsync(req.user.id, body);
 				return res
-					.status(200)
-					.validJsonResponse(user.wishList);
+					.status(201)
+					.validJsonResponse(user);
 
 			} catch (err) {
 				return res

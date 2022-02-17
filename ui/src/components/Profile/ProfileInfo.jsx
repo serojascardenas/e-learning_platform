@@ -2,27 +2,30 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import {
-	Container,
 	Card,
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Img } from './StyledComponents';
 
 const ProfileInfo = () => {
-	const { 
-		userLogin: {
-			userInfo,
-		}, 
+	const {
+		userLogin: { userInfo },
 	} = useSelector(state => state);
 
 	return (
-		<Container fluid>
-			<Card style={{ width: '12rem' }}>
-				<Card.Img variant="top" src="https://picsum.photos/id/237/200/300" />
-				<Card.Body>
-					<Card.Title>{userInfo.name}</Card.Title>
-					<Card.Text>Instructor</Card.Text>
-				</Card.Body>
-			</Card>
-		</Container>
-);};
+		<Card style={{ width: '15rem' }}>
+			<Img variant="top" src={userInfo.avatar || '/images/not-found.jpg'} />
+			<Card.Body>
+				<Card.Title>{userInfo.name} {userInfo.lastName}</Card.Title>
+				{userInfo.isInstructor &&
+					<Card.Text>Instructor</Card.Text> &&
+					<Link to='/courses/add/' >
+						Nuevo Curso
+					</Link>
+				}
+			</Card.Body>
+		</Card>
+	);
+};
 
 export default ProfileInfo;

@@ -24,7 +24,7 @@ const getCourseById = async courseId => {
 				userName: user.name,
 				createdAt: review.createdAt,
 			};
-		})
+		}),
 	);
 
 	const _course = {
@@ -47,12 +47,21 @@ const getCourseById = async courseId => {
 };
 
 const getCourseByFilters = async (
+	ids,
 	title,
 	instructor,
 	category,
-	sub_category
+	sub_category,
 ) => {
 	var filters = {};
+	if (
+		ids !== undefined &&
+		ids !== null && ids.length !== 0
+	) {
+		filters._id = {
+			$in: ids,
+		};
+	}
 	if (title !== undefined && title !== null && title.trim() !== '') {
 		filters.title = { $regex: title, $options: 'i' };
 	}

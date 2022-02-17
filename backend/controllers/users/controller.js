@@ -25,6 +25,14 @@ const createUserAsync = async ({
 	return savedUser;
 };
 
+const updateUserAsync = async (userId, userData) => {
+	const updatedUser = await User.findByIdAndUpdate(
+		userId,
+		userData,
+		{ upsert: true, new: true, runValidators: true });
+	return updatedUser;
+};
+
 const updateUserWishListAsync = async ({
 	userId,
 	courseId,
@@ -52,6 +60,7 @@ const updateUserEnrolledCourseAsync = async ({
 module.exports = {
 	getUserByIdAsync,
 	createUserAsync,
+	updateUserAsync,
 	updateUserWishListAsync,
 	updateUserEnrolledCourseAsync,
 };
