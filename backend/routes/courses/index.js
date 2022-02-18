@@ -32,7 +32,6 @@ module.exports = function coursesRoutes(routes, { controllers, middlewares }) {
 		} = controllers;
 
 		try {
-			console.log('getCourseById...');
 			const course = await getCourseById(req.params.id);
 			return res.status(200).validJsonResponse(course);
 		} catch (err) {

@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 
@@ -8,12 +7,12 @@ import {
 	formatPrice,
 	concatInstructors,
 	averageRating,
-} from '../../utils/utilities';
+} from '../../utils/utilities.js';
 
 import Rating from '../Rating';
 import { addDefaultSrc } from './utils';
 
-const VerticalCourseCard = ({ 
+const VerticalCourseCard = ({
 	id,
 	cover_image,
 	title,
@@ -43,9 +42,7 @@ const VerticalCourseCard = ({
 						value={averageRating(reviews)}
 						text={`${reviews.length} reviews`}
 					/>
-					<Card.Text as="h3">
-						{formatPrice(price.amount)}
-					</Card.Text>
+					<Card.Text as="h3">{formatPrice(price.amount)}</Card.Text>
 				</Card.Text>
 			</Card.Body>
 		</Card>

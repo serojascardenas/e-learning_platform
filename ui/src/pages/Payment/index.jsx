@@ -10,12 +10,7 @@ import Switch from '../../components/Switch';
 import { paymentMethods } from './paymentMethods';
 import { savePaymentMethod } from '../../actions';
 
-
-
-const Payment = ({
-	history,
-}) => {
-
+const Payment = ({ history }) => {
 	const [paymentMethod, setPaymentMethod] = useState('PayPal');
 
 	const { cart } = useSelector(state => state);
@@ -33,30 +28,23 @@ const Payment = ({
 		history.push('/place-order');
 	};
 
-
 	const handleChange = e => {
 		setPaymentMethod(e.target.value);
 	};
 
 	return (
 		<>
-			<CheckoutSteps
-				step1
-				step2
-				step3
-			/>
+			<CheckoutSteps step1 step2 step3 />
 			<FormContainer>
 				<H1>Método de Pago</H1>
 				<Form onSubmit={submitHandler}>
 					<Form.Group>
-						<Form.Label
-							className="mb-4"
-							as="legend">
+						<Form.Label className="mb-4" as="legend">
 							Seleccione un método
 						</Form.Label>
 						<Col>
 							{paymentMethods.map(method => (
-								<Switch 
+								<Switch
 									handleChange={handleChange}
 									key={method.id}
 									id={method.id}
@@ -68,11 +56,8 @@ const Payment = ({
 							))}
 						</Col>
 					</Form.Group>
-					<Button
-						type="submit"
-						variant="primary"
-					>
-					Continuar
+					<Button type="submit" variant="primary">
+						Continuar
 					</Button>
 				</Form>
 			</FormContainer>

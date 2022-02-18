@@ -4,12 +4,9 @@ const set = require('lodash/set');
 const { resolve } = require('path');
 const createError = require('http-errors');
 const cors = require('cors');
-const path = require('path')
+const path = require('path');
 
-const {
-	initializeDb,
-	mongoose,
-} = require('./data/dataContext');
+const { initializeDb, mongoose } = require('./data/dataContext');
 
 const {
 	loadControllers,
@@ -30,7 +27,9 @@ async function init() {
 
 	const expressApp = express();
 
-	console.info(`⚙️ Loading config from: "${config.util.getEnv('NODE_CONFIG_ENV')}"`);
+	console.info(
+		`⚙️ Loading config from: "${config.util.getEnv('NODE_CONFIG_ENV')}"`
+	);
 
 	await initializeDb();
 	const bootstrap = {
@@ -44,28 +43,36 @@ async function init() {
 		},
 	};
 
-	bootstrap.middlewares = await loadMiddlewares(resolve(__dirname, './middlewares'), expressApp, bootstrap);
+	bootstrap.middlewares = await loadMiddlewares(
+		resolve(__dirname, './middlewares'),
+		expressApp,
+		bootstrap
+	);
 	const routes = await loadRoutes(
 		express.Router(),
 		resolve(__dirname, './routes'),
-		bootstrap,
+		bootstrap
 	);
 
 	expressApp.use(express.json());
 	expressApp.use(session);
-	expressApp.use(cors({
-		credentials: true,
-		methods: ['POST', 'PUT', 'GET', 'OPTIONS'],
-		origin: ['http://localhost:3000', 'http://localhost:8000'],
-	}));
+	expressApp.use(
+		cors({
+			credentials: true,
+			methods: ['POST', 'PUT', 'GET', 'OPTIONS'],
+			origin: ['http://localhost:3000', 'http://localhost:8000'],
+		})
+	);
 	expressApp.use('/api', routes);
 	expressApp.use('/*', endpointNotFoundMiddleware);
 
 	expressApp.use((error, req, res) => {
-
 		if (error instanceof mongoose.Error.ValidationError) {
 			error = createError(400, error);
-		} else if (error instanceof mongoose.Error.CastError && error.message.includes('_id')) {
+		} else if (
+			error instanceof mongoose.Error.CastError &&
+			error.message.includes('_id')
+		) {
 			error = createError(404, 'Resource not found');
 		} else if (error.message.includes('E11000')) {
 			error = createError(409, 'Duplicated');
@@ -85,7 +92,9 @@ async function init() {
 	if (process.env.NODE_ENV === 'production') {
 		expressApp.use(express.static(path.join(__dirname, '../../build')));
 
-		expressApp.get('*', (_, res) => res.sendFile(resolve(__dirname, '..', '..', 'build', 'index.html')));
+		expressApp.get('*', (_, res) =>
+			res.sendFile(resolve(__dirname, '..', '..', 'build', 'index.html'))
+		);
 	} else {
 		expressApp.get('/', (_, res) => {
 			res.send(`API is running on port ${port}...`);
