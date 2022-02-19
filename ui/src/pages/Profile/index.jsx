@@ -16,7 +16,9 @@ const Container = styled(BaseContainer)`
 	padding: 4rem;
 `;
 
-const Profile = () => {
+const Profile = ({
+	history,
+}) => {
 
 	return (
 		<Container fluid>
@@ -25,7 +27,7 @@ const Profile = () => {
 					<ProfileInfo />
 				</Col>
 				<Col md={12} xs={12} lg={9} className="my-4">
-					<ProfileDetail />
+					<ProfileDetail history={history}/>
 				</Col>
 			</Row>
 		</Container>
