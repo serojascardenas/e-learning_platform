@@ -18,7 +18,9 @@ import {
 	getMyWishListCourses,
 } from '../../actions';
 
-const ProfileDetail = () => {
+const ProfileDetail = ({
+	history,
+}) => {
 	const {
 		userLogin: { userInfo },
 		enrolledCourses,
@@ -29,21 +31,25 @@ const ProfileDetail = () => {
 	const [lastName, setLastName] = useState(userInfo.lastName);
 	const [email] = useState(userInfo.email);
 	const [bio, setBio] = useState(userInfo.bio);
-	const [avatar, setAvatar] = useState('');
-	const [password, setPassword] = useState('');
-	const [confirmPassword, setConfirmPassword] = useState('');
+	const [avatar, setAvatar] = useState(null);
+	const [password, setPassword] = useState(null);
+	const [confirmPassword, setConfirmPassword] = useState(null);
 	const [message, setMessage] = useState(null);
 	const dispatch = useDispatch();
 
 	const submitHandler = e => {
 		e.preventDefault();
+		let error = false;
 		const formData = new FormData();
 		const body = { name, lastName };
 
-		if (password) {
-			// if(password !== confirmPassword)
-			// let error = 'pws not equals';
-			body.password = password;
+		if (password != null && password !== '' && confirmPassword != null) {
+			if(password === confirmPassword){
+				body.password = password;
+			}else {
+				error = true;
+				setMessage('Password not match!');
+			}
 		}
 		if (bio) {
 			body.bio = bio;
@@ -52,10 +58,10 @@ const ProfileDetail = () => {
 			formData.append('file_avatar', avatar[0]);
 		}
 		formData.append('body', JSON.stringify(body));
-		// if (error) {
-		// 	setMessage(error);
-		// } else {
-		dispatch(updateProfile(formData));
+		if (!error) {
+			dispatch(updateProfile(formData));
+			history.push('/profile');
+		}
 		// }
 	};
 
