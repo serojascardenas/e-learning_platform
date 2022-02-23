@@ -22,10 +22,10 @@ const Profile = ({
 	return (
 		<Container fluid>
 			<Row>
-				<Col md={12} xs={12} lg={4} className="my-4">
+				<Col md={12} xs={12} lg={4} xl={3} className="my-4">
 					<ProfileInfo />
 				</Col>
-				<Col md={12} xs={12} lg={8} className="my-4">
+				<Col className="my-4">
 					<ProfileDetail history={history}/>
 				</Col>
 			</Row>

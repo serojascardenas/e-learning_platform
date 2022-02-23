@@ -41,6 +41,7 @@ const getCourseById = async courseId => {
 		attributes: course.attributes,
 		createdAt: course.createdAt,
 		updatedAt: course.updatedAt,
+		id: course._id,
 	};
 
 	return _course;

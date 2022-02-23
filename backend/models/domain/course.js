@@ -4,9 +4,6 @@ const CourseReview = require('./course_review');
 const MIN_LENGTH_PATTERN = /^.{5,}$/;
 
 const schema = new mongoose.Schema({
-	id: {
-		type: String,
-	},
 	created_at: {
 		type: Date,
 	},
