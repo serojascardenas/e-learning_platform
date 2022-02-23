@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
 import { GlobalStyles } from './components/Foundation';
 import Navbar from './components/Navbar';
@@ -20,6 +20,12 @@ import Payment from './pages/Payment';
 import PlaceOrder from './pages/PlaceOrder';
 import Order from './pages/Order';
 import MyOrders from './pages/MyOrders';
+import Footer from './components/Footer/Footer';
+import AboutUs from './pages/AboutUs';
+
+const Wrapper = styled(Container)`
+	padding: 2em 8em 0em 8em !important;
+`;
 
 const App = () => {
 	return (
@@ -28,7 +34,7 @@ const App = () => {
 				<GlobalStyles />
 				<Navbar />
 				<Switch>
-					<main>
+					<Wrapper fluid>
 						<Container fluid>
 							<Route path="/login" component={Login} />
 							<Route path="/register" component={Register} />
@@ -40,10 +46,12 @@ const App = () => {
 							<Route path="/place-order" component={PlaceOrder} />
 							<Route path="/my-orders" exact component={MyOrders} />
 							<Route path="/orders/:id" component={Order} />
+							<Route path="/about-us" exact component={AboutUs} />
 							<Route path="/" exact component={Home} />
 						</Container>
-					</main>
+					</Wrapper>
 				</Switch>
+				<Footer />
 			</ThemeProvider>
 		</Router>
 	);

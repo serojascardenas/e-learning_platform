@@ -18,7 +18,7 @@ export default {
 		primaryWhite: '#FDFEFE',
 		negative: '#DADDD9',
 		wine: '#A9675E',
-		turquoise: '#0D9F9A',
+		turquoise: '#338091',
 		gray: '#919aa1',
 		title: {
 			black: '#071B21',

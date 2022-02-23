@@ -1,0 +1,12 @@
+.navbar,
+.navbar-default {
+    background-color: #338091;
+		height: 4rem;
+}
+
+.nav-link{
+	color: white !important;
+	font-size: medium;
+	font-weight: 700 !important;
+}
+
