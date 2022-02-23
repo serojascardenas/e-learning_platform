@@ -1,4 +1,5 @@
 const User = require('../../models/domain/user');
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const bcryptGen = async password => {
@@ -46,7 +47,7 @@ const updateUserWishListAsync = async ({
 	courseId,
 }) => {
 	const user = await User.findByIdAndUpdate(userId,
-		{ $push: { 'wishList': { 'courseId': courseId } } },
+		{ $push: { 'wishList': mongoose.Types.ObjectId(courseId) } },
 		{ safe: true, upsert: true },
 	);
 
@@ -58,7 +59,7 @@ const updateUserEnrolledCourseAsync = async ({
 	courseId,
 }) => {
 	const user = await User.findByIdAndUpdate(userId,
-		{ $push: { 'enrolledCourses': { 'courseId': courseId } } },
+		{ $push: { 'enrolledCourses': mongoose.Types.ObjectId(courseId) } },
 		{ safe: true, upsert: true },
 	);
 
