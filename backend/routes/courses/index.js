@@ -1,4 +1,3 @@
-var mongoose = require('mongoose');
 const { validateCourseRequestSchema } = require('../../models/entities');
 const upload = require('../../utils/multer');
 
