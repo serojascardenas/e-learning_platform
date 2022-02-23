@@ -62,7 +62,6 @@ const ProfileDetail = ({
 			dispatch(updateProfile(formData));
 			history.push('/profile');
 		}
-		// }
 	};
 
 	useEffect(() => {
@@ -160,7 +159,7 @@ const ProfileDetail = ({
 					</Form>
 				</Tab>
 				<Tab eventKey='enrroled' title='Mis Cursos'>
-					<Courses courses={ enrolledCourses.courses } />
+					<Courses showActionButtons={false} courses={ enrolledCourses.courses } />
 				</Tab>
 				<Tab eventKey='wish-list' title='Favoritos'>
 					<Courses courses={ wishList.courses } />
