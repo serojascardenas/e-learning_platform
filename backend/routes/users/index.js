@@ -69,7 +69,7 @@ module.exports = function userRoutes(routes, {
 			try {
 				const user = await updateUserAsync(req.user.id, body);
 				return res
-					.status(201)
+					.status(204)
 					.validJsonResponse(user);
 
 			} catch (err) {

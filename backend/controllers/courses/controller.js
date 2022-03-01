@@ -2,19 +2,46 @@ const Course = require('../../models/domain/course');
 const CourseReview = require('../../models/domain/course_review');
 const User = require('../../models/domain/user');
 
-const getAllCourses = async () => {
-	const courses = await Course.find()
+const getAllCourses = async keyword => {
+	const search = keyword ? {
+		title: {
+			$regex: keyword,
+			$options: 'i',
+		},
+	} : {};
+	const courses = await Course.find({ ...search })
 		.populate('instructors')
 		.populate('reviews');
 	return courses;
+};
+
+const getTopCourses = async () => {
+	const courses = await Course.find().populate('reviews');
+
+	const coursesWithRating = courses.map(course => {
+		const rating = course.reviews.length === 0
+			? 0
+			: (course.reviews.reduce((acc, review) => acc += review.rating, 0) / course.reviews.length);
+
+		return {
+			...course.toObject(),
+			rating,
+		};
+	});
+
+	return coursesWithRating.sort((a, b) => b.rating - a.rating).slice(0, 5).map(c => {
+		return {
+			...c,
+		};
+	});
 };
 
 const getCourseById = async courseId => {
 	const course = await Course.findById(courseId)
 		.populate('instructors')
 		.populate('reviews');
-	const _reviews = await Promise.all(
-		course.reviews.map(async review => {
+	const reviews = await Promise.all(
+		fetchedCourse.reviews.map(async review => {
 			const user = await User.findById(review.user).exec();
 			return {
 				_id: review._id,
@@ -35,7 +62,7 @@ const getCourseById = async courseId => {
 		cover_image: course.cover_image,
 		number_subscribers: course.number_subscribers,
 		content_sections: course.content_sections,
-		reviews: _reviews,
+		reviews,
 		category: course.category,
 		sub_category: course.sub_category,
 		attributes: course.attributes,
@@ -97,6 +124,7 @@ const getCourseByFilters = async (
 		.populate('instructors')
 		.populate('reviews');
 };
+
 const createCourse = async ({
 	attributes,
 	price,
@@ -154,9 +182,11 @@ const deleteCourse = async courseId => {
 
 module.exports = {
 	getAllCourses,
+	getTopCourses,
 	getCourseById,
 	createCourse,
 	createReview,
 	deleteCourse,
 	getCourseByFilters,
+	getTopCourses,
 };

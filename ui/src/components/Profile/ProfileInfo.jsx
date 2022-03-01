@@ -5,7 +5,6 @@ import {
 	Card,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Img } from './StyledComponents';
 
 const ProfileInfo = () => {
 	const {
@@ -14,9 +13,10 @@ const ProfileInfo = () => {
 
 	return (
 		<Card style={{ width: '15rem' }}>
-			<Img variant="top" src={userInfo.avatar || '/images/not-found.jpg'} />
+			<Card.Img variant="top" src={userInfo.avatar ?? '/images/not-found.jpg'} />
 			<Card.Body>
 				<Card.Title>{userInfo.name} {userInfo.lastName}</Card.Title>
+				{userInfo.bio && <Card.Text>{userInfo.bio}</Card.Text>}
 				{userInfo.isInstructor &&
 					<Card.Text>Instructor</Card.Text> &&
 					<Link to='/courses/add/' >

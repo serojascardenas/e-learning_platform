@@ -1,12 +1,46 @@
-import { TabContainer } from 'react-bootstrap';
-import styled from 'styled-components/macro';
+import {
+	TabContainer,
+} from 'react-bootstrap';
+import styled, { css } from 'styled-components/macro';
+
+
+const commonStyles = css`
+	filter: opacity(70%);
+	background-color: ${({ theme }) => theme.colors.turquoise} !important;
+	color: ${({ theme }) => theme.colors.white} !important;
+`;
 
 const Wrapper = styled.header`
+	* {
+		color: ${({ theme }) => theme.colors.white} !important;
+	}
+
+	.dropdown-menu {
+		padding: 0;
+	}
+
+	.dropdown-item {
+		color: ${({ theme }) => theme.colors.black} !important;
+		
+		&:active {
+			${commonStyles};
+		}
+	}
+
+	.active.dropdown-item {
+		${commonStyles};
+	}
+	
 	z-index: ${({ theme }) => theme.zIndex.navbar};
-	padding: 1em 8em 0em 8em !important;
+	max-width: 120rem;;
+	margin: 0 auto;
 `;
 
 const ImageNavbar = styled(TabContainer)`
-	height: '20px !important';
+	height: 0.5rem;
 `;
-export { Wrapper, ImageNavbar };
+
+export {
+	Wrapper,
+	ImageNavbar,
+};

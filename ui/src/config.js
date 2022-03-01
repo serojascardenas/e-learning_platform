@@ -6,12 +6,13 @@ export default {
 			routes: {
 				login: 'api/auth/login',
 				register: 'api/users',
-				me:{
+				me: {
 					update: 'api/users',
 					enrolledCurses: 'api/courses/me/enrolled-courses',
 					wishList: 'api/courses/me/wish-list',
 				},
 				logout: 'api/auth/logout',
+				topCourses: 'api/courses/top',
 				courses: 'api/courses',
 				courseById: 'api/courses/{id}',
 				createOrder: 'api/orders',

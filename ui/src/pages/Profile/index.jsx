@@ -20,7 +20,7 @@ const Profile = ({
 }) => {
 
 	return (
-		<Container fluid>
+		<Container className="mt-4">
 			<Row>
 				<Col md={12} xs={12} lg={4} xl={3} className="my-4">
 					<ProfileInfo />

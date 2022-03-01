@@ -7,14 +7,22 @@ import {
 	Navbar as Navigation,
 	Nav,
 	Container,
-	NavDropdown,
 	Image,
+	NavDropdown,
 } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { logout } from '../../actions';
+
 import Logo from '../../assets/images/logo_apaisado.jpg';
+
 import Search from '../Search';
-import { ImageNavbar, Wrapper } from './StyledComponents';
+import { Text } from '../Foundation';
+import { 
+	ImageNavbar, 
+	Wrapper, 
+} from './StyledComponents';
+
+import { logout } from '../../actions';
+
 
 const Navbar = () => {
 	const dispatch = useDispatch();
@@ -57,7 +65,7 @@ const Navbar = () => {
 							<>
 								<LinkContainer to="/cart">
 									<Nav.Link>
-										<FontAwesomeIcon icon={faShoppingCart} />
+										<FontAwesomeIcon size={0.8} icon={faShoppingCart} />
 									</Nav.Link>
 								</LinkContainer>
 
@@ -66,7 +74,6 @@ const Navbar = () => {
 										<LinkContainer to="/profile">
 											<NavDropdown.Item>Perfil</NavDropdown.Item>
 										</LinkContainer>
-
 										<LinkContainer to="/my-orders">
 											<NavDropdown.Item>Mis Órdenes</NavDropdown.Item>
 										</LinkContainer>
@@ -78,12 +85,7 @@ const Navbar = () => {
 									<>
 										<Nav.Item>
 											<LinkContainer to="/login">
-												<Nav.Link>Iniciar Sesión</Nav.Link>
-											</LinkContainer>
-										</Nav.Item>
-										<Nav.Item>
-											<LinkContainer to="/register">
-												<Nav.Link>Crear Cuenta</Nav.Link>
+												<Nav.Link><Text textSize="0.8">Iniciar Sesión</Text></Nav.Link>
 											</LinkContainer>
 										</Nav.Item>
 									</>

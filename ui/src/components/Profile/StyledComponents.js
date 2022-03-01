@@ -1,10 +1,9 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
-const Img = styled.img`
-	height: 200px;
-	width: 200p;
-	object-fit: cover;
-	border-radius: 100%;
+const TabWrapper = styled.section`
+	margin-top: 2rem;
 `;
 
-export { Img };
+export {
+	TabWrapper,
+};

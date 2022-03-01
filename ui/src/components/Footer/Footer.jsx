@@ -46,7 +46,7 @@ const Footer = () => (
 			</Row>
 		</FooterContainer>
 
-		<div className="footer-copyright text-center py-3">
+		<div className="footer-copyright text-center my-1">
 			© 2022 Copyright:
 			<a href="https://mdbootstrap.com/"> THREEPOINTS | The Digital Business School</a>
 		</div>

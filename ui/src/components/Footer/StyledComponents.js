@@ -2,19 +2,24 @@ import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const Wrapper = styled.footer`
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	z-index: ${({ theme }) => theme.zIndex.navbar};
-	padding: 1em 8em 0em 8em !important;
+	max-width: 120rem;
+	margin: 0 auto;
 `;
 
 const FooterContainer = styled(Container)`
 	color: ${({ theme }) => theme.colors.white};
 	font-weight: 600;
 	background-color: ${({ theme }) => theme.colors.turquoise};
-	padding: 1em 1em 0em 1em;
+	padding: 0.75rem;
 `;
 
 const List = styled.ul`
-	padding-left: 6em;
+	margin: 0 8rem;
 	list-style: none;
 	font-size: 18px;
 `;
@@ -22,4 +27,9 @@ const List = styled.ul`
 const ListItem = styled.li`
 	padding-bottom: 0.6em;
 `;
-export { Wrapper, FooterContainer, List, ListItem };
+export {
+	Wrapper,
+	FooterContainer,
+	List,
+	ListItem,
+};

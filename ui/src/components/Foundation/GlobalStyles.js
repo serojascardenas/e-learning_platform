@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components/macro';
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -16,6 +16,22 @@ const GlobalStyles = createGlobalStyle`
     color: #000;
     font-size: 1rem;
   }
+
+	html {
+		height: 100%;
+	}
+
+	body {
+		position: relative;
+		min-height: 100%;
+		padding-bottom: 8rem;
+	}
+
+	.navbar,
+	.navbar-default {
+    background-color: #338091;
+		height: 4rem;
+	}
 `;
 
 export default GlobalStyles;

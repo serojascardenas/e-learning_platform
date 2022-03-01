@@ -17,17 +17,20 @@ import {
 	COURSE_ENROLLED_SUCCESS,
 	COURSE_ENROLLED_FAIL,
 	COURSE_WISHLIST_REQUEST,
-	COURSE_WISHLIST_SUCCESS, 
+	COURSE_WISHLIST_SUCCESS,
 	COURSE_WISHLIST_FAIL,
+	COURSE_TOP_REQUEST,
+	COURSE_TOP_FAIL,
+	COURSE_TOP_SUCCESS,
 } from '../constants';
 
-const listCourses = () => async dispatch => {
+const listCourses = (keyword = '') => async dispatch => {
 	dispatch({
 		type: COURSE_LIST_REQUEST,
 	});
 
 	const response = await fetchComponentData({
-		endpoint: get(config, 'app.api.routes.courses'),
+		endpoint: `${get(config, 'app.api.routes.courses')}?keyword=${keyword}`,
 		method: 'get',
 	});
 
@@ -100,7 +103,7 @@ const getCourse = courseId => async dispatch => {
 	});
 };
 
-const getMyEnrolledCourses = () => async dispatch => { 
+const getMyEnrolledCourses = () => async dispatch => {
 	dispatch({
 		type: COURSE_ENROLLED_REQUEST,
 	});
@@ -124,7 +127,7 @@ const getMyEnrolledCourses = () => async dispatch => {
 	});
 };
 
-const getMyWishListCourses = () => async dispatch => { 
+const getMyWishListCourses = () => async dispatch => {
 	dispatch({
 		type: COURSE_WISHLIST_REQUEST,
 	});
@@ -148,10 +151,34 @@ const getMyWishListCourses = () => async dispatch => {
 	});
 };
 
-export { 
-	listCourses, 
-	listFilterCourses, 
-	getCourse, 
+const listTopCourses = () => async dispatch => {
+	dispatch({
+		type: COURSE_TOP_REQUEST,
+	});
+
+	const response = await fetchComponentData({
+		endpoint: get(config, 'app.api.routes.topCourses'),
+		method: 'get',
+	});
+
+	if (response?.error) {
+		dispatch({
+			type: COURSE_TOP_FAIL,
+			payload: getErrorMessage(response),
+		});
+	}
+
+	dispatch({
+		type: COURSE_TOP_SUCCESS,
+		payload: response.data,
+	});
+};
+
+export {
+	listCourses,
+	listFilterCourses,
+	listTopCourses,
+	getCourse,
 	getMyEnrolledCourses,
 	getMyWishListCourses,
 };
