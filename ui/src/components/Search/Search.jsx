@@ -25,6 +25,7 @@ const Search = ({
 	return (
 		<Root>
 			<SearchInput 
+				className="search-box"
 				onChange={e => submitHandler(e.target.value)}
 				type="text"
 				placeholder='Buscar Cursos...'

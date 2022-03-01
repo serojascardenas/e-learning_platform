@@ -15,6 +15,10 @@ const Wrapper = styled.header`
 		color: ${({ theme }) => theme.colors.white} !important;
 	}
 
+	.search-box {
+		color: ${({ theme }) => theme.colors.blackened} !important;
+	}
+
 	.dropdown-menu {
 		padding: 0;
 	}

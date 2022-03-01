@@ -10,6 +10,7 @@ import { averageRating } from '../../utils/utilities';
 import { useHistory } from 'react-router-dom';
 
 import { StyledButton, StyleRatingCard } from './StyledComponents';
+import { Button } from '../Foundation';
 
 const ExtendedVerticalCourseCard = ({
 	id,
@@ -70,15 +71,15 @@ const ExtendedVerticalCourseCard = ({
 
 					<Container>
 						<Row>
-							<Col sm={12} md={12} lg={12}>
-								<StyledButton bsStyle="primary" onClick={addToCartHandler}>
+							<Col>
+								<Button onClick={addToCartHandler}>
 									Añadir a la cesta
-								</StyledButton>
+								</Button>
 							</Col>
 						</Row>
 						<Row>
-							<Col sm={12} md={12} lg={12}>
-								<StyledButton block>Comprar ahora</StyledButton>
+							<Col>
+								<Button className="mt-2">Comprar ahora</Button>
 							</Col>
 						</Row>
 					</Container>

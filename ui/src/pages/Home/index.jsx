@@ -10,6 +10,7 @@ import 'react-multi-carousel/lib/styles.css';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
 import CourseCard from '../../components/Cards/VerticalCourseCard';
+import PlainCard from '../../components/Cards/PlainCard';
 import Footer from '../../components/Footer';
 import { responsive } from './carousel-config';
 
@@ -139,9 +140,11 @@ const Home = ({
 											{isEmptyArray(courses) ? 
 												<Message>La búsqueda por {keyword} no arrojó ningún resultado</Message>
 												:(<Row>
-													<Col className="my-4">
-														<FilterResult filterCourses={courses} />
-													</Col>
+													{courses.map(course =>(
+														<Col className="mb-5" key={course.id} xs={12} md={12} lg={6}> 
+															<PlainCard {...course} />
+														</Col>
+													))}
 												</Row>)
 											}
 										</>
@@ -151,7 +154,7 @@ const Home = ({
 				}
 				
 			</Container>
-			<Footer />
+			{!keyword && <Footer />}
 		</>
 	);
 };

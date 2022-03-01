@@ -42,7 +42,7 @@ const Cart = ({
 	}, [dispatch, courseId]);
 
 	const removeFromCartHandler = () => {
-		dispatch(removeFromCart(selectedCourse.id));
+		dispatch(removeFromCart(selectedCourse.courseId));
 		setShowModal(false);
 	};
 

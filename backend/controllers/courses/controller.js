@@ -41,7 +41,7 @@ const getCourseById = async courseId => {
 		.populate('instructors')
 		.populate('reviews');
 	const reviews = await Promise.all(
-		fetchedCourse.reviews.map(async review => {
+		course.reviews.map(async review => {
 			const user = await User.findById(review.user).exec();
 			return {
 				_id: review._id,
@@ -75,21 +75,12 @@ const getCourseById = async courseId => {
 };
 
 const getCourseByFilters = async (
-	ids,
 	title,
 	instructor,
 	category,
 	sub_category,
 ) => {
 	var filters = {};
-	if (
-		ids !== undefined &&
-		ids !== null && ids.length !== 0
-	) {
-		filters._id = {
-			$in: ids,
-		};
-	}
 	if (title !== undefined && title !== null && title.trim() !== '') {
 		filters.title = { $regex: title, $options: 'i' };
 	}
