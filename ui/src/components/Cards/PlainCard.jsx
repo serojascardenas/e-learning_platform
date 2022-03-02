@@ -1,6 +1,6 @@
 import React from 'react';
-import { concatInstructors, formatPrice } from '../../utils';
-import { Button, H2 } from '../Foundation';
+import { formatString } from '../../utils';
+import { H2 } from '../Foundation';
 
 import {
 	StyledPlainCard,
@@ -22,13 +22,15 @@ const PlainCard = ({
 	description,
 	instructors,
 	showProgress = false,
+	category,
+	sub_category,
 	price,
 }) => {
 	return (
 		<StyledPlainCard >
 			<Preview>
 				<PlainCardContentType>Curso</PlainCardContentType>
-				<PlainCardTitle>{title}</PlainCardTitle>
+				<PlainCardTitle by={5}>{title}</PlainCardTitle>
 				<PreviewLink to={`courses/${id}`}>Ver detalles</PreviewLink>
 			</Preview>
 			<PlainCardInfo>
@@ -38,8 +40,8 @@ const PlainCard = ({
 							<PlainCardProgressText>4/9 Challenges</PlainCardProgressText>
 						</PlainCardProgress>
 					</PlainCardProgressWrapper>)}
-				<h6>{concatInstructors(instructors)}</h6>
-				<H2>{formatPrice(price.amount)}</H2>
+				<h6>{formatString(category, 'name')}</h6>
+				<H2>{formatString(sub_category, 'name')}</H2>
 				<PlainCardInfoText>{description}</PlainCardInfoText>
 				<PlainCardButton>Agregar a la cesta</PlainCardButton>
 			</PlainCardInfo>

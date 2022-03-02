@@ -34,7 +34,9 @@ const CourseDetailContainer = styled.div`
 	width: 75%;
 `;
 
-const Course = ({ match, history }) => {
+const Course = ({
+	match,
+}) => {
 	const courseId = match.params.id;
 	const { courseDetail } = useSelector(state => state);
 	const { course, loading, errors } = courseDetail;

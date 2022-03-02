@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faStarHalf } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faRegularStar } from '@fortawesome/free-regular-svg-icons';
 import { isEmptyArray } from '.';
+import get from 'lodash/get';
 
 const formatDecimal = value => {
 	return (Math.round(value * 100) / 100).toFixed(2);
@@ -55,6 +56,12 @@ const averageRating = reviews => {
 	return rating / (reviews.length === 0 ? 1 : reviews.length);
 };
 
+const formatString = (values, property) => {
+	if (isEmptyArray(values)) return '';
+	const concatString = values.reduce((acc, value) => (acc += `${get(value, property)}, `), '');
+	return concatString.substring(0, concatString.length - 2);
+};
+
 const formatDate = value => {
 	const date = new Date(value);
 	const options = {
@@ -71,5 +78,6 @@ export {
 	addStarsToScore,
 	concatInstructors,
 	averageRating,
-	formatDate
+	formatDate,
+	formatString,
 };

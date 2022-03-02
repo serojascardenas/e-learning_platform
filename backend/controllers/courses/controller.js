@@ -16,7 +16,9 @@ const getAllCourses = async keyword => {
 };
 
 const getTopCourses = async () => {
-	const courses = await Course.find().populate('reviews');
+	const courses = await Course.find()
+		.populate('reviews')
+		.populate('instructors');
 
 	const coursesWithRating = courses.map(course => {
 		const rating = course.reviews.length === 0
@@ -24,16 +26,18 @@ const getTopCourses = async () => {
 			: (course.reviews.reduce((acc, review) => acc += review.rating, 0) / course.reviews.length);
 
 		return {
-			...course.toObject(),
+			...course.toJSON(),
 			rating,
 		};
 	});
 
-	return coursesWithRating.sort((a, b) => b.rating - a.rating).slice(0, 5).map(c => {
-		return {
-			...c,
-		};
-	});
+	return coursesWithRating.sort((a, b) => b.rating - a.rating)
+		.filter(x => x.rating > 0).slice(0, 5)
+		.map(c => {
+			return {
+				...c,
+			}
+		});
 };
 
 const getCourseById = async courseId => {

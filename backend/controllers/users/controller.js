@@ -12,6 +12,16 @@ const getUserByIdAsync = async id => {
 	return user;
 };
 
+const getUserProfile = async id => {
+	const user = await User.findById(id);
+	return {
+		id: user.id,
+		name: user.name,
+		lastName: user.lastName,
+		isInstructor: user.isInstructor,
+	};
+};
+
 const createUserAsync = async ({
 	name,
 	lastName,
@@ -34,7 +44,7 @@ const createUserAsync = async ({
 const updateUserAsync = async (userId, userData) => {
 	if (typeof userData.password != 'undefined' && userData.password !== '')
 		userData.password = await bcryptGen(userData.password);
-	
+
 	const updatedUser = await User.findByIdAndUpdate(
 		userId,
 		userData,
@@ -69,6 +79,7 @@ const updateUserEnrolledCourseAsync = async ({
 module.exports = {
 	bcryptGen,
 	getUserByIdAsync,
+	getUserProfile,
 	createUserAsync,
 	updateUserAsync,
 	updateUserWishListAsync,

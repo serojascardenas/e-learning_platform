@@ -6,6 +6,7 @@ export default {
 			routes: {
 				login: 'api/auth/login',
 				register: 'api/users',
+				userDetails: 'api/users/{id}',
 				me: {
 					update: 'api/users',
 					enrolledCurses: 'api/courses/me/enrolled-courses',

@@ -94,13 +94,11 @@ const Home = ({
 										keyBoardControl={true}
 										transitionDuration={500}
 									>
-										{top && top.map((course, i) => (
-											<CourseCard 
-												key={i} 
-												variant="vertical"
-												{...course}
-											/>
-										))}
+										{top && top.map((course, i) => <CourseCard 
+											key={i} 
+											variant="vertical"
+											{...course}
+										/>)}
 									</Carousel>
 								)}
 						<>

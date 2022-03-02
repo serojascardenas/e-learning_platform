@@ -180,6 +180,12 @@ const StyleRatingCard = styled(BaseCard)`
 	font-weight: bolder;
 `;
 
+const RatingText = styled(Text)`
+	color: ${({ theme }) => theme.colors.blackened};
+	font-size: 2.25rem;
+	opacity: .7;
+`;
+
 /*AccordionCard styled component */
 const StyledAccordionItemHeading = styled(AccordionItemHeading)`
 	background-color: rgba(0, 0, 0, 0.03);
@@ -218,14 +224,15 @@ const PlainCardContentType = styled.h6`
 	color: ${({ theme }) => theme.colors.white};
 `;
 
-const PlainCardTitle = styled(H2)`
+const PlainCardTitle = styled(ClampText)`
 	color: ${({ theme }) => theme.colors.white};
 	letter-spacing: 1px;
-	
+	font-size: 1.25rem;
 	margin: 0.5rem 0 0;
 
 	${getMediaMinWidth('sm')} {
 		margin: 0.5rem 0;
+		font-size: 1rem;
 		font-size: 1rem;
 	}
 `;
@@ -340,6 +347,7 @@ export {
 	AddOns,
 	LineSeparator,
 	CommentHeader,
+	RatingText,
 	StyledCard,
 	StyledButton,
 	StyleRatingCard,
