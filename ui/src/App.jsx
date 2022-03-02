@@ -20,11 +20,10 @@ import Payment from './pages/Payment';
 import PlaceOrder from './pages/PlaceOrder';
 import Order from './pages/Order';
 import MyOrders from './pages/MyOrders';
-import Footer from './components/Footer/Footer';
 import AboutUs from './pages/AboutUs';
 
 const Wrapper = styled(Container)`
-	padding: 2em 8em 0em 8em !important;
+	
 `;
 
 const App = () => {
@@ -40,7 +39,7 @@ const App = () => {
 							<Route path="/register" component={Register} />
 							<Route path="/profile" component={Profile} />
 							<Route path="/cart/:id?" component={Cart} />
-							<Route path="/course/:id?" component={Course} />
+							<Route path="/courses/:id?" component={Course} />
 							<Route path="/billing" component={Billing} />
 							<Route path="/payment" component={Payment} />
 							<Route path="/place-order" component={PlaceOrder} />
@@ -51,7 +50,6 @@ const App = () => {
 						</Container>
 					</Wrapper>
 				</Switch>
-				<Footer />
 			</ThemeProvider>
 		</Router>
 	);

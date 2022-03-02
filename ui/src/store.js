@@ -5,6 +5,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import {
 	userLoginReducer,
 	userRegisterReducer,
+	userUpdateProfileReducer,
+	userDetailsReducer,
 	courseListReducer,
 	courseFilterReducer,
 	cartReducer,
@@ -15,13 +17,17 @@ import {
 	courseDetailReducer,
 	enrolledCoursesReducer,
 	wishListCoursesReducer,
+	topRatedCoursesReducer,
 } from './reducers';
 
 const reducers = combineReducers({
 	userLogin: userLoginReducer,
 	userRegister: userRegisterReducer,
+	userUpdateProfile: userUpdateProfileReducer,
+	userDetails: userDetailsReducer,
 	enrolledCourses: enrolledCoursesReducer,
 	wishList: wishListCoursesReducer,
+	topCourses: topRatedCoursesReducer,
 	courseList: courseListReducer,
 	courseDetail: courseDetailReducer,
 	filteredCourseList: courseFilterReducer,

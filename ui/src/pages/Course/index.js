@@ -1,9 +1,15 @@
 import { useEffect } from 'react';
+import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getCourse } from '../../actions';
+
 import CourseDetail from '../../components/Cards/CourseDetail';
 import CourseCard from '../../components/Cards/ExtendedVerticalCourseCard';
+import { H1 } from '../../components/Foundation';
+import Loader from '../../components/Loader';
+import Message from '../../components/Message';
+
+import { getCourse } from '../../actions';
 
 const StyledCourseContainer = styled.div`
 	width: 100%;
@@ -17,8 +23,7 @@ const StyledContainer = styled.div`
 	flex-direction: row;
 `;
 
-const StyledTitle = styled.h1`
-	color: ${({ theme }) => theme.colors.chathamsBlue};
+const StyledTitle = styled(H1)`
 	margin-bottom: 2rem;
 `;
 const CourseCardContainer = styled.div`
@@ -29,7 +34,9 @@ const CourseDetailContainer = styled.div`
 	width: 75%;
 `;
 
-const Course = ({ match, history }) => {
+const Course = ({
+	match,
+}) => {
 	const courseId = match.params.id;
 	const { courseDetail } = useSelector(state => state);
 	const { course, loading, errors } = courseDetail;
@@ -43,8 +50,10 @@ const Course = ({ match, history }) => {
 	}, [dispatch, courseId]);
 
 	return (
-		<div>
-			{course ? (
+		<Container className="mt-5" fluid>
+			{loading && <Loader />}
+			{errors && <Message variant="danger">{errors}</Message>}
+			{course && (
 				<StyledCourseContainer>
 					<StyledTitle>{course.title}</StyledTitle>
 					<StyledContainer>
@@ -56,10 +65,8 @@ const Course = ({ match, history }) => {
 						</CourseDetailContainer>
 					</StyledContainer>
 				</StyledCourseContainer>
-			) : (
-				<></>
 			)}
-		</div>
+		</Container>
 	);
 };
 

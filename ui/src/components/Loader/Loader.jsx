@@ -1,11 +1,13 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
+import theme from '../../theme';
 
 const defaultStyle = {
 	width: '6rem',
 	height: '6rem',
 	margin: 'auto',
 	display: 'block',
+	color: theme.colors.turquoise,
 };
 
 const Loader = ({

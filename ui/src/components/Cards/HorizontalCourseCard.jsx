@@ -45,7 +45,7 @@ const HorizontalCourseCard = ({
 	};
 
 	const openCourseDetail = () => {
-		history.push(`/course/${id}`);
+		history.push(`/courses/${id}`);
 
 	};
 

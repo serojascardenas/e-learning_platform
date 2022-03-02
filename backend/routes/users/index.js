@@ -16,6 +16,27 @@ module.exports = function userRoutes(routes, {
 		},
 	);
 
+	routes.get('/profile',
+		middlewares.validator(),
+		middlewares.login.require,
+		async (req, res) => {
+			const {
+				users: {
+					getUserProfile,
+				},
+			} = controllers;
+			const { user } = req;
+			try {
+				const userFromDb = await getUserProfile(user.id);
+				return res.status(200).validJsonResponse(userFromDb);
+			} catch (err) {
+				return res
+					.status(400)
+					.validJsonError(err);
+			}
+		},
+	);
+
 	routes.post('/',
 		middlewares.validator(),
 		async (req, res) => {
@@ -69,7 +90,7 @@ module.exports = function userRoutes(routes, {
 			try {
 				const user = await updateUserAsync(req.user.id, body);
 				return res
-					.status(201)
+					.status(200)
 					.validJsonResponse(user);
 
 			} catch (err) {

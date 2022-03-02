@@ -2,18 +2,49 @@ const Course = require('../../models/domain/course');
 const CourseReview = require('../../models/domain/course_review');
 const User = require('../../models/domain/user');
 
-const getAllCourses = async () => {
-	const courses = await Course.find()
+const getAllCourses = async keyword => {
+	const search = keyword ? {
+		title: {
+			$regex: keyword,
+			$options: 'i',
+		},
+	} : {};
+	const courses = await Course.find({ ...search })
 		.populate('instructors')
 		.populate('reviews');
 	return courses;
+};
+
+const getTopCourses = async () => {
+	const courses = await Course.find()
+		.populate('reviews')
+		.populate('instructors');
+
+	const coursesWithRating = courses.map(course => {
+		const rating = course.reviews.length === 0
+			? 0
+			: (course.reviews.reduce((acc, review) => acc += review.rating, 0) / course.reviews.length);
+
+		return {
+			...course.toJSON(),
+			rating,
+		};
+	});
+
+	return coursesWithRating.sort((a, b) => b.rating - a.rating)
+		.filter(x => x.rating > 0).slice(0, 5)
+		.map(c => {
+			return {
+				...c,
+			}
+		});
 };
 
 const getCourseById = async courseId => {
 	const course = await Course.findById(courseId)
 		.populate('instructors')
 		.populate('reviews');
-	const _reviews = await Promise.all(
+	const reviews = await Promise.all(
 		course.reviews.map(async review => {
 			const user = await User.findById(review.user).exec();
 			return {
@@ -35,7 +66,7 @@ const getCourseById = async courseId => {
 		cover_image: course.cover_image,
 		number_subscribers: course.number_subscribers,
 		content_sections: course.content_sections,
-		reviews: _reviews,
+		reviews,
 		category: course.category,
 		sub_category: course.sub_category,
 		attributes: course.attributes,
@@ -48,21 +79,12 @@ const getCourseById = async courseId => {
 };
 
 const getCourseByFilters = async (
-	ids,
 	title,
 	instructor,
 	category,
 	sub_category,
 ) => {
 	var filters = {};
-	if (
-		ids !== undefined &&
-		ids !== null && ids.length !== 0
-	) {
-		filters._id = {
-			$in: ids,
-		};
-	}
 	if (title !== undefined && title !== null && title.trim() !== '') {
 		filters.title = { $regex: title, $options: 'i' };
 	}
@@ -97,6 +119,7 @@ const getCourseByFilters = async (
 		.populate('instructors')
 		.populate('reviews');
 };
+
 const createCourse = async ({
 	attributes,
 	price,
@@ -154,9 +177,11 @@ const deleteCourse = async courseId => {
 
 module.exports = {
 	getAllCourses,
+	getTopCourses,
 	getCourseById,
 	createCourse,
 	createReview,
 	deleteCourse,
 	getCourseByFilters,
+	getTopCourses,
 };

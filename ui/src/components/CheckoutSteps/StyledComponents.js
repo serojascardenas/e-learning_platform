@@ -26,6 +26,10 @@ const NavItem = styled(Nav.Item)`
 	margin-right: 0;
 `;
 
+const NavLink = styled(Nav.Link)`
+	color: ${({ theme }) => theme.colors.blackened}; 
+`;
+
 const StepWrapper = styled.div`
 	display: flex;
 	align-items: center;
@@ -85,4 +89,5 @@ export {
 	StepWrapper,
 	ItemContainer,
 	Circle,
+	NavLink,
 };

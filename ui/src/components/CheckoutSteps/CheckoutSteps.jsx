@@ -5,13 +5,13 @@ import { LinkContainer } from 'react-router-bootstrap';
 import {
 	StepWrapper,
 	NavItem,
+	NavLink,
 	Line,
 	ItemContainer,
 	Circle,
 } from './StyledComponents';
 
 const CheckoutSteps = ({
-	className,
 	step1,
 	step2,
 	step3,
@@ -24,7 +24,7 @@ const CheckoutSteps = ({
 					<ItemContainer>
 						<Circle isActive={step1 || step2 || step3 || step4}>1</Circle>
 						<LinkContainer to="/login">
-							<Nav.Link>Sign In</Nav.Link>
+							<NavLink>Sing In</NavLink>
 						</LinkContainer>
 					</ItemContainer>
 					<Line/>
@@ -33,7 +33,7 @@ const CheckoutSteps = ({
 				<StepWrapper>
 					<ItemContainer>
 						<Circle>1</Circle>
-						<Nav.Link disabled>Sign In</Nav.Link>
+						<NavLink disabled>Sign In</NavLink>
 					</ItemContainer>
 					<Line />
 				</StepWrapper>
@@ -45,7 +45,7 @@ const CheckoutSteps = ({
 					<ItemContainer>
 						<Circle isActive={step2 || step3 || step4}>2</Circle>
 						<LinkContainer to="/billing">
-							<Nav.Link>Facturacion</Nav.Link>
+							<NavLink>Facturacion</NavLink>
 						</LinkContainer>
 					</ItemContainer>
 					<Line />
@@ -54,7 +54,7 @@ const CheckoutSteps = ({
 				<StepWrapper>
 					<ItemContainer>
 						<Circle>2</Circle>
-						<Nav.Link disabled>Facturacion</Nav.Link>
+						<NavLink disabled>Facturacion</NavLink>
 					</ItemContainer>
 					<Line />
 				</StepWrapper>
@@ -66,7 +66,7 @@ const CheckoutSteps = ({
 					<ItemContainer>
 						<Circle isActive={step3 || step4}>3</Circle>
 						<LinkContainer to="/payment">
-							<Nav.Link>Pago</Nav.Link>
+							<NavLink>Pago</NavLink>
 						</LinkContainer>
 					</ItemContainer>
 					<Line />
@@ -75,7 +75,7 @@ const CheckoutSteps = ({
 				<StepWrapper>
 					<ItemContainer>
 						<Circle isActive={step4}>3</Circle>
-						<Nav.Link disabled>Pago</Nav.Link>
+						<NavLink disabled>Pago</NavLink>
 					</ItemContainer>
 					<Line />
 				</StepWrapper>
@@ -87,7 +87,7 @@ const CheckoutSteps = ({
 					<ItemContainer>
 						<Circle isActive={step4}>4</Circle>
 						<LinkContainer to="/place-order">
-							<Nav.Link>Ordenar</Nav.Link>
+							<NavLink>Ordenar</NavLink>
 						</LinkContainer>
 					</ItemContainer>
 				</StepWrapper>
@@ -95,7 +95,7 @@ const CheckoutSteps = ({
 				<StepWrapper>
 					<ItemContainer>
 						<Circle>4</Circle>
-						<Nav.Link disabled>Ordenar</Nav.Link>
+						<NavLink disabled>Ordenar</NavLink>
 					</ItemContainer>
 				</StepWrapper>
 			)}

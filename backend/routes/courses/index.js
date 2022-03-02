@@ -5,42 +5,69 @@ module.exports = function coursesRoutes(routes, {
 	controllers,
 	middlewares,
 }) {
-	routes.get('/', middlewares.validator(), async (req, res) => {
-		const {
-			courses: { getAllCourses, getCourseByFilters },
-		} = controllers;
+	routes.get('/',
+		middlewares.validator(),
+		async (req, res) => {
+			const {
+				courses: {
+					getAllCourses,
+					getCourseByFilters,
+				},
+			} = controllers;
 
-		try {
-			let data = [];
-			if (req.query) {
-				const { title, instructor, category, sub_category } = req.query;
-				data = await getCourseByFilters(
-					title,
-					instructor,
-					category,
-					sub_category,
-				);
-			} else {
-				data = await getAllCourses();
+			try {
+				let data = [];
+
+				if (req.query && !req.query.keyword) {
+					const { title, instructor, category, sub_category } = req.query;
+					data = await getCourseByFilters(
+						title,
+						instructor,
+						category,
+						sub_category,
+					);
+				} else {
+					data = await getAllCourses(req.query.keyword);
+				}
+				return res.status(200).validJsonResponse(data);
+			} catch (err) {
+				return res.status(400).validJsonError(err);
 			}
-			return res.status(200).validJsonResponse(data);
-		} catch (err) {
-			return res.status(400).validJsonError(err);
-		}
-	});
+		});
 
-	routes.get('/:id', middlewares.validator(), async (req, res) => {
-		const {
-			courses: { getCourseById },
-		} = controllers;
+	routes.get('/top',
+		middlewares.validator(),
+		async (req, res) => {
+			const {
+				courses: {
+					getTopCourses,
+				},
+			} = controllers;
 
-		try {
-			const course = await getCourseById(req.params.id);
-			return res.status(200).validJsonResponse(course);
-		} catch (err) {
-			return res.status(400).validJsonError(err);
-		}
-	});
+			try {
+				const courses = await getTopCourses();
+				return res.status(200).validJsonResponse(courses);
+			} catch (err) {
+				return res.status(400).validJsonResponse(err);
+			}
+		});
+
+	routes.get('/:id',
+		middlewares.validator(),
+		async (req, res) => {
+			const {
+				courses: {
+					getCourseById,
+				},
+			} = controllers;
+
+			try {
+				const course = await getCourseById(req.params.id);
+				return res.status(200).validJsonResponse(course);
+			} catch (err) {
+				return res.status(400).validJsonError(err);
+			}
+		});
 
 	routes.post('/',
 		middlewares.validator(),
@@ -115,7 +142,7 @@ module.exports = function coursesRoutes(routes, {
 			} = controllers;
 			try {
 				let data = [];
-				if (user.enrolledCourses && user.enrolledCourses.length > 0){
+				if (user.enrolledCourses && user.enrolledCourses.length > 0) {
 					const ids = user.enrolledCourses.flat(doc => doc.courseId);
 					data = await getCourseByFilters(ids);
 				}
@@ -139,7 +166,7 @@ module.exports = function coursesRoutes(routes, {
 
 			try {
 				let data = [];
-				if (user.wishList && user.wishList.length > 0){
+				if (user.wishList && user.wishList.length > 0) {
 					const ids = user.wishList.flat(doc => doc.courseId);
 					data = await getCourseByFilters(ids);
 				}

@@ -1,38 +1,48 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-
 import { Card, Container } from 'react-bootstrap';
 import { Accordion } from 'react-accessible-accordion';
+
 import CommentCard from './CommentCard';
 import AccordionCard from './AccordionCard';
 import { StyledCard } from './StyledComponents';
-const CourseDetail = course => {
+import Message from '../Message';
+import { isEmptyArray } from '../../utils';
+
+const CourseDetail = ({
+	description,
+	content_sections,
+	reviews,
+}) => {
 	return (
 		<Container>
 			<StyledCard>
 				<Card.Header as="h3">Descripción</Card.Header>
 				<Card.Body>
-					<Card.Text>{course.description}</Card.Text>
+					<Card.Text>{description}</Card.Text>
 				</Card.Body>
 			</StyledCard>
 			<StyledCard>
 				<Accordion>
-					{course.content_sections ? (
-						course.content_sections.map((section, i) => (
+					{content_sections && (
+						content_sections.map((section, i) => (
 							<AccordionCard key={i} {...section}></AccordionCard>
 						))
-					) : (
-						<></>
 					)}
 				</Accordion>
 			</StyledCard>
-			<StyledCard>
-				<Card.Header as="h3">Comentarios</Card.Header>
-				{course.reviews &&
-					course.reviews.map((review, i) => (
-						<CommentCard key={i} {...review} />
-					))}
-			</StyledCard>
+			{isEmptyArray(reviews) 
+				? <Message>Este curso aún no ha sido comentado</Message>
+				: (
+					<StyledCard>
+						<Card.Header as="h3">Comentarios</Card.Header>
+						{!isEmptyArray(reviews) &&
+							reviews.map((review, i) => (
+								<CommentCard key={i} {...review} />
+							))}
+					</StyledCard>
+				)
+			}
 		</Container>
 	);
 };

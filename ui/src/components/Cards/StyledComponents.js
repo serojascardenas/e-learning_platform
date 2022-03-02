@@ -1,9 +1,10 @@
 import styled from 'styled-components/macro';
 
-import { Button, Card as BaseCard } from 'react-bootstrap';
+import { Card as BaseCard } from 'react-bootstrap';
 import { getMediaMinWidth } from '../../utils';
-import { ClampText } from '../Foundation';
+import { ClampText, H2, Text, Button } from '../Foundation';
 import { AccordionItemHeading } from 'react-accessible-accordion';
+import { Link } from 'react-router-dom';
 
 const Card = styled(BaseCard)`
 	overflow: auto;
@@ -179,6 +180,12 @@ const StyleRatingCard = styled(BaseCard)`
 	font-weight: bolder;
 `;
 
+const RatingText = styled(Text)`
+	color: ${({ theme }) => theme.colors.blackened};
+	font-size: 2.25rem;
+	opacity: .7;
+`;
+
 /*AccordionCard styled component */
 const StyledAccordionItemHeading = styled(AccordionItemHeading)`
 	background-color: rgba(0, 0, 0, 0.03);
@@ -195,6 +202,132 @@ const StyleCommentCard = styled(BaseCard)`
 	padding: 0.8rem;
 	width: 100%;
 `;
+
+const StyledPlainCard = styled.div`
+	background: ${({ theme }) => theme.colors.white};
+	border-radius: 8px;
+	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+	max-width: 100%;
+	overflow: hidden;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+
+	${getMediaMinWidth('sm')} {
+		flex-direction: row;
+	}
+`;
+
+const PlainCardContentType = styled.h6`
+	opacity: .6;
+	letter-spacing: 1px;
+	color: ${({ theme }) => theme.colors.white};
+`;
+
+const PlainCardTitle = styled(ClampText)`
+	color: ${({ theme }) => theme.colors.white};
+	letter-spacing: 1px;
+	font-size: 1.25rem;
+	margin: 0.5rem 0 0;
+
+	${getMediaMinWidth('sm')} {
+		margin: 0.5rem 0;
+		font-size: 1rem;
+		font-size: 1rem;
+	}
+`;
+
+const Preview = styled.div`
+	background-color: ${({ theme }) => theme.colors.turquoise};
+	color: ${({ theme }) => theme.colors.white};
+	padding: 1.75rem;
+	width: 100%;
+	position: relative;
+
+	${getMediaMinWidth('sm')} {
+		width: 15.75rem;
+	}
+`;
+
+const PreviewLink = styled(Link)`
+	color: ${({ theme }) => theme.colors.white};
+	font-size: 0.75rem;
+	opacity: .6;
+	margin-top: 0.5rem;
+	text-decoration: none;
+
+	&:hover {
+		color: ${({ theme }) => theme.colors.white};
+	}
+
+	${getMediaMinWidth('sm')} {
+		margin-top: 1.75rem;
+	}
+`;
+
+const PlainCardInfo = styled.div`
+	padding: 1.75rem;
+	position: relative;
+	width: 100%;
+
+	${H2} {
+		margin-top: 1.25rem;
+	}
+`;
+
+const PlainCardProgressWrapper = styled.div`
+	position: absolute;
+	top: 1.75rem;
+	right: 1.75rem;
+	text-align: right;
+	width: 150px;
+`;
+
+const PlainCardProgress = styled.div`
+	background: #ddd;
+	border-radius: 3px;
+	height: 5px;
+	width: 100%;
+
+	&::after {
+		content: '';
+		border-radius: 3px;
+		background: ${({ theme }) => theme.colors.turquoise};
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 5px;
+		width: 36%;
+	}
+`;
+
+const PlainCardProgressText = styled(Text)`
+	font-size: 10px;
+	opacity: .6;
+	letter-spacing: 1px;
+	padding-top: 0.25rem;
+`;
+
+const PlainCardInfoText = styled(ClampText)`
+	font-size: 0.75rem;
+	font-weight: bold;
+	margin-bottom: 3rem;
+`;
+
+const PlainCardButton = styled(Button)`
+	width: auto;
+	font-size: 0.7rem;
+	position: absolute;
+	bottom: 1rem;
+	right: 1.75rem;
+	letter-spacing: 1px;
+	padding: 10px 15px;
+
+	${getMediaMinWidth('sm')} {
+		font-size: 0.75rem;
+	}
+`;
+
 export {
 	Card,
 	CardContent,
@@ -214,10 +347,22 @@ export {
 	AddOns,
 	LineSeparator,
 	CommentHeader,
+	RatingText,
 	StyledCard,
 	StyledButton,
 	StyleRatingCard,
 	StyledAccordionItemHeading,
 	StyledPanel,
 	StyleCommentCard,
+	StyledPlainCard,
+	PlainCardContentType,
+	PlainCardTitle,
+	Preview,
+	PreviewLink,
+	PlainCardInfo,
+	PlainCardProgressWrapper,
+	PlainCardProgress,
+	PlainCardProgressText,
+	PlainCardInfoText,
+	PlainCardButton,
 };

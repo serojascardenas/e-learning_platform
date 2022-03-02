@@ -1,15 +1,19 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-
+import { useHistory } from 'react-router-dom';
 import { Card, Container, Row, Col } from 'react-bootstrap';
 
 import { addDefaultSrc } from './utils';
 import Icon from '../Icons';
 import Rating from '../Rating';
 import { averageRating } from '../../utils/utilities';
-import { useHistory } from 'react-router-dom';
 
-import { StyledButton, StyleRatingCard } from './StyledComponents';
+import { 
+	RatingText, 
+	StyleRatingCard,
+} from './StyledComponents';
+
+import { Button } from '../Foundation';
 
 const ExtendedVerticalCourseCard = ({
 	id,
@@ -70,15 +74,15 @@ const ExtendedVerticalCourseCard = ({
 
 					<Container>
 						<Row>
-							<Col sm={12} md={12} lg={12}>
-								<StyledButton bsStyle="primary" onClick={addToCartHandler}>
+							<Col>
+								<Button onClick={addToCartHandler}>
 									Añadir a la cesta
-								</StyledButton>
+								</Button>
 							</Col>
 						</Row>
 						<Row>
-							<Col sm={12} md={12} lg={12}>
-								<StyledButton block>Comprar ahora</StyledButton>
+							<Col>
+								<Button className="mt-2">Comprar ahora</Button>
 							</Col>
 						</Row>
 					</Container>
@@ -87,7 +91,7 @@ const ExtendedVerticalCourseCard = ({
 
 			<StyleRatingCard className="h-100">
 				<Card.Body>
-					{averageRating(reviews)}
+					<RatingText>{averageRating(reviews)}</RatingText>
 					<Rating value={averageRating(reviews)} fontSize="2rem" />
 				</Card.Body>
 			</StyleRatingCard>
