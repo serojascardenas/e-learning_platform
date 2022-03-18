@@ -22,6 +22,8 @@ import Order from './pages/Order';
 import MyOrders from './pages/MyOrders';
 import AboutUs from './pages/AboutUs';
 
+import CreateCourse from './pages/AddCourse';
+
 const Wrapper = styled(Container)`
 	
 `;
@@ -46,6 +48,7 @@ const App = () => {
 							<Route path="/my-orders" exact component={MyOrders} />
 							<Route path="/orders/:id" component={Order} />
 							<Route path="/about-us" exact component={AboutUs} />
+							<Route path="/add-course" exact component={CreateCourse} />
 							<Route path="/" exact component={Home} />
 						</Container>
 					</Wrapper>

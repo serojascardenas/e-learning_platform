@@ -52,7 +52,7 @@ module.exports = function userRoutes(routes, {
 				const { isValid, errors } = validateUserRequestSchema(body);
 
 				if (!isValid) {
-					res.status(400).validJsonResponse(errors);
+					return res.status(400).validJsonResponse(errors);
 				}
 
 				const user = await createUserAsync(body);

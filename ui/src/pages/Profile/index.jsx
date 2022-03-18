@@ -122,7 +122,7 @@ const Profile = ({
 							{bio && <Card.Text>{bio}</Card.Text>}
 							{isInstructor &&
 								<Card.Text>Instructor</Card.Text> &&
-								<Link to='/courses/add/' >
+								<Link to='/add-course' >
 									Nuevo Curso
 								</Link>
 							}

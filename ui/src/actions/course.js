@@ -22,6 +22,9 @@ import {
 	COURSE_TOP_REQUEST,
 	COURSE_TOP_FAIL,
 	COURSE_TOP_SUCCESS,
+	COURSE_CREATE_REQUEST,
+	COURSE_CREATE_FAIL,
+	COURSE_CREATE_SUCCESS,
 } from '../constants';
 
 const listCourses = (keyword = '') => async dispatch => {
@@ -174,6 +177,34 @@ const listTopCourses = () => async dispatch => {
 	});
 };
 
+const createCourse = body => async dispatch => {
+
+	dispatch({
+		type: COURSE_CREATE_REQUEST,
+	});
+
+	const response = await fetchComponentData({
+		endpoint: get(config, 'app.api.routes.courses'),
+		method: 'post',
+		data: body,
+		withCredentials: true,
+	});
+
+	if (response?.error) {
+		dispatch({
+			type: COURSE_CREATE_FAIL,
+			payload: getErrorMessage(response),
+		});
+		return;
+	}
+	const { data } = response;
+
+	// After creation maybe it isn't necessary
+	// dispatch({
+	// 	type: COURSE_CREATE_SUCCESS,
+	// 	payload: data,
+	// });
+};
 export {
 	listCourses,
 	listFilterCourses,
@@ -181,4 +212,5 @@ export {
 	getCourse,
 	getMyEnrolledCourses,
 	getMyWishListCourses,
+	createCourse,
 };
