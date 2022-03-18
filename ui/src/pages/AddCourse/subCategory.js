@@ -1,6 +1,6 @@
 export const subCategory = [
-    {
-        value: 'Transformación Digital',
-        label: 'Transformación Digital',
-    },
+	{
+		value: 'Transformación Digital',
+		label: 'Transformación Digital',
+	},
 ];

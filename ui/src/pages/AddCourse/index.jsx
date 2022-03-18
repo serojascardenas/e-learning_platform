@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import styled from 'styled-components';
 import Joi from 'joi-browser';
 import {
 	Col,
@@ -23,20 +22,6 @@ import { isEmptyArray, formatDecimal } from '../../utils';
 import { currencyType as listOfCurrencies } from './currencyType';
 import { category as listOfCategories } from './category';
 import { subCategory as listOfSubcategories } from './subCategory';
-
-const Select = styled(Form.Select)`
-	width: 100%;
-	height: 2.75rem;
-	padding-left: 1rem;
-	font-size: 14px;
-	border: 1px;
-
-	option {
-		background: white;
-		display: flex;
-		white-space: pre;
-	}
-`;
 
 const CreateCourse = ({
 	history,
