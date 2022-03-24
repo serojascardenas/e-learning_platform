@@ -109,9 +109,6 @@ const schema = new mongoose.Schema({
 				type: String,
 				required: true,
 			},
-			video: {
-				type: String,
-			},
 			order: {
 				type: Number,
 				required: true,

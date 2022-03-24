@@ -52,31 +52,6 @@ const courseRequestSchema = {
 		sub_category: {
 			type: 'string',
 		},
-		price: {
-			type: 'object',
-			properties: {
-				amount: {
-					type: 'number',
-				},
-				currency: {
-					type: 'string',
-				},
-				currency_symbol: {
-					type: 'string',
-				},
-				price_string: {
-					type: 'string',
-				},
-				is_free: {
-					type: 'boolean',
-				},
-			},
-			required: [
-				'amount',
-				'currency',
-				'currency_symbol',
-			],
-		},
 		content_sections: {
 			type: 'array',
 			items: {
@@ -94,9 +69,6 @@ const courseRequestSchema = {
 							type: 'object',
 							properties: {
 								name: {
-									type: 'string',
-								},
-								video: {
 									type: 'string',
 								},
 								order: {
@@ -125,9 +97,8 @@ const courseRequestSchema = {
 		'instructors',
 		'cover_image',
 		'category',
-		'sub_category',
-		'content_sections'],
-	additionalProperties: false,
+		'sub_category'],
+	additionalProperties: true,
 };
 
 function validateSchema(model) {
