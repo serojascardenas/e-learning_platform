@@ -76,7 +76,7 @@ module.exports = function coursesRoutes(routes, {
 			{ name: 'cover_movie', maxCount: 1 },
 		]),
 		async (req, res) => {
-			const body = JSON.parse(req.body.data);
+			const body = JSON.parse(req.body.body);
 			if (req.files.cover_image) {
 				body['cover_image'] = req.files.cover_image[0].path;
 			}
@@ -90,7 +90,7 @@ module.exports = function coursesRoutes(routes, {
 			try {
 				const { isValid, errors } = validateCourseRequestSchema(body);
 				if (!isValid) {
-					res.status(400).validJsonResponse(errors);
+					return res.status(400).validJsonResponse(errors);
 				}
 
 				const course = await createCourse(body);

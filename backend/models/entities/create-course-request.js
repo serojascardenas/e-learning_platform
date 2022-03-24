@@ -47,32 +47,10 @@ const courseRequestSchema = {
 			},
 		},
 		category: {
-			type: 'array',
-			items: {
-				type: 'object',
-				properties: {
-					name: {
-						type: 'string',
-					},
-				},
-				required: [
-					'name',
-				],
-			},
+			type: 'string',
 		},
 		sub_category: {
-			type: 'array',
-			items: {
-				type: 'object',
-				properties: {
-					name: {
-						type: 'string',
-					},
-				},
-				required: [
-					'name',
-				],
-			},
+			type: 'string',
 		},
 		price: {
 			type: 'object',
@@ -127,7 +105,6 @@ const courseRequestSchema = {
 							},
 							required: [
 								'name',
-								'video',
 								'order',
 							],
 						},

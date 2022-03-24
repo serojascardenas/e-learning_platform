@@ -156,11 +156,7 @@ const updateProfile = body => async dispatch => {
 		});
 		return;
 	}
-
-
 	const { data } = response;
-
-	console.log(data);
 
 	dispatch({
 		type: USER_LOGIN_SUCCESS,
