@@ -15,13 +15,15 @@ import {
 import Message from '../../components/Message';
 import { Button } from '../../components/Foundation';
 import Courses from '../../components/Courses/Courses';
+import CoursesList from '../../components/Courses/CoursesList';
 
 import { isEmptyArray } from '../../utils';
 
-import { 
-	updateProfile, 
-	getMyEnrolledCourses, 
+import {
+	updateProfile,
+	getMyEnrolledCourses,
 	getMyWishListCourses,
+	getMyCreatedCourses,
 	getUserDetails,
 } from '../../actions';
 import { USER_UPDATE_PROFILE_RESET } from '../../constants';
@@ -57,6 +59,8 @@ const Profile = ({
 		userDetails,
 		enrolledCourses,
 		wishList,
+		isntructorList,
+
 	} = useSelector(state => state);
 
 	const { userInfo } = userLogin;
@@ -70,7 +74,7 @@ const Profile = ({
 		const body = { name, lastName };
 
 		if (password != null && password !== '' && confirmPassword != null) {
-			if( password === confirmPassword){
+			if (password === confirmPassword) {
 				body.password = password;
 			} else {
 				error = true;
@@ -85,9 +89,24 @@ const Profile = ({
 		}
 
 		formData.append('body', JSON.stringify(body));
-		
+
 		if (!error) {
 			dispatch(updateProfile(formData));
+		}
+	};
+
+	const handleSelectedTabs = async key => {
+		switch (key) {
+		case 'enrroled':
+			dispatch(getMyEnrolledCourses());
+			break;
+		case 'wish-list':
+			dispatch(getMyWishListCourses());
+			break;
+		case 'instructor-list':
+			dispatch(getMyCreatedCourses());
+			break;
+		default:
 		}
 	};
 
@@ -98,8 +117,6 @@ const Profile = ({
 			if (!user?.name || success) {
 				dispatch({ type: USER_UPDATE_PROFILE_RESET });
 				dispatch(getUserDetails('profile'));
-				dispatch(getMyEnrolledCourses());
-				dispatch(getMyWishListCourses());
 			} else {
 				setName(userInfo.name);
 				setLastName(userInfo.lastName);
@@ -108,7 +125,7 @@ const Profile = ({
 				setIsInstructor(userInfo.isInstructor);
 			}
 		}
-		
+
 	}, [dispatch, userInfo, success, history, user]);
 
 	return (
@@ -120,18 +137,12 @@ const Profile = ({
 						<Card.Body>
 							<Card.Title>{name} {lastName}</Card.Title>
 							{bio && <Card.Text>{bio}</Card.Text>}
-							{isInstructor &&
-								<Card.Text>Instructor</Card.Text> &&
-								<Link to='/add-course' >
-									Nuevo Curso
-								</Link>
-							}
 						</Card.Body>
 					</Card>
 				</Col>
 				<Col className="my-4">
 					{message && <Message variant='danger'>{message}</Message>}
-					<Tabs id='profile-tab' defaultActiveKey='me' transition={false}  >
+					<Tabs id='profile-tab' defaultActiveKey='me' transition={false} onSelect={e => handleSelectedTabs(e)}>
 						<Tab eventKey='me' title='Mis datos'>
 							<TabWrapper>
 								<Form onSubmit={submitHandler}>
@@ -213,16 +224,16 @@ const Profile = ({
 										/>
 									</Form.Group>
 									<Button className='mt-4' type='submit' variant='primary'>
-							Actualizar
+										Actualizar
 									</Button>
 								</Form>
 							</TabWrapper>
 						</Tab>
-						<Tab eventKey='enrroled' title='Mis Cursos'>
+						<Tab eventKey='enrroled' title='Mis Cursos' >
 							<TabWrapper>
-								{isEmptyArray(enrolledCourses.courses) 
+								{isEmptyArray(enrolledCourses.courses)
 									? <Message variant="info">No estás enrolado en ningún curso aún</Message>
-									: <Courses showActionButtons={false} courses={ enrolledCourses.courses } />
+									: <Courses showActionButtons={false} courses={enrolledCourses.courses} />
 								}
 							</TabWrapper>
 						</Tab>
@@ -230,10 +241,29 @@ const Profile = ({
 							<TabWrapper>
 								{isEmptyArray(wishList.courses)
 									? <Message variant="info">No tienes ningún favorito aún</Message>
-									: <Courses courses={ wishList.courses } />}
-						
+									: <Courses courses={wishList.courses} />}
+
 							</TabWrapper>
 						</Tab>
+						{isInstructor &&
+							<Tab eventKey='instructor-list' title='Cursos creado'>
+								<TabWrapper>
+									{isEmptyArray(isntructorList.courses)
+										? <Message variant="info">No tienes ningún favorito aún</Message>
+										: <CoursesList courses={isntructorList.courses} />}
+									<Container className="mt-4">
+										<Row><Col></Col>
+											<Col md={3}>
+												<Link to='/add-course' >
+													<Button>
+														Nuevo Curso
+													</Button>
+												</Link>
+											</Col>
+										</Row>
+									</Container>
+								</TabWrapper>
+							</Tab>}
 					</Tabs>
 				</Col>
 			</Row>

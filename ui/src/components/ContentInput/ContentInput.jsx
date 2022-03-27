@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
 	Row,
 	Col,
@@ -14,11 +14,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinusCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 const ContentInput = ({
-    contentChaptersList, 
-    setIpuntContentChapters,
+	contentChaptersList, 
+	setIpuntContentChapters,
 }) => {
     
-    const handleSectionDescriptionChange = async (e, chapterPosition, sectionPosition) => {
+	const handleSectionDescriptionChange = async (e, chapterPosition, sectionPosition) => {
 		contentChaptersList[chapterPosition].items[sectionPosition].name = e.target.value;
 		setIpuntContentChapters([...contentChaptersList]);
 	};
@@ -54,7 +54,7 @@ const ContentInput = ({
 					<Col sm md lg={9}>
 						<Form.Control
 							value={chapter.title}
-                            placeholder='Ingresa el título del capitulo'
+							placeholder='Ingresa el título del capitulo'
 							onChange={e => handleChapterTitleChange(e, chapterPosition)} />
 					</Col>
 					<Col>
@@ -75,7 +75,7 @@ const ContentInput = ({
 							<Col sm md lg={9}>
 								<Form.Control
 									value={section.name}
-                                    placeholder='Descriccíon de la sección'
+									placeholder='Descriccíon de la sección'
 									onChange={e => handleSectionDescriptionChange(e, chapterPosition, sectionPosition)} />
 							</Col>
 							<Col>

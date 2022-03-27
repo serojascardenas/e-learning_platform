@@ -18,7 +18,7 @@ import {
 	createCourse,
 } from '../../actions';
 
-import { isEmptyArray, formatDecimal } from '../../utils';
+import { isEmptyArray } from '../../utils';
 import { currencyType as listOfCurrencies } from './currencyType';
 import { category as listOfCategories } from './category';
 import { subCategory as listOfSubcategories } from './subCategory';

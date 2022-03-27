@@ -59,7 +59,7 @@ async function init() {
 	expressApp.use(
 		cors({
 			credentials: true,
-			methods: ['POST', 'PUT', 'GET', 'OPTIONS'],
+			methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'DELETE'],
 			origin: ['http://localhost:3000', 'http://localhost:8000'],
 		})
 	);

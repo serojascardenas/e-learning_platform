@@ -18,6 +18,7 @@ import {
 	enrolledCoursesReducer,
 	wishListCoursesReducer,
 	topRatedCoursesReducer,
+	instructorListCouresesReducer,
 } from './reducers';
 
 const reducers = combineReducers({
@@ -27,6 +28,7 @@ const reducers = combineReducers({
 	userDetails: userDetailsReducer,
 	enrolledCourses: enrolledCoursesReducer,
 	wishList: wishListCoursesReducer,
+	isntructorList: instructorListCouresesReducer,
 	topCourses: topRatedCoursesReducer,
 	courseList: courseListReducer,
 	courseDetail: courseDetailReducer,

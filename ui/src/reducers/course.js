@@ -18,6 +18,9 @@ import {
 	COURSE_TOP_REQUEST,
 	COURSE_TOP_FAIL,
 	COURSE_TOP_SUCCESS,
+	COURSE_INSTRUCTOR_LIST_REQUEST,
+	COURSE_INSTRUCTOR_LIST_FAIL,
+	COURSE_INSTRUCTOR_LIST_SUCCESS,
 } from '../constants';
 
 const courseListReducer = (state = {}, action) => {
@@ -83,7 +86,12 @@ const courseDetailReducer = (state = {}, action) => {
 	}
 };
 
-const enrolledCoursesReducer = (state = {}, action) => {
+const enrolledCoursesReducer = (
+	state = {
+		courses: [],
+	},
+	action,
+) => {
 	switch (action.type) {
 		case COURSE_ENROLLED_REQUEST:
 			return {
@@ -104,7 +112,12 @@ const enrolledCoursesReducer = (state = {}, action) => {
 	}
 };
 
-const wishListCoursesReducer = (state = {}, action) => {
+const wishListCoursesReducer = (
+	state = {
+		courses: [],
+	},
+	action,
+) => {
 	switch (action.type) {
 		case COURSE_WISHLIST_REQUEST:
 			return {
@@ -152,11 +165,37 @@ const topRatedCoursesReducer = (
 	}
 };
 
+const instructorListCouresesReducer = (
+	state = {
+		courses: [],
+	},
+	action,
+) => {
+	switch (action.type) {
+		case COURSE_INSTRUCTOR_LIST_REQUEST:
+			return {
+				loading: true,
+			};
+		case COURSE_INSTRUCTOR_LIST_FAIL:
+			return {
+				loading: false,
+				errors: action.payload,
+			};
+		case COURSE_INSTRUCTOR_LIST_SUCCESS:
+			return {
+				loading: false,
+				courses: action.payload,
+			};
+		default:
+			return state;
+	}
+};
 export {
 	courseListReducer,
 	courseFilterReducer,
 	courseDetailReducer,
 	enrolledCoursesReducer,
 	wishListCoursesReducer,
+	instructorListCouresesReducer,
 	topRatedCoursesReducer,
 };

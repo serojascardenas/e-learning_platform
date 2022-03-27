@@ -78,17 +78,25 @@ const getCourseById = async courseId => {
 	return _course;
 };
 
-const getCourseByFilters = async (
+const getCourseByFilters = async ({
+	ids,
 	title,
 	instructor,
 	category,
 	sub_category,
-) => {
+}) => {
 	var filters = {};
+	if (
+		ids !== undefined &&
+		ids !== null && ids.length !== 0
+	) {
+		filters._id = {
+			$in: ids,
+		};
+	}
 	if (title !== undefined && title !== null && title.trim() !== '') {
 		filters.title = { $regex: title, $options: 'i' };
 	}
-
 	if (
 		instructor !== undefined &&
 		instructor !== null &&
@@ -98,13 +106,11 @@ const getCourseByFilters = async (
 			$elemMatch: { name: { $regex: instructor, $options: 'i' } },
 		};
 	}
-
 	if (category !== undefined && category !== null && category.trim() !== '') {
 		filters.category = {
 			$elemMatch: { name: { $regex: category, $options: 'i' } },
 		};
 	}
-
 	if (
 		sub_category !== undefined &&
 		sub_category !== null &&
@@ -114,7 +120,6 @@ const getCourseByFilters = async (
 			$elemMatch: { name: { $regex: sub_category, $options: 'i' } },
 		};
 	}
-
 	return await Course.find(filters)
 		.populate('instructors')
 		.populate('reviews');
@@ -175,6 +180,18 @@ const deleteCourse = async courseId => {
 	return;
 };
 
+const updateCourse = async (courseId, { course }) => {
+	const responseCourse = await Course.findByIdAndUpdate(courseId, { course });
+	return responseCourse;
+}
+
+const getCoursesByInstructorId = async instructorId => {
+	const responseCourse = await Course.find({
+		instructors: instructorId
+	});
+	return responseCourse;
+}
+
 module.exports = {
 	getAllCourses,
 	getTopCourses,
@@ -184,4 +201,6 @@ module.exports = {
 	deleteCourse,
 	getCourseByFilters,
 	getTopCourses,
+	updateCourse,
+	getCoursesByInstructorId,
 };
