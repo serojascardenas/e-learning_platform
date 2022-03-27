@@ -246,10 +246,10 @@ const Profile = ({
 							</TabWrapper>
 						</Tab>
 						{isInstructor &&
-							<Tab eventKey='instructor-list' title='Cursos creado'>
+							<Tab eventKey='instructor-list' title='Cursos Creados'>
 								<TabWrapper>
 									{isEmptyArray(isntructorList.courses)
-										? <Message variant="info">No tienes ningún favorito aún</Message>
+										? <Message variant="info">No tienes ningún curso aún</Message>
 										: <CoursesList courses={isntructorList.courses} />}
 									<Container className="mt-4">
 										<Row><Col></Col>
