@@ -193,7 +193,7 @@ const StyledAccordionItemHeading = styled(AccordionItemHeading)`
 	border: 1px solid rgba(0, 0, 0, 0.125);
 `;
 
-const StyledPanel = styled.p`
+const StyledPanel = styled.div`
 	padding: 0.75rem 1.25rem;
 `;
 

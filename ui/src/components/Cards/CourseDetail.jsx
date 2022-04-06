@@ -26,7 +26,7 @@ const CourseDetail = ({
 				<Accordion>
 					{content_sections && (
 						content_sections.map((section, i) => (
-							<AccordionCard key={i} {...section}></AccordionCard>
+							<AccordionCard key={i} section={section}></AccordionCard>
 						))
 					)}
 				</Accordion>

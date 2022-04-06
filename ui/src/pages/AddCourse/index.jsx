@@ -9,7 +9,7 @@ import {
 } from 'react-bootstrap';
 
 import Message from '../../components/Message';
-import { Button } from '../../components/Foundation';
+import { Button, H1 } from '../../components/Foundation';
 
 import FormContainer from '../../components/FormContainer';
 import Switch from '../../components/Switch';
@@ -152,9 +152,10 @@ const CreateCourse = ({
 		
 	}, [userInfo, history]);
 	return (
-		<FormContainer>
+		<FormContainer className="">
 			{message && <Message variant="danger">{message}</Message>}
 			{error && <Message variant="danger">{error}</Message>}
+			<H1>Añadir Curso</H1>
 			<Form onSubmit={submitHandler}>
 				<Row>
 					<Col className="my-4">
@@ -278,7 +279,7 @@ const CreateCourse = ({
 							</Switch>
 						</Form.Group>
 						<Form.Group className='mb-4'>
-							<Form.Label>Cuantidad de horas del curso</Form.Label>
+							<Form.Label>Cantidad de horas del curso</Form.Label>
 							<Form.Control
 								type='number'
 								value={videoContentLength}
@@ -286,7 +287,7 @@ const CreateCourse = ({
 							/>
 						</Form.Group>
 						<Form.Group className='mb-4'>
-							<Form.Label>Cuantidade de articulos</Form.Label>
+							<Form.Label>Cantidad de artículos</Form.Label>
 							<Form.Control
 								type='number'
 								value={numArticles}
@@ -294,7 +295,7 @@ const CreateCourse = ({
 							/>
 						</Form.Group>
 						<Form.Group className='mb-4'>
-							<Form.Label>Cuantidad de actividades</Form.Label>
+							<Form.Label>Cantidad de actividades</Form.Label>
 							<Form.Control
 								type='number'
 								value={numPracticeTests}
