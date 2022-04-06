@@ -2,37 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Joi from 'joi-browser';
-import {
-	Col,
-	Row,
-	Form,
-} from 'react-bootstrap';
+import { Col, Row, Form } from 'react-bootstrap';
 
 import Message from '../../components/Message';
-import { Button } from '../../components/Foundation';
+import { Button, H1 } from '../../components/Foundation';
 import FormContainer from '../../components/FormContainer';
 import Switch from '../../components/Switch';
-import ContentInput from '../../components/ContentInput';
-
-import {
-	createCourse,
-} from '../../actions';
+import { createCourse } from '../../actions';
 
 import { isEmptyArray } from '../../utils';
 import { currencyType as listOfCurrencies } from './currencyType';
 import { category as listOfCategories } from './category';
 import { subCategory as listOfSubcategories } from './subCategory';
 
-const CreateCourse = ({
-	history,
-}) => {
+const CreateCourse = ({ history }) => {
 	const dispatch = useDispatch();
 	const { userLogin } = useSelector(state => state);
 	const { userInfo, error } = userLogin;
 
 	const schema = Joi.object({
-		title: Joi.string().min(5).max(300).required(),
-		description: Joi.string().min(3).required(),
+		title: Joi.string()
+			.min(5)
+			.max(300)
+			.required(),
+		description: Joi.string()
+			.min(3)
+			.required(),
 		category: Joi.string(),
 		subCategory: Joi.string(),
 		amount: Joi.number().precision(2),
@@ -63,10 +58,9 @@ const CreateCourse = ({
 	const [hasCertificate, setHasCertificate] = useState(false);
 	const [message, setMessage] = useState(null);
 
-	const [contentChaptersList, setIpuntContentChapters] = useState(
-		[{ title: '', order: 0, items: [{ name: '', order: 0 }] }]);
-
-	
+	const [contentChaptersList, setIpuntContentChapters] = useState([
+		{ title: '', order: 0, items: [{ name: '', order: 0 }] },
+	]);
 
 	const submitHandler = e => {
 		e.preventDefault();
@@ -91,36 +85,42 @@ const CreateCourse = ({
 			schema,
 			{
 				abortEarly: false,
-			},
+			}
 		);
 
 		if (error) {
-			let errors = error.details.reduce((acc, cur) => acc + cur.message + '. ', '');
+			let errors = error.details.reduce(
+				(acc, cur) => acc + cur.message + '. ',
+				''
+			);
 			setMessage(errors);
 		} else {
 			const formData = new FormData();
 			const instructors = [];
 			instructors.push(userInfo.id);
-			formData.append('body', JSON.stringify({
-				title,
-				description,
-				category,
-				sub_category: subCategory,
-				price: {
-					amount: amount,
-					currency: currency,
-					currency_symbol: currencySymbol,
-				},
-				attributes: {
-					video_content_length: parseInt(videoContentLength),
-					num_articles: parseInt(numArticles),
-					num_practice_tests: parseInt(numPracticeTests),
-					has_lifetime_access: hasLifetimeAccess,
-					has_certificate: hasCertificate,
-				},
-				content_sections: contentChaptersList,
-				instructors,
-			}));
+			formData.append(
+				'body',
+				JSON.stringify({
+					title,
+					description,
+					category,
+					sub_category: subCategory,
+					price: {
+						amount: amount,
+						currency: currency,
+						currency_symbol: currencySymbol,
+					},
+					attributes: {
+						video_content_length: parseInt(videoContentLength),
+						num_articles: parseInt(numArticles),
+						num_practice_tests: parseInt(numPracticeTests),
+						has_lifetime_access: hasLifetimeAccess,
+						has_certificate: hasCertificate,
+					},
+					content_sections: contentChaptersList,
+					instructors,
+				})
+			);
 			if (coverImage) {
 				formData.append('cover_image', coverImage[0]);
 			}
@@ -142,55 +142,56 @@ const CreateCourse = ({
 		} else {
 			//
 		}
-		
 	}, [userInfo, history]);
 	return (
-		<FormContainer>
+		<FormContainer className="">
 			{message && <Message variant="danger">{message}</Message>}
 			{error && <Message variant="danger">{error}</Message>}
+			<H1>Añadir Curso</H1>
 			<Form onSubmit={submitHandler}>
-				<Form.Group className='mb-4'>
+				<Form.Group className="mb-4">
 					<Form.Label>Título</Form.Label>
 					<Form.Control
 						value={title}
 						required
-						min='5'
-						max='300'
-						placeholder='Ingresa el título'
+						min="5"
+						max="300"
+						placeholder="Ingresa el título"
 						onChange={e => setTitle(e.target.value)}
 					/>
 				</Form.Group>
-				<Form.Group className='mb-4'>
+				<Form.Group className="mb-4">
 					<Form.Label>Descripción</Form.Label>
 					<Form.Control
-						as='textarea'
+						as="textarea"
 						value={description}
 						required
 						rows={3}
-						placeholder='Ingresa la descripción'
+						placeholder="Ingresa la descripción"
 						onChange={e => setDescription(e.target.value)}
 					/>
 				</Form.Group>
-				<Form.Group className='mb-4'>
+				<Form.Group className="mb-4">
 					<Form.Control
-						as='select'
+						as="select"
 						value={category}
 						required
 						onChange={e => setCategory(e.target.value)}
-					>
-						<option>Categoria</option>
-						{listOfCategories || !isEmptyArray(listOfCategories) ? (
-							listOfCategories.map((item, i) => (
-								<option key={i} value={item.value}>{item.label}</option>
-							))
-						) : (
-							<></>
-						)}
-					</Form.Control>
+					/>
+					<option>Categoria</option>
+					{listOfCategories || !isEmptyArray(listOfCategories) ? (
+						listOfCategories.map((item, i) => (
+							<option key={i} value={item.value}>
+								{item.label}
+							</option>
+						))
+					) : (
+						<></>
+					)}
 				</Form.Group>
-				<Form.Group className='mb-4'>
+				<Form.Group className="mb-4">
 					<Form.Control
-						as='select'
+						as="select"
 						value={subCategory}
 						required
 						onChange={e => setSubCategory(e.target.value)}
@@ -198,40 +199,45 @@ const CreateCourse = ({
 						<option>Sub Categoria</option>
 						{listOfSubcategories || !isEmptyArray(listOfSubcategories) ? (
 							listOfSubcategories.map((item, i) => (
-								<option key={i} value={item.value}>{item.label}</option>
+								<option key={i} value={item.value}>
+									{item.label}
+								</option>
 							))
 						) : (
 							<></>
 						)}
 					</Form.Control>
 				</Form.Group>
-				<Form.Group className='mb-4'>
+				<Form.Group className="mb-4">
 					<Form.Label>Portada del curso</Form.Label>
 					<Form.Control
-						type='file'
+						type="file"
 						onChange={e => setCoverImage(e.target.files)}
 					/>
 				</Form.Group>
-				<Form.Group className='mb-4'>
+				<Form.Group className="mb-4">
 					<Form.Label>Video de demostración</Form.Label>
 					<Form.Control
-						type='file'
+						type="file"
 						onChange={e => setCoverMovie(e.target.files)}
 					/>
 				</Form.Group>
-				<Form.Group className='mb-4'>
+				<Form.Group className="mb-4">
 					<Form.Label>Precio</Form.Label>
 					<Row>
 						<Col>
 							<Form.Control
-								as='select'
+								as="select"
 								required
 								onChange={e => onChangeCurrency(e.target.value)}
 							>
 								<option>Moneda</option>
 								{listOfCurrencies || !isEmptyArray(listOfCurrencies) ? (
 									listOfCurrencies.map((item, j) => (
-										<option key={j} value={`${item.id} - ${item.symbol}`}>{`${item.label} (${item.symbol})`}</option>
+										<option
+											key={j}
+											value={`${item.id} - ${item.symbol}`}
+										>{`${item.label} (${item.symbol})`}</option>
 									))
 								) : (
 									<></>
@@ -240,69 +246,62 @@ const CreateCourse = ({
 						</Col>
 						<Col>
 							<Form.Control
-								type='number'
+								type="number"
 								step={'any'}
 								value={amount}
 								required
-								placeholder='0.00'
+								placeholder="0.00"
 								onChange={e => setAmount(e.target.value)}
 							/>
 						</Col>
 					</Row>
 				</Form.Group>
-				<Form.Group className='mb-4'>
+				<Form.Group className="mb-4">
 					<Switch
 						handleChange={e => setHasLifetimeAccess(e.target.checked)}
-						id='hasLifetimeAccessId'
+						id="hasLifetimeAccessId"
 						value={hasLifetimeAccess}
 					>
-								Tiene acceso ilimitado?
+						Tiene acceso ilimitado?
 					</Switch>
 				</Form.Group>
-				<Form.Group className='mb-4'>
+				<Form.Group className="mb-4">
 					<Switch
 						handleChange={e => setHasCertificate(e.target.checked)}
-						id='hasCertificateId'
+						id="hasCertificateId"
 						value={hasCertificate}
 					>
-								Tiene Certificado?
+						Tiene Certificado?
 					</Switch>
 				</Form.Group>
-				<Form.Group className='mb-4'>
-					<Form.Label>Cuantidad de horas del curso</Form.Label>
+				<Form.Group className="mb-4">
+					<Form.Label>Cantidad de horas del curso</Form.Label>
 					<Form.Control
-						type='number'
+						type="number"
 						value={videoContentLength}
 						onChange={e => setVideoContentLength(e.target.value)}
 					/>
 				</Form.Group>
-				<Form.Group className='mb-4'>
-					<Form.Label>Cuantidade de articulos</Form.Label>
+				<Form.Group className="mb-4">
+					<Form.Label>Cantidad de artículos</Form.Label>
 					<Form.Control
-						type='number'
+						type="number"
 						value={numArticles}
 						onChange={e => setNumArticles(e.target.value)}
 					/>
 				</Form.Group>
-				<Form.Group className='mb-4'>
-					<Form.Label>Cuantidad de actividades</Form.Label>
+				<Form.Group className="mb-4">
+					<Form.Label>Cantidad de actividades</Form.Label>
 					<Form.Control
-						type='number'
+						type="number"
 						value={numPracticeTests}
 						onChange={e => setNumPracticeTests(e.target.value)}
 					/>
 				</Form.Group>
-				<Form.Group className='mb-4'>
-					<Form.Label>Cadastro de los modulos</Form.Label>
-					<ContentInput 
-						contentChaptersList={contentChaptersList} 
-						setIpuntContentChapters={setIpuntContentChapters}/>
-				</Form.Group>
-				<Button
-					className="mt-4"
-					type="submit"
-					variant="primary"
-				>Añadir Curso</Button>
+
+				<Button className="mt-4" type="submit" variant="primary">
+					Añadir Curso
+				</Button>
 			</Form>
 		</FormContainer>
 	);

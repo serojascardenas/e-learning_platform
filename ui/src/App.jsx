@@ -23,6 +23,7 @@ import MyOrders from './pages/MyOrders';
 import AboutUs from './pages/AboutUs';
 
 import CreateCourse from './pages/AddCourse';
+import Section from './components/Section/Section';
 
 const Wrapper = styled(Container)`
 	
@@ -49,6 +50,8 @@ const App = () => {
 							<Route path="/orders/:id" component={Order} />
 							<Route path="/about-us" exact component={AboutUs} />
 							<Route path="/add-course" exact component={CreateCourse} />
+							<Route path="/add-section" exact component={Section} />
+
 							<Route path="/" exact component={Home} />
 						</Container>
 					</Wrapper>

@@ -142,8 +142,9 @@ const Profile = ({
 				</Col>
 				<Col className="my-4">
 					{message && <Message variant='danger'>{message}</Message>}
-					<Tabs id='profile-tab' defaultActiveKey='me' transition={false} onSelect={e => handleSelectedTabs(e)}>
-						<Tab eventKey='me' title='Mis datos'>
+
+					<Tabs id='profile-tab' defaultActiveKey='me' transition={false} className="w-100" onSelect={e => handleSelectedTabs(e)}>
+						<Tab eventKey='me' title='Mis datos' className="p-4 align-middle border">
 							<TabWrapper>
 								<Form onSubmit={submitHandler}>
 									<Row className='mb-4'>
