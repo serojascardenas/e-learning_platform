@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Joi from 'joi-browser';
-import { Col, Row, Form } from 'react-bootstrap';
+import { Col, Row, Form, Tab, Nav, Container } from 'react-bootstrap';
 
 import Message from '../../components/Message';
-import { Button, H1 } from '../../components/Foundation';
-import FormContainer from '../../components/FormContainer';
+import { Button, H1, H2 } from '../../components/Foundation';
 import Switch from '../../components/Switch';
 import { createCourse } from '../../actions';
+import Section from '../../components/Section/Section';
 
 import { isEmptyArray } from '../../utils';
 import { currencyType as listOfCurrencies } from './currencyType';
@@ -144,166 +144,228 @@ const CreateCourse = ({ history }) => {
 		}
 	}, [userInfo, history]);
 	return (
-		<FormContainer className="">
-			{message && <Message variant="danger">{message}</Message>}
-			{error && <Message variant="danger">{error}</Message>}
-			<H1>Añadir Curso</H1>
-			<Form onSubmit={submitHandler}>
-				<Form.Group className="mb-4">
-					<Form.Label>Título</Form.Label>
-					<Form.Control
-						value={title}
-						required
-						min="5"
-						max="300"
-						placeholder="Ingresa el título"
-						onChange={e => setTitle(e.target.value)}
-					/>
-				</Form.Group>
-				<Form.Group className="mb-4">
-					<Form.Label>Descripción</Form.Label>
-					<Form.Control
-						as="textarea"
-						value={description}
-						required
-						rows={3}
-						placeholder="Ingresa la descripción"
-						onChange={e => setDescription(e.target.value)}
-					/>
-				</Form.Group>
-				<Form.Group className="mb-4">
-					<Form.Control
-						as="select"
-						value={category}
-						required
-						onChange={e => setCategory(e.target.value)}
-					/>
-					<option>Categoria</option>
-					{listOfCategories || !isEmptyArray(listOfCategories) ? (
-						listOfCategories.map((item, i) => (
-							<option key={i} value={item.value}>
-								{item.label}
-							</option>
-						))
-					) : (
-						<></>
-					)}
-				</Form.Group>
-				<Form.Group className="mb-4">
-					<Form.Control
-						as="select"
-						value={subCategory}
-						required
-						onChange={e => setSubCategory(e.target.value)}
-					>
-						<option>Sub Categoria</option>
-						{listOfSubcategories || !isEmptyArray(listOfSubcategories) ? (
-							listOfSubcategories.map((item, i) => (
-								<option key={i} value={item.value}>
-									{item.label}
-								</option>
-							))
-						) : (
-							<></>
-						)}
-					</Form.Control>
-				</Form.Group>
-				<Form.Group className="mb-4">
-					<Form.Label>Portada del curso</Form.Label>
-					<Form.Control
-						type="file"
-						onChange={e => setCoverImage(e.target.files)}
-					/>
-				</Form.Group>
-				<Form.Group className="mb-4">
-					<Form.Label>Video de demostración</Form.Label>
-					<Form.Control
-						type="file"
-						onChange={e => setCoverMovie(e.target.files)}
-					/>
-				</Form.Group>
-				<Form.Group className="mb-4">
-					<Form.Label>Precio</Form.Label>
-					<Row>
-						<Col>
-							<Form.Control
-								as="select"
-								required
-								onChange={e => onChangeCurrency(e.target.value)}
-							>
-								<option>Moneda</option>
-								{listOfCurrencies || !isEmptyArray(listOfCurrencies) ? (
-									listOfCurrencies.map((item, j) => (
-										<option
-											key={j}
-											value={`${item.id} - ${item.symbol}`}
-										>{`${item.label} (${item.symbol})`}</option>
-									))
-								) : (
-									<></>
-								)}
-							</Form.Control>
-						</Col>
-						<Col>
-							<Form.Control
-								type="number"
-								step={'any'}
-								value={amount}
-								required
-								placeholder="0.00"
-								onChange={e => setAmount(e.target.value)}
-							/>
-						</Col>
-					</Row>
-				</Form.Group>
-				<Form.Group className="mb-4">
-					<Switch
-						handleChange={e => setHasLifetimeAccess(e.target.checked)}
-						id="hasLifetimeAccessId"
-						value={hasLifetimeAccess}
-					>
-						Tiene acceso ilimitado?
-					</Switch>
-				</Form.Group>
-				<Form.Group className="mb-4">
-					<Switch
-						handleChange={e => setHasCertificate(e.target.checked)}
-						id="hasCertificateId"
-						value={hasCertificate}
-					>
-						Tiene Certificado?
-					</Switch>
-				</Form.Group>
-				<Form.Group className="mb-4">
-					<Form.Label>Cantidad de horas del curso</Form.Label>
-					<Form.Control
-						type="number"
-						value={videoContentLength}
-						onChange={e => setVideoContentLength(e.target.value)}
-					/>
-				</Form.Group>
-				<Form.Group className="mb-4">
-					<Form.Label>Cantidad de artículos</Form.Label>
-					<Form.Control
-						type="number"
-						value={numArticles}
-						onChange={e => setNumArticles(e.target.value)}
-					/>
-				</Form.Group>
-				<Form.Group className="mb-4">
-					<Form.Label>Cantidad de actividades</Form.Label>
-					<Form.Control
-						type="number"
-						value={numPracticeTests}
-						onChange={e => setNumPracticeTests(e.target.value)}
-					/>
-				</Form.Group>
+		<Container className="mt-4">
+			<Row>
+				<H1> Añadir Curso </H1>
+			</Row>
+			<Row>
+				<Col md={12}>
+					<Tab.Container id="addCourse" defaultActiveKey="first">
+						<Row>
+							<Col md={3}>
+								<Nav variant="tabs" className="flex-column m-0 p-0">
+									<Nav.Item>
+										<Nav.Link eventKey="first">INFORMACIÓN BÁSICA</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey="second">DETALLES</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey="third">SECCIONES</Nav.Link>
+									</Nav.Item>
+								</Nav>
+							</Col>
+							<Col sm={9}>
+								<Tab.Content>
+									<Tab.Pane eventKey="first">
+										<Container className="pt-4 border">
+											{message && <Message variant="danger">{message}</Message>}
+											{error && <Message variant="danger">{error}</Message>}
+											<Form onSubmit={submitHandler}>
+												<Form.Group className="mb-4">
+													<Form.Label>Título</Form.Label>
+													<Form.Control
+														value={title}
+														required
+														min="5"
+														max="300"
+														placeholder="Ingresa el título"
+														onChange={e => setTitle(e.target.value)}
+													/>
+												</Form.Group>
+												<Form.Group className="mb-4">
+													<Form.Label>Descripción</Form.Label>
+													<Form.Control
+														as="textarea"
+														value={description}
+														required
+														rows={3}
+														placeholder="Ingresa la descripción"
+														onChange={e => setDescription(e.target.value)}
+													/>
+												</Form.Group>
+												<Form.Group className="mb-4">
+													<Form.Control
+														as="select"
+														value={category}
+														required
+														onChange={e => setCategory(e.target.value)}
+													>
+														<option>Categoria</option>
+														{listOfCategories ||
+														!isEmptyArray(listOfCategories) ? (
+															listOfCategories.map((item, i) => (
+																<option key={i} value={item.value}>
+																	{item.label}
+																</option>
+															))
+														) : (
+															<></>
+														)}
+													</Form.Control>
+												</Form.Group>
+												<Form.Group className="mb-4">
+													<Form.Control
+														as="select"
+														value={subCategory}
+														required
+														onChange={e => setSubCategory(e.target.value)}
+													>
+														<option>Sub Categoria</option>
+														{listOfSubcategories ||
+														!isEmptyArray(listOfSubcategories) ? (
+															listOfSubcategories.map((item, i) => (
+																<option key={i} value={item.value}>
+																	{item.label}
+																</option>
+															))
+														) : (
+															<></>
+														)}
+													</Form.Control>
+												</Form.Group>
+												<Form.Group className="mb-4">
+													<Form.Label>Portada del curso</Form.Label>
+													<Form.Control
+														type="file"
+														onChange={e => setCoverImage(e.target.files)}
+													/>
+												</Form.Group>
+												<Form.Group className="mb-4">
+													<Form.Label>Video de demostración</Form.Label>
+													<Form.Control
+														type="file"
+														onChange={e => setCoverMovie(e.target.files)}
+													/>
+												</Form.Group>
+											</Form>
+										</Container>
+									</Tab.Pane>
+									<Tab.Pane eventKey="second">
+										<Container className="pt-4 border">
+											<Form>
+												<Form.Group className="mb-4">
+													<Form.Label>Precio</Form.Label>
+													<Row>
+														<Col>
+															<Form.Control
+																as="select"
+																required
+																onChange={e => onChangeCurrency(e.target.value)}
+															>
+																<option>Moneda</option>
+																{listOfCurrencies ||
+																!isEmptyArray(listOfCurrencies) ? (
+																	listOfCurrencies.map((item, j) => (
+																		<option
+																			key={j}
+																			value={`${item.id} - ${item.symbol}`}
+																		>{`${item.label} (${item.symbol})`}</option>
+																	))
+																) : (
+																	<></>
+																)}
+															</Form.Control>
+														</Col>
+														<Col>
+															<Form.Control
+																type="number"
+																step={'any'}
+																value={amount}
+																required
+																placeholder="0.00"
+																onChange={e => setAmount(e.target.value)}
+															/>
+														</Col>
+													</Row>
+												</Form.Group>
+												<Form.Group className="mb-4">
+													<Row>
+														<Col>
+															<Switch
+																handleChange={e =>
+																	setHasLifetimeAccess(e.target.checked)
+																}
+																id="hasLifetimeAccessId"
+																value={hasLifetimeAccess}
+															>
+																Tiene acceso ilimitado?
+															</Switch>
+														</Col>
+														<Col>
+															<Switch
+																handleChange={e =>
+																	setHasCertificate(e.target.checked)
+																}
+																id="hasCertificateId"
+																value={hasCertificate}
+															>
+																Tiene Certificado?
+															</Switch>
+														</Col>
+													</Row>
+												</Form.Group>
 
-				<Button className="mt-4" type="submit" variant="primary">
-					Añadir Curso
-				</Button>
-			</Form>
-		</FormContainer>
+												<Form.Group className="mb-4">
+													<Form.Label>Cantidad de horas del curso</Form.Label>
+													<Form.Control
+														type="number"
+														value={videoContentLength}
+														onChange={e =>
+															setVideoContentLength(e.target.value)
+														}
+													/>
+												</Form.Group>
+												<Form.Group className="mb-4">
+													<Form.Label>Cantidad de artículos</Form.Label>
+													<Form.Control
+														type="number"
+														value={numArticles}
+														onChange={e => setNumArticles(e.target.value)}
+													/>
+												</Form.Group>
+												<Form.Group className="mb-4">
+													<Form.Label>Cantidad de actividades</Form.Label>
+													<Form.Control
+														type="number"
+														value={numPracticeTests}
+														onChange={e => setNumPracticeTests(e.target.value)}
+													/>
+												</Form.Group>
+											</Form>
+										</Container>
+									</Tab.Pane>
+									<Tab.Pane eventKey="third">
+										<Container className="pt-4 pb-4 border">
+											<Section />
+										</Container>
+									</Tab.Pane>
+								</Tab.Content>
+							</Col>
+						</Row>
+					</Tab.Container>
+				</Col>
+			</Row>
+			<Row>
+				<Col></Col>
+				<Col>
+					<Button className="m-4 p-2" type="submit" variant="primary">
+						Añadir Curso
+					</Button>
+				</Col>
+				<Col></Col>
+			</Row>
+		</Container>
 	);
 };
 

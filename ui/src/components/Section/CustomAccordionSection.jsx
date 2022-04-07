@@ -28,7 +28,10 @@ const CustomAccordionSection = props => {
 				id: 0,
 				name: '',
 				video: '',
-				order: section.items === null || section.items === undefined ? 0 : section.items.length,
+				order:
+					section.items === null || section.items === undefined
+						? 0
+						: section.items.length,
 			},
 			section.id,
 			EDIT_ITEM
@@ -38,11 +41,11 @@ const CustomAccordionSection = props => {
 	return (
 		<Container>
 			<Row id={section.id}>
-				<Col xs={10} md={10}>
-					<h2>{section.title}</h2>
+				<Col xs={9} md={9}>
+					{mode === 1 ? <h5>{section.title}</h5> : <h2>{section.title}</h2>}
 				</Col>
 				{mode === 1 ? (
-					<Col xs={2} md={2}>
+					<Col xs={3} md={3}>
 						<IconTools>
 							<Icon onClick={addItem}>
 								<FontAwesomeIcon icon={faPlusCircle} />

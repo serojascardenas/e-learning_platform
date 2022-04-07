@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Button, Col, Container, Row, Navbar, Nav } from 'react-bootstrap';
+import { Col, Container, Row, Navbar, Nav } from 'react-bootstrap';
 import { Accordion } from 'react-accessible-accordion';
 import AccordionCard from '../Cards/AccordionCard';
 import { isEmptyArray, isEmptyObj } from '../../utils';
+import { Button } from '../Foundation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import SectionModal from './SectionModal';
@@ -149,18 +150,13 @@ const Section = () => {
 				<br />
 			</Row>
 			<Row>
-				<Navbar bg="light" expand="lg" className="w-100">
-					<Navbar.Brand href="#">Secciones</Navbar.Brand>
-					<Navbar.Collapse id="responsive-navbar-nav">
-						<Nav className="me-auto"></Nav>
-					</Navbar.Collapse>
-					<Nav>
-						<Button variant="primary" onClick={handleSectionModal}>
-							{' '}
-							<FontAwesomeIcon icon={faPlusCircle} /> Añadir
-						</Button>
-					</Nav>
-				</Navbar>
+				<Col></Col>
+				<Col>
+					<Button variant="secondary" onClick={handleSectionModal}>
+						<FontAwesomeIcon icon={faPlusCircle} /> Añadir Secciones
+					</Button>
+				</Col>
+				<Col></Col>
 			</Row>
 			<Row>
 				<br />
