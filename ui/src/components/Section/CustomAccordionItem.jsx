@@ -22,11 +22,11 @@ const CustomAccordionItem = props => {
 	return (
 		<Container>
 			<Row id={item.id}>
-				<Col xs={10} md={10}>
+				<Col xs={9} md={9}>
 					<h5>{item.name}</h5>
 				</Col>
 				{mode === 1 ? (
-					<Col xs={2} md={2}>
+					<Col xs={3} md={3}>
 						<IconTools>
 							<Icon onClick={editItem}>
 								<FontAwesomeIcon icon={faPen} />

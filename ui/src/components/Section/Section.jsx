@@ -21,11 +21,11 @@ import {
 	CANCEL_ITEM,
 } from '../../constants/section';
 
-const Section = () => {
+const Section = (props) => {
+	const { sections, setSections } = props;
+
 	const [section, setSection] = useState({});
 	const [item, setItem] = useState({});
-
-	const [sections, setSections] = useState([]);
 	const [showSectionModal, setShowSectionModal] = useState(false);
 	const [showItemModal, setShowItemModal] = useState(false);
 	const [sectionId, setSectionId] = useState(0);

@@ -53,6 +53,7 @@ const SectionModal = (props) => {
 							type="text"
 							value={titleAux}
 							placeholder="Título"
+							required
 							onChange={({ target }) => setTitleAux(target.value)}
 						/>
 					</Form.Group>

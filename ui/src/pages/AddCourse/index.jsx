@@ -40,6 +40,25 @@ const CreateCourse = ({ history }) => {
 			hasLifetimeAccess: Joi.boolean(),
 			hasCertificate: Joi.boolean(),
 		}).required(),
+		content_sections: Joi.array()
+			.items(
+				Joi.object({
+					id:Joi.string().required(),
+					title: Joi.string().required(),
+					order: Joi.number().required(),
+					items: Joi.array()
+						.items(
+							Joi.object({
+								id:Joi.string().required(),
+								name: Joi.string().required(),
+								video: Joi.string(),
+								order: Joi.number().required(),
+							})
+						)
+						.required(),
+				})
+			)
+			.required(),
 	});
 
 	const [title, setTitle] = useState('');
@@ -58,9 +77,7 @@ const CreateCourse = ({ history }) => {
 	const [hasCertificate, setHasCertificate] = useState(false);
 	const [message, setMessage] = useState(null);
 
-	const [contentChaptersList, setIpuntContentChapters] = useState([
-		{ title: '', order: 0, items: [{ name: '', order: 0 }] },
-	]);
+	const [sections, setSections] = useState([]);
 
 	const submitHandler = e => {
 		e.preventDefault();
@@ -81,6 +98,7 @@ const CreateCourse = ({ history }) => {
 					hasLifetimeAccess,
 					hasCertificate,
 				},
+				content_sections: sections,
 			},
 			schema,
 			{
@@ -117,7 +135,7 @@ const CreateCourse = ({ history }) => {
 						has_lifetime_access: hasLifetimeAccess,
 						has_certificate: hasCertificate,
 					},
-					content_sections: contentChaptersList,
+					content_sections: sections,
 					instructors,
 				})
 			);
@@ -127,7 +145,7 @@ const CreateCourse = ({ history }) => {
 			if (coverMovie) {
 				formData.append('cover_movie', coverImage[0]);
 			}
-			dispatch(createCourse(formData));
+			//dispatch(createCourse(formData));
 		}
 	};
 	const onChangeCurrency = async e => {
@@ -146,7 +164,13 @@ const CreateCourse = ({ history }) => {
 	return (
 		<Container className="mt-4">
 			<Row>
-				<H1> Añadir Curso </H1>
+				<H1> Crear Curso </H1>
+			</Row>
+			<Row>
+				<Container className="mt-2">
+					{message && <Message variant="danger">{message}</Message>}
+					{error && <Message variant="danger">{error}</Message>}
+				</Container>
 			</Row>
 			<Row>
 				<Col md={12}>
@@ -169,8 +193,6 @@ const CreateCourse = ({ history }) => {
 								<Tab.Content>
 									<Tab.Pane eventKey="first">
 										<Container className="pt-4 border">
-											{message && <Message variant="danger">{message}</Message>}
-											{error && <Message variant="danger">{error}</Message>}
 											<Form onSubmit={submitHandler}>
 												<Form.Group className="mb-4">
 													<Form.Label>Título</Form.Label>
@@ -347,7 +369,7 @@ const CreateCourse = ({ history }) => {
 									</Tab.Pane>
 									<Tab.Pane eventKey="third">
 										<Container className="pt-4 pb-4 border">
-											<Section />
+											<Section sections={sections} setSections={setSections} />
 										</Container>
 									</Tab.Pane>
 								</Tab.Content>
@@ -359,8 +381,13 @@ const CreateCourse = ({ history }) => {
 			<Row>
 				<Col></Col>
 				<Col>
-					<Button className="m-4 p-2" type="submit" variant="primary">
-						Añadir Curso
+					<Button
+						className="m-4 p-2"
+						type="submit"
+						variant="primary"
+						onClick={submitHandler}
+					>
+						Guardar
 					</Button>
 				</Col>
 				<Col></Col>

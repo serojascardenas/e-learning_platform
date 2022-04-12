@@ -77,10 +77,6 @@ const Navbar = () => {
 										<LinkContainer to="/my-orders">
 											<NavDropdown.Item>Mis Órdenes</NavDropdown.Item>
 										</LinkContainer>
-										<NavDropdown.Divider />
-										<LinkContainer to="/my-orders">
-											<NavDropdown.Item>Administración de Cursos</NavDropdown.Item>
-										</LinkContainer>
 										<NavDropdown.Item onClick={logoutHandler}>
 											Salir
 										</NavDropdown.Item>

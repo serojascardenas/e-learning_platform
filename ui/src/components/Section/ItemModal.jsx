@@ -50,6 +50,7 @@ const ItemModal = props => {
 							type="text"
 							value={nameAux}
 							placeholder="Título"
+							required
 							onChange={({ target }) => setNameAux(target.value)}
 						/>
 					</Form.Group>
