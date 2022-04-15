@@ -19,6 +19,7 @@ import {
 	wishListCoursesReducer,
 	topRatedCoursesReducer,
 	instructorListCouresesReducer,
+	updateCoureseReducer,
 } from './reducers';
 
 const reducers = combineReducers({
@@ -38,6 +39,7 @@ const reducers = combineReducers({
 	orderDetails: orderDetailsReducer,
 	orderPay: orderPayReducer,
 	myOrdersList: myOrdersListReducer,
+	courseUpdateDetails: updateCoureseReducer,
 });
 
 const middleware = [thunk];

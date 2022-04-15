@@ -21,6 +21,10 @@ import {
 	COURSE_INSTRUCTOR_LIST_REQUEST,
 	COURSE_INSTRUCTOR_LIST_FAIL,
 	COURSE_INSTRUCTOR_LIST_SUCCESS,
+	COURSE_UPDATE_REQUEST,
+	COURSE_UPDATE_FAIL,
+	COURSE_UPDATE_SUCCESS,
+	COURSE_UPDATE_RESET,
 } from '../constants';
 
 const courseListReducer = (state = {}, action) => {
@@ -81,6 +85,8 @@ const courseDetailReducer = (state = {}, action) => {
 				loading: false,
 				course: action.payload,
 			};
+		case COURSE_UPDATE_RESET:
+			return {}; 
 		default:
 			return state;
 	}
@@ -190,6 +196,37 @@ const instructorListCouresesReducer = (
 			return state;
 	}
 };
+
+const updateCoureseReducer = (
+	state = {
+		courses: [],
+	},
+	action,
+) => {
+	switch (action.type) {
+		case COURSE_UPDATE_REQUEST:
+			return {
+				loading: true,
+				success: false,
+			};
+		case COURSE_UPDATE_FAIL:
+			return {
+				loading: false,
+				success: false,
+				errors: action.payload,
+			};
+		case COURSE_UPDATE_SUCCESS:
+			return {
+				loading: false,
+				success: true,
+			};
+		case COURSE_UPDATE_RESET:
+			return {}; 
+		default:
+			return state;
+	}
+};
+
 export {
 	courseListReducer,
 	courseFilterReducer,
@@ -198,4 +235,5 @@ export {
 	wishListCoursesReducer,
 	instructorListCouresesReducer,
 	topRatedCoursesReducer,
+	updateCoureseReducer,
 };

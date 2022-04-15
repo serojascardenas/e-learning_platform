@@ -20,21 +20,16 @@ const parseErrors = err => {
 				const {
 					message, errorCode, ...rest
 				} = error;
-
 				data = rest;
-
 				let errorResponse = {
 					message,
 					stack: error.stack,
 				};
-
 				if (errorCode) {
 					errorResponse = { ...errorResponse, errorCode };
 				}
-
 				return errorResponse;
 			}
-
 			return { message: error };
 		});
 
@@ -54,7 +49,6 @@ const createValidJsonResponse = ({
 	} else {
 		response.data = content.data || content;
 	}
-
 	res.status(response.statusCode).json(response);
 };
 
@@ -72,10 +66,8 @@ module.exports = function getValidatorMiddleware() {
 		res.validJsonResponse = createValidJsonResponse({
 			req, res,
 		});
-
 		res.validJsonError = createValidJsonError({ res });
 		res.errorParser = parseErrors;
-
 		next();
 	};
 };

@@ -92,7 +92,6 @@ module.exports = function coursesRoutes(routes, {
 				if (!isValid) {
 					return res.status(400).validJsonResponse(errors);
 				}
-
 				const course = await createCourse(body);
 
 				return res.status(201).validJsonResponse(course);
@@ -220,7 +219,6 @@ module.exports = function coursesRoutes(routes, {
 
 			try {
 				const course = await updateCourse(courseId, body);
-
 				return res.status(201).validJsonResponse(course);
 			} catch (err) {
 				return res.status(400).validJsonError(err);

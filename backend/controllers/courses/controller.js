@@ -180,8 +180,9 @@ const deleteCourse = async courseId => {
 	return;
 };
 
-const updateCourse = async (courseId, { course }) => {
-	const responseCourse = await Course.findByIdAndUpdate(courseId, { course });
+const updateCourse = async (courseId, course) => {
+	course.price.price_string = `${course.price.currency_symbol} ${course.price.amount}`;
+	const responseCourse = await Course.findByIdAndUpdate(courseId, course);
 	return responseCourse;
 }
 

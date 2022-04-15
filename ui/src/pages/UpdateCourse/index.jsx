@@ -1,23 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-import Joi from 'joi-browser';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Col, Row, Form, Tab, Nav, Container } from 'react-bootstrap';
+import Joi from 'joi-browser';
 
+import Loader from '../../components/Loader';
 import Message from '../../components/Message';
 import { Button, H1 } from '../../components/Foundation';
 import Switch from '../../components/Switch';
-import { createCourse } from '../../actions';
 import Section from '../../components/Section/Section';
 
-import { isEmptyArray } from '../../utils';
-import { currencyType as listOfCurrencies } from './currencyType';
-import { category as listOfCategories } from './category';
-import { subCategory as listOfSubcategories } from './subCategory';
+import {
+	getCourse,
+	updateCourse,
+} from '../../actions';
 
-const CreateCourse = ({ history }) => {
+import { isEmptyArray } from '../../utils';
+import { currencyType as listOfCurrencies } from '../AddCourse/currencyType';
+import { category as listOfCategories } from '../AddCourse/category';
+import { subCategory as listOfSubcategories } from '../AddCourse/subCategory';
+
+
+import { COURSE_UPDATE_RESET } from '../../constants';
+
+const UpdateCourse = ({
+	match,
+	history,
+}) => {
+	const courseId = match.params.id;
 	const dispatch = useDispatch();
-	const { userLogin } = useSelector(state => state);
+
+	const {
+		courseDetail,
+		userLogin,
+		courseUpdateDetails,
+	} = useSelector(state => state);
+
+	const { course } = courseDetail;
+	const { success } = courseUpdateDetails;
 	const { userInfo, error } = userLogin;
 
 	const schema = Joi.object({
@@ -112,8 +131,8 @@ const CreateCourse = ({ history }) => {
 			setMessage(errors);
 		} else {
 			const formData = new FormData();
-			const instructors = [];
-			instructors.push(userInfo.id);
+			//const instructors = [];
+			// instructors.push(userInfo.id);
 			formData.append(
 				'body',
 				JSON.stringify({
@@ -134,7 +153,7 @@ const CreateCourse = ({ history }) => {
 						has_certificate: hasCertificate,
 					},
 					content_sections: sections,
-					instructors,
+					//instructors,
 				}),
 			);
 			if (coverImage) {
@@ -143,7 +162,7 @@ const CreateCourse = ({ history }) => {
 			if (coverMovie) {
 				formData.append('cover_movie', coverImage[0]);
 			}
-			dispatch(createCourse(formData));
+			dispatch(updateCourse(courseId, formData));
 		}
 	};
 	const onChangeCurrency = async e => {
@@ -156,17 +175,41 @@ const CreateCourse = ({ history }) => {
 		if (!userInfo) {
 			history.push('/');
 		} else {
-			//
+			if (!course?.title || success) {
+				dispatch({ type: COURSE_UPDATE_RESET });
+				dispatch(getCourse(courseId));
+			} else {
+				setTitle(course.title);
+				setDescription(course.description);
+				setCategory(course.category);
+				setSubCategory(course.sub_category);
+				setCurrency(course.price.currency);
+				setAmount(course.price.amount);
+				setCurrencySymbol(course.price.currency_symbol);
+				setHasLifetimeAccess(course.attributes.has_lifetime_access);
+				setHasCertificate(course.attributes.has_certificate);
+				setVideoContentLength(course.attributes.video_content_length);
+				setNumArticles(course.attributes.num_articles);
+				setNumPracticeTests(course.attributes.num_practice_tests);
+				setSections(course.content_sections);
+			}
 		}
-	}, [userInfo, history]);
+
+	}, [dispatch, course, courseId, success, history, userInfo]);
+
 	return (
 		<Container className="mt-4">
 			<Row>
-				<H1> Crear Curso </H1>
+				<H1> Actualizar Curso </H1>
 			</Row>
+			{(courseDetail.loading || courseUpdateDetails.loading)
+				? <Loader />
+				: <></>}
 			<Row>
 				<Container className="mt-2">
 					{message && <Message variant="danger">{message}</Message>}
+					{courseDetail.errors && <Message variant="danger">{courseDetail.errors}</Message>}
+					{courseUpdateDetails.errors && <Message variant="danger">{courseUpdateDetails.errors}</Message>}
 					{error && <Message variant="danger">{error}</Message>}
 				</Container>
 			</Row>
@@ -223,7 +266,7 @@ const CreateCourse = ({ history }) => {
 													>
 														<option>Categoria</option>
 														{listOfCategories ||
-														!isEmptyArray(listOfCategories) ? (
+															!isEmptyArray(listOfCategories) ? (
 																listOfCategories.map((item, i) => (
 																	<option key={i} value={item.value}>
 																		{item.label}
@@ -243,7 +286,7 @@ const CreateCourse = ({ history }) => {
 													>
 														<option>Sub Categoria</option>
 														{listOfSubcategories ||
-														!isEmptyArray(listOfSubcategories) ? (
+															!isEmptyArray(listOfSubcategories) ? (
 																listOfSubcategories.map((item, i) => (
 																	<option key={i} value={item.value}>
 																		{item.label}
@@ -279,13 +322,14 @@ const CreateCourse = ({ history }) => {
 													<Row>
 														<Col>
 															<Form.Control
+																value={`${currency} - ${currencySymbol}`}
 																as="select"
 																required
 																onChange={e => onChangeCurrency(e.target.value)}
 															>
 																<option>Moneda</option>
 																{listOfCurrencies ||
-																!isEmptyArray(listOfCurrencies) ? (
+																	!isEmptyArray(listOfCurrencies) ? (
 																		listOfCurrencies.map((item, j) => (
 																			<option
 																				key={j}
@@ -394,4 +438,4 @@ const CreateCourse = ({ history }) => {
 	);
 };
 
-export default CreateCourse;
+export default UpdateCourse;

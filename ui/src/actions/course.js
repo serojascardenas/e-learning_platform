@@ -28,6 +28,9 @@ import {
 	COURSE_INSTRUCTOR_LIST_REQUEST,
 	COURSE_INSTRUCTOR_LIST_FAIL,
 	COURSE_INSTRUCTOR_LIST_SUCCESS,
+	COURSE_UPDATE_FAIL,
+	COURSE_UPDATE_REQUEST,
+	COURSE_UPDATE_SUCCESS,
 } from '../constants';
 
 const listCourses = (keyword = '') => async dispatch => {
@@ -254,6 +257,35 @@ const removeCourse = courseId => async dispatch => {
 	}
 };
 
+const updateCourse = (courseId, body) => async dispatch => {
+
+	dispatch({
+		type: COURSE_UPDATE_REQUEST,
+	});
+
+	const response = await fetchComponentData({
+		endpoint: get(config, 'app.api.routes.updateCourse').replace(
+			'{id}',
+			courseId,
+		),
+		method: 'put',
+		data: body,
+		withCredentials: true,
+	});
+
+	if (response?.error) {
+		dispatch({
+			type: COURSE_UPDATE_FAIL,
+			payload: getErrorMessage(response),
+		});
+		return;
+	}
+
+	dispatch({
+		type: COURSE_UPDATE_SUCCESS,
+	});
+};
+
 export {
 	listCourses,
 	listFilterCourses,
@@ -264,4 +296,5 @@ export {
 	getMyCreatedCourses,
 	createCourse,
 	removeCourse,
+	updateCourse,
 };

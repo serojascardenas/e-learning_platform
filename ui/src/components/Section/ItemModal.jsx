@@ -7,13 +7,13 @@ const ItemModal = props => {
 	const { item, show, sectionId, mantainItem } = props;
 	const [idAux, setIdAux] = useState(item ? item.id : 0);
 	const [nameAux, setNameAux] = useState(item ? item.name : '');
-	const [videoAux, setVideoAux] = useState(item ? item.video : '');
+	// const [videoAux, setVideoAux] = useState(item ? item.video : '');
 	const [orderAux, setOrderAux] = useState(item ? item.order : 0);
 
 	const cleanFields = () => {
 		setIdAux(0);
 		setNameAux('');
-		setVideoAux(null);
+		// setVideoAux(null);
 		setOrderAux(0);
 	};
 
@@ -21,15 +21,15 @@ const ItemModal = props => {
 		e.preventDefault();
 		if (idAux === null || idAux === 0) {
 			mantainItem(
-				{ id: uuidv4(), name: nameAux, video: videoAux, order: orderAux },
+				{ id: uuidv4(), name: nameAux, order: orderAux },
 				sectionId,
-				CREATE_ITEM
+				CREATE_ITEM,
 			);
 		} else {
 			mantainItem(
-				{ id: idAux, name: nameAux, video: videoAux, order: orderAux },
+				{ id: idAux, name: nameAux, order: orderAux },
 				sectionId,
-				UPDATE_ITEM
+				UPDATE_ITEM,
 			);
 		}
 	};
@@ -54,12 +54,12 @@ const ItemModal = props => {
 							onChange={({ target }) => setNameAux(target.value)}
 						/>
 					</Form.Group>
-					<Form.Group className="mb-3">
+					{/* <Form.Group className="mb-3">
 						<Form.Control
 							type='file'
 							onChange={({ target }) => setVideoAux(target.files)}
 						/>
-					</Form.Group>
+					</Form.Group> */}
 					<Form.Group className="mb-3">
 						<Form.Control
 							type="number"

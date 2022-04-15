@@ -16,6 +16,7 @@ export default {
 				logout: 'api/auth/logout',
 				topCourses: 'api/courses/top',
 				courses: 'api/courses',
+				updateCourse:'api/courses/{id}', 
 				courseById: 'api/courses/{id}',
 				removeCourseById: 'api/courses/{id}',
 				createOrder: 'api/orders',

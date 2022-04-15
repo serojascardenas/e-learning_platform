@@ -8,7 +8,6 @@ import CourseCard from '../../components/Cards/ExtendedVerticalCourseCard';
 import { H1 } from '../../components/Foundation';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
-import ReactPlayer from 'react-player';
 import { getCourse } from '../../actions';
 
 const StyledCourseContainer = styled.div`
@@ -59,7 +58,6 @@ const Course = ({ match }) => {
 							<CourseCard variant="extendedVertical" {...course} />
 						</CourseCardContainer>
 						<CourseDetailContainer>
-							{/*<ReactPlayer width='100%' style={{ padding: '2em' }} url="https://www.youtube.com/watch?v=u-YWtdbpEhQ">*/}
 							<CourseDetail {...course}></CourseDetail>
 						</CourseDetailContainer>
 					</StyledContainer>

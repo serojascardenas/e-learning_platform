@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Row, Col, ListGroup, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -15,10 +16,14 @@ import {
 	getMyCreatedCourses,
 } from '../../actions';
 
+import { COURSE_UPDATE_RESET } from '../../constants';
+
 const CourseItem = ({
 	key,
 	course,
 }) => {
+	const history = useHistory();
+
 	const [showModal, setShowModal] = useState(false);
 	const dispatch = useDispatch();
 	const openModal = () => {
@@ -29,6 +34,12 @@ const CourseItem = ({
 		dispatch(removeCourse(courseId));
 		dispatch(getMyCreatedCourses());
 		setShowModal(false);
+	};
+
+	const editCourse = () => {
+		dispatch({ type: COURSE_UPDATE_RESET });
+		history.push(`/update-course/${course.id}`);
+
 	};
 	return (
 		<div>
@@ -53,11 +64,11 @@ const CourseItem = ({
 				<Row>
 					<Col>{course.title}</Col>
 					<Col md={1}>
-						<Icon>
+						<Icon onClick={() => editCourse(course)}>
 							<FontAwesomeIcon icon={faPenSquare} />	
 						</Icon></Col>
 					<Col md={1}>
-						<Icon  onClick={() => openModal(course)} >
+						<Icon onClick={() => openModal(course)} >
 							<FontAwesomeIcon icon={faTrash} />	
 						</Icon></Col>
 				</Row>

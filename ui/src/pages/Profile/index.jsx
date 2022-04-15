@@ -12,6 +12,7 @@ import {
 	Tabs,
 } from 'react-bootstrap';
 
+import Loader from '../../components/Loader';
 import Message from '../../components/Message';
 import { Button } from '../../components/Foundation';
 import Courses from '../../components/Courses/Courses';
@@ -62,6 +63,21 @@ const Profile = ({
 		isntructorList,
 
 	} = useSelector(state => state);
+
+	const { 
+		courses: boughtCourses, 
+		loading: loadingEnrolled, 
+	} = enrolledCourses;
+
+	const { 
+		courses: likedCourses, 
+		loading: loadingWishList, 
+	} = wishList;
+
+	const { 
+		courses: createdCourses, 
+		loading: loadingCreated, 
+	} = isntructorList;
 
 	const { userInfo } = userLogin;
 	const { success } = userUpdateProfile;
@@ -232,26 +248,32 @@ const Profile = ({
 						</Tab>
 						<Tab eventKey='enrroled' title='Mis Cursos' >
 							<TabWrapper>
-								{isEmptyArray(enrolledCourses.courses)
-									? <Message variant="info">No estás enrolado en ningún curso aún</Message>
-									: <Courses showActionButtons={false} courses={enrolledCourses.courses} />
+								{loadingEnrolled 
+									? <Loader />
+									: isEmptyArray(boughtCourses)
+										? <Message variant="info">No estás enrolado en ningún curso aún</Message>
+										: <Courses showActionButtons={false} courses={boughtCourses} />
 								}
 							</TabWrapper>
 						</Tab>
 						<Tab eventKey='wish-list' title='Favoritos'>
 							<TabWrapper>
-								{isEmptyArray(wishList.courses)
-									? <Message variant="info">No tienes ningún favorito aún</Message>
-									: <Courses courses={wishList.courses} />}
+								{loadingWishList 
+									? <Loader />
+									: isEmptyArray(likedCourses)
+										? <Message variant="info">No tienes ningún favorito aún</Message>
+										: <Courses courses={likedCourses} />}
 
 							</TabWrapper>
 						</Tab>
 						{isInstructor &&
 							<Tab eventKey='instructor-list' title='Cursos Creados'>
 								<TabWrapper>
-									{isEmptyArray(isntructorList.courses)
-										? <Message variant="info">No tienes ningún curso aún</Message>
-										: <CoursesList courses={isntructorList.courses} />}
+									{loadingCreated 
+										? <Loader />
+										: isEmptyArray(createdCourses)
+											? <Message variant="info">No tienes ningún curso aún</Message>
+											: <CoursesList courses={createdCourses} />}
 									<Container className="mt-4">
 										<Row><Col></Col>
 											<Col md={3}>
