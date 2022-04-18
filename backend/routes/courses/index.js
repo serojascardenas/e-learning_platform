@@ -20,12 +20,12 @@ module.exports = function coursesRoutes(routes, {
 
 				if (req.query && !req.query.keyword) {
 					const { title, instructor, category, sub_category } = req.query;
-					data = await getCourseByFilters(
+					data = await getCourseByFilters({
 						title,
 						instructor,
 						category,
 						sub_category,
-					);
+					});
 				} else {
 					data = await getAllCourses(req.query.keyword);
 				}
@@ -92,7 +92,6 @@ module.exports = function coursesRoutes(routes, {
 				if (!isValid) {
 					return res.status(400).validJsonResponse(errors);
 				}
-
 				const course = await createCourse(body);
 
 				return res.status(201).validJsonResponse(course);
@@ -117,18 +116,20 @@ module.exports = function coursesRoutes(routes, {
 		}
 	});
 
-	routes.delete('/:id', middlewares.validator(), async (req, res) => {
-		const {
-			courses: { deleteCourse },
-		} = controllers;
+	routes.delete('/:id',
+		middlewares.validator(),
+		async (req, res) => {
+			const {
+				courses: { deleteCourse },
+			} = controllers;
 
-		try {
-			await deleteCourse(req.params.id);
-			return res.status(204).send();
-		} catch (err) {
-			return res.status(400).validJsonError(err);
-		}
-	});
+			try {
+				await deleteCourse(req.params.id);
+				return res.status(204).send();
+			} catch (err) {
+				return res.status(400).validJsonError(err);
+			}
+		});
 
 	routes.get('/me/enrolled-courses',
 		middlewares.validator(),
@@ -144,7 +145,7 @@ module.exports = function coursesRoutes(routes, {
 				let data = [];
 				if (user.enrolledCourses && user.enrolledCourses.length > 0) {
 					const ids = user.enrolledCourses.flat(doc => doc.courseId);
-					data = await getCourseByFilters(ids);
+					data = await getCourseByFilters({ ids });
 				}
 				return res.status(200).validJsonResponse(data);
 			} catch (err) {
@@ -168,7 +169,7 @@ module.exports = function coursesRoutes(routes, {
 				let data = [];
 				if (user.wishList && user.wishList.length > 0) {
 					const ids = user.wishList.flat(doc => doc.courseId);
-					data = await getCourseByFilters(ids);
+					data = await getCourseByFilters({ ids });
 				}
 				return res.status(200).validJsonResponse(data);
 			} catch (err) {
@@ -177,5 +178,52 @@ module.exports = function coursesRoutes(routes, {
 		},
 	);
 
+	routes.get('/me/instructor-list',
+		middlewares.validator(),
+		middlewares.login.require,
+		async (req, res) => {
+			const { user } = req;
+			const {
+				courses: {
+					getCoursesByInstructorId,
+				},
+			} = controllers;
+
+			try {
+				const courses = await getCoursesByInstructorId(user.id);
+				return res.status(200).validJsonResponse(courses);
+			} catch (err) {
+				return res.status(400).validJsonError(err);
+			}
+		},
+	);
+
+	routes.put('/:id',
+		middlewares.validator(),
+		upload.fields([
+			{ name: 'cover_image', maxCount: 1 },
+			{ name: 'cover_movie', maxCount: 1 },
+		]),
+		async (req, res) => {
+			const courseId = req.params.id;
+			const body = JSON.parse(req.body.body);
+			if (req.files.cover_image) {
+				body['cover_image'] = req.files.cover_image[0].path;
+			}
+			if (req.files.cover_movie) {
+				body['cover_movie'] = req.files.cover_movie[0].path;
+			}
+			const {
+				courses: { updateCourse },
+			} = controllers;
+
+			try {
+				const course = await updateCourse(courseId, body);
+				return res.status(201).validJsonResponse(course);
+			} catch (err) {
+				return res.status(400).validJsonError(err);
+			}
+		},
+	);
 	return routes;
 };

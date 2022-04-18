@@ -8,7 +8,6 @@ import CourseCard from '../../components/Cards/ExtendedVerticalCourseCard';
 import { H1 } from '../../components/Foundation';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
-
 import { getCourse } from '../../actions';
 
 const StyledCourseContainer = styled.div`
@@ -34,9 +33,7 @@ const CourseDetailContainer = styled.div`
 	width: 75%;
 `;
 
-const Course = ({
-	match,
-}) => {
+const Course = ({ match }) => {
 	const courseId = match.params.id;
 	const { courseDetail } = useSelector(state => state);
 	const { course, loading, errors } = courseDetail;

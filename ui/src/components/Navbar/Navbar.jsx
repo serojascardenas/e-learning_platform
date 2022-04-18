@@ -16,9 +16,9 @@ import Logo from '../../assets/images/logo_apaisado.jpg';
 
 import Search from '../Search';
 import { Text } from '../Foundation';
-import { 
-	ImageNavbar, 
-	Wrapper, 
+import {
+	ImageNavbar,
+	Wrapper,
 } from './StyledComponents';
 
 import { logout } from '../../actions';
@@ -65,7 +65,7 @@ const Navbar = () => {
 							<>
 								<LinkContainer to="/cart">
 									<Nav.Link>
-										<FontAwesomeIcon size={0.8} icon={faShoppingCart} />
+										<FontAwesomeIcon icon={faShoppingCart}/>
 									</Nav.Link>
 								</LinkContainer>
 

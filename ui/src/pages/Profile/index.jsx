@@ -12,16 +12,19 @@ import {
 	Tabs,
 } from 'react-bootstrap';
 
+import Loader from '../../components/Loader';
 import Message from '../../components/Message';
 import { Button } from '../../components/Foundation';
 import Courses from '../../components/Courses/Courses';
+import CoursesList from '../../components/Courses/CoursesList';
 
 import { isEmptyArray } from '../../utils';
 
-import { 
-	updateProfile, 
-	getMyEnrolledCourses, 
+import {
+	updateProfile,
+	getMyEnrolledCourses,
 	getMyWishListCourses,
+	getMyCreatedCourses,
 	getUserDetails,
 } from '../../actions';
 import { USER_UPDATE_PROFILE_RESET } from '../../constants';
@@ -57,7 +60,24 @@ const Profile = ({
 		userDetails,
 		enrolledCourses,
 		wishList,
+		isntructorList,
+
 	} = useSelector(state => state);
+
+	const { 
+		courses: boughtCourses, 
+		loading: loadingEnrolled, 
+	} = enrolledCourses;
+
+	const { 
+		courses: likedCourses, 
+		loading: loadingWishList, 
+	} = wishList;
+
+	const { 
+		courses: createdCourses, 
+		loading: loadingCreated, 
+	} = isntructorList;
 
 	const { userInfo } = userLogin;
 	const { success } = userUpdateProfile;
@@ -70,7 +90,7 @@ const Profile = ({
 		const body = { name, lastName };
 
 		if (password != null && password !== '' && confirmPassword != null) {
-			if( password === confirmPassword){
+			if (password === confirmPassword) {
 				body.password = password;
 			} else {
 				error = true;
@@ -85,9 +105,24 @@ const Profile = ({
 		}
 
 		formData.append('body', JSON.stringify(body));
-		
+
 		if (!error) {
 			dispatch(updateProfile(formData));
+		}
+	};
+
+	const handleSelectedTabs = async key => {
+		switch (key) {
+		case 'enrroled':
+			dispatch(getMyEnrolledCourses());
+			break;
+		case 'wish-list':
+			dispatch(getMyWishListCourses());
+			break;
+		case 'instructor-list':
+			dispatch(getMyCreatedCourses());
+			break;
+		default:
 		}
 	};
 
@@ -98,8 +133,6 @@ const Profile = ({
 			if (!user?.name || success) {
 				dispatch({ type: USER_UPDATE_PROFILE_RESET });
 				dispatch(getUserDetails('profile'));
-				dispatch(getMyEnrolledCourses());
-				dispatch(getMyWishListCourses());
 			} else {
 				setName(userInfo.name);
 				setLastName(userInfo.lastName);
@@ -108,7 +141,7 @@ const Profile = ({
 				setIsInstructor(userInfo.isInstructor);
 			}
 		}
-		
+
 	}, [dispatch, userInfo, success, history, user]);
 
 	return (
@@ -120,19 +153,14 @@ const Profile = ({
 						<Card.Body>
 							<Card.Title>{name} {lastName}</Card.Title>
 							{bio && <Card.Text>{bio}</Card.Text>}
-							{isInstructor &&
-								<Card.Text>Instructor</Card.Text> &&
-								<Link to='/add-course' >
-									Nuevo Curso
-								</Link>
-							}
 						</Card.Body>
 					</Card>
 				</Col>
 				<Col className="my-4">
 					{message && <Message variant='danger'>{message}</Message>}
-					<Tabs id='profile-tab' defaultActiveKey='me' transition={false}  >
-						<Tab eventKey='me' title='Mis datos'>
+
+					<Tabs id='profile-tab' defaultActiveKey='me' transition={false} className="w-100" onSelect={e => handleSelectedTabs(e)}>
+						<Tab eventKey='me' title='Mis datos' className="p-4 align-middle border">
 							<TabWrapper>
 								<Form onSubmit={submitHandler}>
 									<Row className='mb-4'>
@@ -213,27 +241,52 @@ const Profile = ({
 										/>
 									</Form.Group>
 									<Button className='mt-4' type='submit' variant='primary'>
-							Actualizar
+										Actualizar
 									</Button>
 								</Form>
 							</TabWrapper>
 						</Tab>
-						<Tab eventKey='enrroled' title='Mis Cursos'>
+						<Tab eventKey='enrroled' title='Mis Cursos' >
 							<TabWrapper>
-								{isEmptyArray(enrolledCourses.courses) 
-									? <Message variant="info">No estás enrolado en ningún curso aún</Message>
-									: <Courses showActionButtons={false} courses={ enrolledCourses.courses } />
+								{loadingEnrolled 
+									? <Loader />
+									: isEmptyArray(boughtCourses)
+										? <Message variant="info">No estás enrolado en ningún curso aún</Message>
+										: <Courses showActionButtons={false} courses={boughtCourses} />
 								}
 							</TabWrapper>
 						</Tab>
 						<Tab eventKey='wish-list' title='Favoritos'>
 							<TabWrapper>
-								{isEmptyArray(wishList.courses)
-									? <Message variant="info">No tienes ningún favorito aún</Message>
-									: <Courses courses={ wishList.courses } />}
-						
+								{loadingWishList 
+									? <Loader />
+									: isEmptyArray(likedCourses)
+										? <Message variant="info">No tienes ningún favorito aún</Message>
+										: <Courses courses={likedCourses} />}
+
 							</TabWrapper>
 						</Tab>
+						{isInstructor &&
+							<Tab eventKey='instructor-list' title='Cursos Creados'>
+								<TabWrapper>
+									{loadingCreated 
+										? <Loader />
+										: isEmptyArray(createdCourses)
+											? <Message variant="info">No tienes ningún curso aún</Message>
+											: <CoursesList courses={createdCourses} />}
+									<Container className="mt-4">
+										<Row><Col></Col>
+											<Col md={3}>
+												<Link to='/add-course' >
+													<Button>
+														Nuevo Curso
+													</Button>
+												</Link>
+											</Col>
+										</Row>
+									</Container>
+								</TabWrapper>
+							</Tab>}
 					</Tabs>
 				</Col>
 			</Row>

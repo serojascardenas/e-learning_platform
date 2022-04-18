@@ -1,0 +1,10 @@
+export const CREATE_SECTION = 'CREATE_SECTION';
+export const REMOVE_SECTION = 'REMOVE_SECTION';
+export const UPDATE_SECTION = 'UPDATE_SECTION';
+export const EDIT_SECTION = 'EDIT_SECTION';
+export const CANCEL_SECTION = 'CANCEL_SECTION';
+export const CREATE_ITEM = 'CREATE_ITEM';
+export const UPDATE_ITEM = 'UPDATE_ITEM';
+export const EDIT_ITEM = 'EDIT_ITEM';
+export const REMOVE_ITEM = 'REMOVE_ITEM';
+export const CANCEL_ITEM = 'CANCEL_ITEM';

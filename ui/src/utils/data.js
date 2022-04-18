@@ -44,6 +44,7 @@ const fetchComponentData = ({
 		req,
 		res,
 	}) => {
+		console.log(`calling BE ${url}`);
 		const request = await axios({
 			url,
 			data,

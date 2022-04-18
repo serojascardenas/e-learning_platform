@@ -7,6 +7,8 @@ const variants = {
 	lifetimeAccess: { icon: 'fas fa-infinity', color: '#0D9F9A' },
 	hasCertificate: { icon: 'fas fa-graduation-cap', color: '#0D9F9A' },
 	avatar: { icon: 'fas fa-user-circle', color: '#0D9F9A' },
+	delete: { icon: 'fas fa-pen-to-square', color: '#0D9F9A' },
+	edit: { icon: 'fas fa-trash', color: '#0D9F9A' },
 };
 
 const Icon = ({ variant, text, size = '18px' }) => (
