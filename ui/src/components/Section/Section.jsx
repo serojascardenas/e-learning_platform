@@ -22,7 +22,7 @@ import {
 } from '../../constants/section';
 
 const Section = props => {
-	const { sections, setSections } = props;
+	const { sections, setSections, disable } = props;
 
 	const [section, setSection] = useState({});
 	const [item, setItem] = useState({});
@@ -152,7 +152,7 @@ const Section = props => {
 			<Row>
 				<Col></Col>
 				<Col>
-					<Button variant="secondary" onClick={handleSectionModal}>
+					<Button variant="secondary" onClick={handleSectionModal} disabled={disable}>
 						<FontAwesomeIcon icon={faPlusCircle} /> Añadir Secciones
 					</Button>
 				</Col>

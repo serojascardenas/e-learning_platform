@@ -25,6 +25,9 @@ import {
 	COURSE_UPDATE_FAIL,
 	COURSE_UPDATE_SUCCESS,
 	COURSE_UPDATE_RESET,
+	COURSE_CREATE_REQUEST,
+	COURSE_CREATE_FAIL,
+	COURSE_CREATE_SUCCESS,
 } from '../constants';
 
 const courseListReducer = (state = {}, action) => {
@@ -197,7 +200,35 @@ const instructorListCouresesReducer = (
 	}
 };
 
-const updateCoureseReducer = (
+const createCourseReducer = (
+	state = {
+		courses: [],
+	},
+	action,
+) => {
+	switch (action.type) {
+		case COURSE_CREATE_REQUEST:
+			return {
+				loading: true,
+				success: false,
+			};
+		case COURSE_CREATE_FAIL:
+			return {
+				loading: false,
+				success: false,
+				errors: action.payload,
+			};
+		case COURSE_CREATE_SUCCESS:
+			return {
+				loading: false,
+				success: true,
+			};
+		default:
+			return state;
+		}
+};
+
+const updateCourseReducer = (
 	state = {
 		courses: [],
 	},
@@ -235,5 +266,6 @@ export {
 	wishListCoursesReducer,
 	instructorListCouresesReducer,
 	topRatedCoursesReducer,
-	updateCoureseReducer,
+	updateCourseReducer,
+	createCourseReducer,
 };
