@@ -11,7 +11,7 @@ const Card = styled(BaseCard)`
 	display: flex;
 	flex-direction: row;
 	height: 11.5rem;
-	max-width: 40rem;
+	width: 25rem;
 	background-color: ${({ theme }) => theme.colors.whiteGray};
 	border-radius: 10px 10px 10px 10px;
 	margin-bottom: 1.5rem;
@@ -43,9 +43,17 @@ const ImgWrapper = styled.div`
 `;
 
 const Img = styled.img`
-	height: 100%;
-	width: 100%;
+	height: 11.4rem;
+	width: 6rem;
 	object-fit: cover;
+
+	${getMediaMinWidth('sm')} {
+		max-height: 13rem;
+	}
+
+	${getMediaMinWidth('md')} {
+		max-height: 12rem;
+	}
 `;
 
 const CardDetail = styled.div`
