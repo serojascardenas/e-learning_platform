@@ -3,53 +3,59 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-multi-carousel';
 import { Container as BaseContainer, Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import 'react-multi-carousel/lib/styles.css';
 
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
-import CourseCard from '../../components/Cards/CourseCard';
-import { listCourses, listFilterCourses } from '../../actions';
+import CourseCard from '../../components/Cards/VerticalCourseCard';
+import PlainCard from '../../components/Cards/PlainCard';
+import Footer from '../../components/Footer';
+import { responsive } from './carousel-config';
 
 import FilterResult from '../../components/FilterResult/FilterResult';
 import { FilterContainer } from '../../components/Filter/FilterContainer';
-import { isEmptyArray } from '../../utils';
+import { getMediaMinWidth, isEmptyArray } from '../../utils';
+import { H1 } from '../../components/Foundation';
+
+import { listCourses, listFilterCourses, listTopCourses } from '../../actions';
+
 
 const Container = styled(BaseContainer)`
 	width: 100%;
 	height: 100%;
-	padding: 4rem;
+	padding-top: 2rem;
+	
+	${getMediaMinWidth('md')} {
+		padding: 4rem;
+	}
 `;
 
-const responsive = {
-	desktop: {
-		breakpoint: { max: 3000, min: 1024 },
-		items: 4,
-		slidesToSlide: 3, // optional, default to 1.
-	},
-	tablet: {
-		breakpoint: { max: 1024, min: 464 },
-		items: 2,
-		slidesToSlide: 2, // optional, default to 1.
-	},
-	mobile: {
-		breakpoint: { max: 464, min: 0 },
-		items: 1,
-		slidesToSlide: 1, // optional, default to 1.
-	},
-};
+const Home = ({
+	location,
+}) => {
+	const query = new URLSearchParams(location.search);
+	const keyword = query.get('search') ?? '';
 
-const Home = () => {
 	const [isFiltering, setIsFiltering] = useState(false);
 
 	const dispatch = useDispatch();
 
-	const { courseList, filteredCourseList } = useSelector(state => state);
+	const { courseList, filteredCourseList, topCourses } = useSelector(state => state);
+	
 	const { 
 		courses, 
 		loading, 
 		errors, 
 	} = courseList;
+	
+	const {
+		courses: top,
+		loading: loadingTopCourses,
+		errors: errorsTopCourses,
+	} = topCourses;
+	
 	const { 
 		filteredCourses, 
 		loading: loadingFiltered, 
@@ -57,61 +63,97 @@ const Home = () => {
 	} = filteredCourseList;
 
 	useEffect(() => {
-		dispatch(listCourses());
-	}, [dispatch]);
+		dispatch(listCourses(keyword));
+		dispatch(listTopCourses());
+	}, [dispatch, keyword]);
 
 	const onFilterSubmit = filters => {
 		dispatch(listFilterCourses(filters));
 	};
-
+	
 	return (
-		<Container fluid>
-			{loading ? (<Loader />)
-				: errors ? <Message>{errors}</Message>
+		<>
+			<Container fluid>
+				{!keyword ? 
+					(<>
+						<H1>Los más populares</H1>
+						{loadingTopCourses 
+							? <Loader />
+							: errorsTopCourses 
+								? <Message>{errorsTopCourses}</Message>
+								: (
+									<Carousel
+										swipeable={true}
+										draggable={true}
+										showDots={true}
+										responsive={responsive}
+										ssr={true} 
+										infinite={true}
+										autoPlay={true}
+										autoPlaySpeed={3000}
+										keyBoardControl={true}
+										transitionDuration={500}
+									>
+										{top && top.map((course, i) => <CourseCard 
+											key={i} 
+											variant="vertical"
+											{...course}
+										/>)}
+									</Carousel>
+								)}
+						<>
+							<Row className="mt-5 ml-1">
+								<H1>Todos los cursos</H1>
+							</Row>
+							{loading ? (<Loader />)
+								: errors ? <Message>{errors}</Message>
+									: (
+										<>
+											<Row>
+												<Col md={12} xs={12} lg={3} className="my-4">
+													<FilterContainer 
+														handleFilterSubmit={onFilterSubmit}
+														setIsFiltering={setIsFiltering}
+													/>
+												</Col>
+												<Col md={12} xs={12} lg={9} className="my-4">
+													{loadingFiltered && <Loader />}
+													{!loadingFiltered && isFiltering && isEmptyArray(filteredCourses) && <Message variant="info">Tu busqueda no ha arrojado resultados</Message>}
+													{errorsFiltered && <Message variant="danger">{errorsFiltered}</Message>}
+													{!loadingFiltered && <FilterResult filterCourses={isEmptyArray(filteredCourses) ? courses : filteredCourses} />}
+												</Col>
+											</Row>
+										</>
+									)}
+						</>
+					</>) 
 					: (
 						<>
-							<Carousel
-								swipeable={false}
-								draggable={false}
-								showDots={true}
-								responsive={responsive}
-								ssr={true} // means to render carousel on server-side.
-								infinite={true}
-								autoPlay={false}
-								autoPlaySpeed={1000}
-								keyBoardControl={true}
-								customTransition="all .5"
-								transitionDuration={500}
-								containerClass="carousel-container"
-								removeArrowOnDeviceType={['tablet', 'mobile']}
-								deviceType="web"
-								dotListClass="custom-dot-list-style"
-								itemClass="carousel-item-padding-40-px"
-							>
-								{courses && courses.map((course, i) => (
-									<CourseCard key={i} {...course}></CourseCard>
-								))}
-							</Carousel>
-							<Row className="mt-5 ml-1">
-								<h1>Buscar Cursos</h1>
-							</Row>
-							<Row>
-								<Col md={12} xs={12} lg={3} className="my-4">
-									<FilterContainer 
-										handleFilterSubmit={onFilterSubmit}
-										setIsFiltering={setIsFiltering}
-									/>
-								</Col>
-								<Col md={12} xs={12} lg={9} className="my-4">
-									{loadingFiltered && <Loader />}
-									{!loadingFiltered && isFiltering && isEmptyArray(filteredCourses) && <Message variant="info">Tu busqueda no ha arrojado resultados</Message>}
-									{errorsFiltered && <Message variant="danger">{errorsFiltered}</Message>}
-									{!loadingFiltered && <FilterResult filterCourses={isEmptyArray(filteredCourses) ? courses : filteredCourses} />}
-								</Col>
-							</Row>
+							<Link to="/" className="btn">Volver a Inicio</Link>
+							<H1>Resultados por {keyword}</H1>
+							{loading ? (<Loader />)
+								: errors ? <Message>{errors}</Message>
+									: (
+										<>
+											{isEmptyArray(courses) ? 
+												<Message>La búsqueda por {keyword} no arrojó ningún resultado</Message>
+												:(<Row>
+													{courses.map(course =>(
+														<Col className="mb-5" key={course.id} xs={12} md={12} lg={6}> 
+															<PlainCard {...course} />
+														</Col>
+													))}
+												</Row>)
+											}
+										</>
+									)}
 						</>
-					)}
-		</Container>
+					)
+				}
+				
+			</Container>
+			{!keyword && <Footer />}
+		</>
 	);
 };
 

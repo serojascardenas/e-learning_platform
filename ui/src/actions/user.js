@@ -7,10 +7,17 @@ import {
 	USER_LOGIN_FAIL,
 	USER_LOGIN_REQUEST,
 	USER_LOGIN_SUCCESS,
+	USER_DETAILS_FAIL,
+	USER_DETAILS_REQUEST,
+	USER_DETAILS_SUCCESS,
+	USER_DETAILS_RESET,
 	USER_LOGOUT,
 	USER_REGISTER_REQUEST,
 	USER_REGISTER_SUCCESS,
 	USER_REGISTER_FAIL,
+	USER_UPDATE_PROFILE_REQUEST,
+	USER_UPDATE_PROFILE_SUCCESS,
+	USER_UPDATE_PROFILE_FAIL,
 } from '../constants';
 
 const login = (email, password) => async dispatch => {
@@ -73,10 +80,17 @@ const register = ({
 		return;
 	}
 
-	localStorage.setItem('userInfo', JSON.stringify(response.data));
+	const { data } = response;
+
+	localStorage.setItem('userInfo', JSON.stringify(data));
 	dispatch({
 		type: USER_REGISTER_SUCCESS,
-		payload: response.data,
+		payload: data,
+	});
+
+	dispatch({
+		type: USER_LOGIN_SUCCESS,
+		payload: data,
 	});
 };
 
@@ -92,11 +106,74 @@ const logout = () => async dispatch => {
 		dispatch({
 			type: USER_LOGOUT,
 		});
+
+		dispatch({
+			type: USER_DETAILS_RESET,
+		});
 	}
 };
 
+const getUserDetails = id => async dispatch => {
+	dispatch({
+		type: USER_DETAILS_REQUEST,
+	});
+
+	const response = await fetchComponentData({
+		endpoint: get(config, 'app.api.routes.userDetails').replace('{id}', id),
+		method: 'get',
+		withCredentials: true,
+	});
+
+	if (response?.error) {
+		dispatch({
+			type: USER_DETAILS_FAIL,
+			payload: getErrorMessage(response.error),
+		});
+	}
+	dispatch({
+		type: USER_DETAILS_SUCCESS,
+		payload: response.data,
+	});
+};
+
+const updateProfile = body => async dispatch => {
+
+	dispatch({
+		type: USER_UPDATE_PROFILE_REQUEST,
+	});
+
+	const response = await fetchComponentData({
+		endpoint: get(config, 'app.api.routes.me.update'),
+		method: 'put',
+		data: body,
+		withCredentials: true,
+	});
+
+	if (response?.error) {
+		dispatch({
+			type: USER_UPDATE_PROFILE_FAIL,
+			payload: getErrorMessage(response),
+		});
+		return;
+	}
+	const { data } = response;
+
+	dispatch({
+		type: USER_LOGIN_SUCCESS,
+		payload: data,
+	});
+
+	dispatch({
+		type: USER_UPDATE_PROFILE_SUCCESS,
+		payload: data,
+	});
+
+	localStorage.setItem('userInfo', JSON.stringify(data));
+};
 export {
 	login,
 	register,
 	logout,
+	updateProfile,
+	getUserDetails,
 };

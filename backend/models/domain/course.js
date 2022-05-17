@@ -4,9 +4,6 @@ const CourseReview = require('./course_review');
 const MIN_LENGTH_PATTERN = /^.{5,}$/;
 
 const schema = new mongoose.Schema({
-	id: {
-		type: String,
-	},
 	created_at: {
 		type: Date,
 	},
@@ -67,20 +64,14 @@ const schema = new mongoose.Schema({
 		type: Number,
 		default: 0,
 	},
-	category: [{
-		_id: false,
-		name: {
-			type: String,
-			required: true,
-		},
-	}],
-	sub_category: [{
-		_id: false,
-		name: {
-			type: String,
-			required: true,
-		},
-	}],
+	category: {
+		type: String,
+		required: true,
+	},
+	sub_category: {
+		type: String,
+		required: true,
+	},
 	price: {
 		amount: {
 			type: Number,
@@ -115,10 +106,6 @@ const schema = new mongoose.Schema({
 		items: [{
 			_id: false,
 			name: {
-				type: String,
-				required: true,
-			},
-			video: {
 				type: String,
 				required: true,
 			},

@@ -1,5 +1,5 @@
 import { Row, Col } from 'react-bootstrap';
-import CourseCardFilter from '../Cards/CourseCardFilter';
+import CourseCard from '../Cards/HorizontalCourseCard';
 import { FilterResultWrapper } from './StyledComponents';
 
 const FilterResult = ({ 
@@ -9,7 +9,9 @@ const FilterResult = ({
 		<Row>
 			{filterCourses && filterCourses.map((course, index) => (
 				<Col key={index} sm={12} md={6} lg={6} xl={4}>
-					<CourseCardFilter {...course} />
+					<CourseCard 
+						variant="horizontal" {...course} 
+					/>
 				</Col>
 			))}
 		</Row>

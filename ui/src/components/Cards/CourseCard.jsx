@@ -1,52 +1,22 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import ExtendedVerticalCourseCard from './ExtendedVerticalCourseCard';
 
-import { Link } from 'react-router-dom';
-import { Card } from 'react-bootstrap';
+import HorizontalCourseCard from './HorizontalCourseCard';
+import VerticalCourseCard from './VerticalCourseCard';
 
-import {
-	formatPrice,
-	concatInstructors,
-	averageRating,
-} from '../../utils/utilities';
+const variants = {
+	vertical: VerticalCourseCard,
+	horizontal: HorizontalCourseCard,
+	extendedVertical: ExtendedVerticalCourseCard,
+};
 
-import Rating from '../Rating';
-
-const CourseCard = ({ 
-	id,
-	cover_image,
-	title,
-	instructors,
-	reviews,
-	price,
+const CourseCard = ({
+	variant = 'horizontal',
+	...restProps
 }) => {
-	return (
-		<Card className="h-100">
-			<Link to={`/courses/${id}`}>
-				<Card.Img
-					style={{ height: '15rem' }}
-					src={cover_image || '/images/not-found.jpg'}
-					variant="top"
-				/>
-			</Link>
-			<Card.Body>
-				<Link to={`/courses/${id}`}>
-					<Card.Title as="div">
-						<strong>{title}</strong>
-					</Card.Title>
-				</Link>
-				<Card.Text as="p">
-					<Card.Text>{concatInstructors(instructors)}</Card.Text>
-					<Rating
-						value={averageRating(reviews)}
-						text={`${reviews.length} reviews`}
-					/>
-					<Card.Text as="h3">
-						{formatPrice(price.amount)}
-					</Card.Text>
-				</Card.Text>
-			</Card.Body>
-		</Card>
+	const Card = variants[variant] ?? variants['horizontal'];
+	return(
+		<Card {...restProps}/>
 	);
 };
 

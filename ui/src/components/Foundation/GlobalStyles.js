@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components/macro';
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -8,24 +8,6 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
   }
 
-	main {
-		height: 90vh;
-
-		h3 {
-			padding: 1rem 0;
-		}
-
-		h1 {
-			font-size: 1.8rem;
-			padding: 1rem 0;
-		}
-
-		h2 {
-			font-size: 1.4rem;
-			padding: 0.5rem 0;
-		}
-	}
-
   html, body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -34,6 +16,22 @@ const GlobalStyles = createGlobalStyle`
     color: #000;
     font-size: 1rem;
   }
+
+	html {
+		height: 100%;
+	}
+
+	body {
+		position: relative;
+		min-height: 100%;
+		padding-bottom: 8rem;
+	}
+
+	.navbar,
+	.navbar-default {
+    background-color: #338091;
+		height: 4rem;
+	}
 `;
 
 export default GlobalStyles;

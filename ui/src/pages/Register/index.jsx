@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Joi from 'joi-browser';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import FormContainer from '../../components/FormContainer';
@@ -10,6 +10,7 @@ import Loader from '../../components/Loader';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../actions';
+import { Button, H1 } from '../../components/Foundation';
 
 const Register = ({
 	location,
@@ -36,13 +37,11 @@ const Register = ({
 
 	const dispatch = useDispatch();
 
-	const { userRegister, userLogin } = useSelector(state => state);
+	const { userRegister } = useSelector(state => state);
 	
-	const { loading, error } = userRegister;
-	const { userInfo } = userLogin;
+	const { userInfo, loading, error } = userRegister;
 
 	useEffect(() => {
-		console.log(userInfo);
 		if (userInfo) {
 			history.push(redirect);
 		}
@@ -73,7 +72,7 @@ const Register = ({
 
 	return (
 		<FormContainer>
-			<h1>Crear Cuenta</h1>
+			<H1>Crear Cuenta</H1>
 			{message && <Message variant="danger">{message}</Message>}
 			{error && <Message variant="danger">{error}</Message>}
 			{loading && <Loader /> }

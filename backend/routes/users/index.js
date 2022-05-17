@@ -1,4 +1,6 @@
 const { validateUserRequestSchema } = require('../../models/entities');
+const get = require('lodash/get');
+const upload = require('../../utils/multer');
 
 module.exports = function userRoutes(routes, {
 	controllers,
@@ -11,6 +13,27 @@ module.exports = function userRoutes(routes, {
 		(req, res) => {
 			const { user } = req;
 			return res.status(200).validJsonResponse(user);
+		},
+	);
+
+	routes.get('/profile',
+		middlewares.validator(),
+		middlewares.login.require,
+		async (req, res) => {
+			const {
+				users: {
+					getUserProfile,
+				},
+			} = controllers;
+			const { user } = req;
+			try {
+				const userFromDb = await getUserProfile(user.id);
+				return res.status(200).validJsonResponse(userFromDb);
+			} catch (err) {
+				return res
+					.status(400)
+					.validJsonError(err);
+			}
 		},
 	);
 
@@ -29,10 +52,11 @@ module.exports = function userRoutes(routes, {
 				const { isValid, errors } = validateUserRequestSchema(body);
 
 				if (!isValid) {
-					res.status(400).validJsonResponse(errors);
+					return res.status(400).validJsonResponse(errors);
 				}
 
 				const user = await createUserAsync(body);
+				req.session.userId = get(user, 'id');
 
 				return res
 					.status(201)
@@ -46,43 +70,28 @@ module.exports = function userRoutes(routes, {
 		},
 	);
 
-	routes.get('/:id/enrolled-courses',
+	routes.put('/',
 		middlewares.validator(),
+		middlewares.login.require,
+		upload.fields([
+			{ name: 'file_avatar', maxCount: 1 },
+		]),
 		async (req, res) => {
-			const {
-				users: {
-					getUserByIdAsync,
-				},
-			} = controllers;
-
-			try {
-				const user = await getUserByIdAsync(req.params.id);
-				return res
-					.status(200)
-					.validJsonResponse(user.enrolledCourses);
-
-			} catch (err) {
-				return res
-					.status(400)
-					.validJsonError(err);
+			const body = JSON.parse(req.body.body);
+			if (req.files.file_avatar) {
+				body['avatar'] = req.files.file_avatar[0].path;
 			}
-		},
-	);
-
-	routes.get('/:id/wish-list',
-		middlewares.validator(),
-		async (req, res) => {
 			const {
 				users: {
-					getUserByIdAsync,
+					updateUserAsync,
 				},
 			} = controllers;
 
 			try {
-				const user = await getUserByIdAsync(req.params.id);
+				const user = await updateUserAsync(req.user.id, body);
 				return res
 					.status(200)
-					.validJsonResponse(user.wishList);
+					.validJsonResponse(user);
 
 			} catch (err) {
 				return res

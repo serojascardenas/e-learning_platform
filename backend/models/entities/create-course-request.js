@@ -47,57 +47,10 @@ const courseRequestSchema = {
 			},
 		},
 		category: {
-			type: 'array',
-			items: {
-				type: 'object',
-				properties: {
-					name: {
-						type: 'string',
-					},
-				},
-				required: [
-					'name',
-				],
-			},
+			type: 'string',
 		},
 		sub_category: {
-			type: 'array',
-			items: {
-				type: 'object',
-				properties: {
-					name: {
-						type: 'string',
-					},
-				},
-				required: [
-					'name',
-				],
-			},
-		},
-		price: {
-			type: 'object',
-			properties: {
-				amount: {
-					type: 'number',
-				},
-				currency: {
-					type: 'string',
-				},
-				currency_symbol: {
-					type: 'string',
-				},
-				price_string: {
-					type: 'string',
-				},
-				is_free: {
-					type: 'boolean',
-				},
-			},
-			required: [
-				'amount',
-				'currency',
-				'currency_symbol',
-			],
+			type: 'string',
 		},
 		content_sections: {
 			type: 'array',
@@ -118,16 +71,12 @@ const courseRequestSchema = {
 								name: {
 									type: 'string',
 								},
-								video: {
-									type: 'string',
-								},
 								order: {
 									type: 'number',
 								},
 							},
 							required: [
 								'name',
-								'video',
 								'order',
 							],
 						},
@@ -148,9 +97,8 @@ const courseRequestSchema = {
 		'instructors',
 		'cover_image',
 		'category',
-		'sub_category',
-		'content_sections'],
-	additionalProperties: false,
+		'sub_category'],
+	additionalProperties: true,
 };
 
 function validateSchema(model) {

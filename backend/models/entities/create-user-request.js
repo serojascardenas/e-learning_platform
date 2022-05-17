@@ -26,6 +26,9 @@ const userRequestSchema = {
 			type: 'string',
 			nullable: true,
 		},
+		avatar: {
+			type: 'string',
+		},
 	},
 	required: ['name', 'lastName', 'email', 'password'],
 	additionalProperties: false,

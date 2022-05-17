@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 
 const { dbUser, dbPwd, dbName } = config.get('server.database');
 
-const uri = `mongodb+srv://${dbUser}:${dbPwd}@myfreecluster.6lxeh.mongodb.net/?retryWrites=true&w=majority`;
-
+const uri = `mongodb+srv://${dbUser}:${dbPwd}@cluster0.ykhmc.mongodb.net/?retryWrites=true&w=majority`;
 const initializeDb = async () => {
 	try {
 

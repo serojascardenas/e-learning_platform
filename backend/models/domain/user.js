@@ -38,17 +38,16 @@ const schema = new mongoose.Schema({
 		default: false,
 	},
 	wishList: [{
-		_id: false,
-		courseId: {
-			type: String,
-		},
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Course',
 	}],
 	enrolledCourses: [{
-		_id: false,
-		courseId: {
-			type: String,
-		},
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Course',
 	}],
+	avatar: {
+		type: String,
+	},
 }, {
 	timestamps: true,
 	toJSON: {

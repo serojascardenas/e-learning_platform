@@ -1,7 +1,15 @@
 import { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { 
+	Form, 
+} from 'react-bootstrap';
 
-import { FilterWrapper, Select, Input } from './StyledComponents';
+import { 
+	FilterWrapper, 
+	Select, 
+	Input, 
+} from './StyledComponents';
+
+import { Button } from '../../components/Foundation';
 
 const FilterContainer = ({ 
 	handleFilterSubmit,
