@@ -11,4 +11,12 @@ export const category = [
 		value: 'Creativo',
 		label: 'Creativo',
 	},
+	{
+		value: 'Marketing',
+		label: 'Marketing',
+	},
+	{
+		value: 'Recursos Humanos',
+		label: 'Recursos Humanos',
+	}
 ];

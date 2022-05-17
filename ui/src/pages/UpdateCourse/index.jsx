@@ -21,6 +21,9 @@ import { subCategory as listOfSubcategories } from '../AddCourse/subCategory';
 
 
 import { COURSE_UPDATE_RESET } from '../../constants';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styled from 'styled-components';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
 const UpdateCourse = ({
 	match,
@@ -38,6 +41,18 @@ const UpdateCourse = ({
 	const { course } = courseDetail;
 	const { success } = courseUpdateDetails;
 	const { userInfo, error } = userLogin;
+
+	const Icon = styled.div`
+		cursor: pointer;
+		width: 25%;
+		height: 100%;
+		color: ${({ theme }) => theme.colors.turquoise};
+		text-align: center;
+		font-size: 3em;
+		&:hover {
+			filter: brightness(120%);
+		}
+	`;
 
 	const schema = Joi.object({
 		title: Joi.string()
@@ -200,7 +215,14 @@ const UpdateCourse = ({
 	return (
 		<Container className="mt-4">
 			<Row>
-				<H1> Actualizar Curso </H1>
+				<Col md={1} lg={1} xs={1}>
+					<Icon onClick={() => history.goBack()}>
+						<FontAwesomeIcon icon={faAngleLeft} />
+					</Icon>
+				</Col>
+				<Col md={11} lg={11} xs={11}>
+					<H1> Actualizar Curso </H1>
+				</Col>
 			</Row>
 			{(courseDetail.loading || courseUpdateDetails.loading)
 				? <Loader />

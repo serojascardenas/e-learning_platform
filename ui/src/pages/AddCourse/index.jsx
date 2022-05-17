@@ -173,13 +173,13 @@ const CreateCourse = ({ history }) => {
 					''
 				);
 				setMessages('danger', errors);
-				setTimeout(() => unsetMessages(), 20000);
+				setTimeout(() => unsetMessages(), 3000);
 			} else {
 				setMessages('info', 'Curso creado exitosamente!');
 				setTimeout(() => {
 					unsetMessages();
 					history.push('/profile');
-				}, 5000);
+				}, 3000);
 			}
 		}
 	};
